@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, signal, OnInit} from '@angular/core';
 import {RouterLink, Router} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
 import {CartService} from './services/cart.service';
 import {ContentService} from './services/content.service';
 import {db} from '../lib/firebase';
@@ -239,7 +239,7 @@ export class Checkout implements OnInit {
 
   countries = COUNTRIES;
 
-  phoneValidator = (control: any) => {
+  phoneValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
     if (!this.checkoutForm) return null;
     
@@ -247,7 +247,7 @@ export class Checkout implements OnInit {
     const country = this.countries.find(c => c.code === countryCode);
     if (!country) return null;
 
-    const targetLength = country.placeholder.replace(/[^0-9]/g, '').length;
+    const targetLength: number = String(country.placeholder).replace(/[^0-9]/g, '').length;
     let cleanedInput = control.value.replace(/[^0-9]/g, '');
     
     // Smartly handle leading zero: ignore it for length validation
