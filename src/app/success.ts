@@ -134,10 +134,12 @@ import {CartService} from './services/cart.service';
                 </div>
 
                 <div class="flex flex-col gap-3 shrink-0 sm:w-[260px]">
-                  <button (click)="openWhatsApp()" class="btn-primary !bg-emerald-700 hover:!bg-emerald-800 !py-4 !px-6 w-full flex items-center justify-center gap-2 text-[15px] shadow-md hover:shadow-lg transition-all">
+                  <a [href]="whatsAppUrl()" target="_blank" rel="noopener noreferrer"
+                     (click)="onWhatsAppClick()"
+                     class="btn-primary !bg-emerald-700 hover:!bg-emerald-800 !py-4 !px-6 w-full flex items-center justify-center gap-2 text-[15px] shadow-md hover:shadow-lg transition-all">
                     <mat-icon class="text-[22px]">chat</mat-icon>
                     <span>Open WhatsApp</span>
-                  </button>
+                  </a>
                   <button (click)="copyWhatsAppMessage()" class="text-[13px] text-emerald-900/80 hover:text-emerald-950 bg-emerald-100/70 hover:bg-emerald-200/70 py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 transition-colors font-medium">
                     <mat-icon class="text-[16px]">content_copy</mat-icon>
                     <span>{{ copiedMessage() ? 'Message Copied!' : 'Copy Order Text' }}</span>
@@ -333,17 +335,23 @@ export class Success implements OnInit {
     return msg;
   }
 
-  openWhatsApp() {
+  whatsAppUrl(): string {
     const phone = this.whatsappNumber().replace(/\D/g, '').replace(/^0/, '94');
     const msg = encodeURIComponent(this.generateOrderMessage());
-    const url = `https://wa.me/${phone}?text=${msg}`;
-    
+    return `https://wa.me/${phone}?text=${msg}`;
+  }
+
+  onWhatsAppClick() {
     // Finalize order visually by clearing the cart since they are proceeding to pay
     this.cartService.clearCart();
-    
     // Update local UI state to show next steps
     this.whatsAppOpened.set(true);
+  }
 
+  openWhatsApp() {
+    const url = this.whatsAppUrl();
+    this.cartService.clearCart();
+    this.whatsAppOpened.set(true);
     window.open(url, '_blank');
   }
 
