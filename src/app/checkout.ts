@@ -241,9 +241,11 @@ export class Checkout implements OnInit {
 
   phoneValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) return null;
-    if (!this.checkoutForm) return null;
+    // Completely break circular dependency by using control.parent
+    const parent = control.parent;
+    if (!parent) return null;
     
-    const countryCode = this.checkoutForm.get('countryCode')?.value;
+    const countryCode = parent.get('countryCode')?.value;
     const country = this.countries.find(c => c.code === countryCode);
     if (!country) return null;
 
