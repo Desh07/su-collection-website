@@ -8,6 +8,30 @@ import {db} from '../lib/firebase';
 import {doc, setDoc, serverTimestamp} from 'firebase/firestore';
 import {COUNTRIES} from './countries';
 
+type Country = typeof COUNTRIES[0];
+
+// Standalone validator — must live outside the class to avoid circular type inference
+function phoneValidator(control: AbstractControl): ValidationErrors | null {
+  const value: string = control.value;
+  if (!value) return null;
+
+  const parent = control.parent;
+  if (!parent) return null;
+
+  const countryCode: string = parent.get('countryCode')?.value;
+  const country: Country | undefined = COUNTRIES.find((c: Country) => c.code === countryCode);
+  if (!country) return null;
+
+  const targetLength: number = String(country.placeholder).replace(/[^0-9]/g, '').length;
+  let cleaned: string = value.replace(/[^0-9]/g, '');
+  if (cleaned.startsWith('0')) cleaned = cleaned.substring(1);
+
+  if (cleaned.length !== targetLength) {
+    return { exactLength: { requiredLength: targetLength, actualLength: cleaned.length } };
+  }
+  return null;
+}
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-checkout',
@@ -239,36 +263,10 @@ export class Checkout implements OnInit {
 
   countries = COUNTRIES;
 
-  phoneValidator = (control: AbstractControl): ValidationErrors | null => {
-    if (!control.value) return null;
-    // Completely break circular dependency by using control.parent
-    const parent = control.parent;
-    if (!parent) return null;
-    
-    const countryCode = parent.get('countryCode')?.value;
-    const country = this.countries.find(c => c.code === countryCode);
-    if (!country) return null;
-
-    const targetLength: number = String(country.placeholder).replace(/[^0-9]/g, '').length;
-    let cleanedInput = control.value.replace(/[^0-9]/g, '');
-    
-    // Smartly handle leading zero: ignore it for length validation
-    if (cleanedInput.startsWith('0')) {
-      cleanedInput = cleanedInput.substring(1);
-    }
-    
-    const currentLength = cleanedInput.length;
-
-    if (currentLength !== targetLength) {
-      return { exactLength: { requiredLength: targetLength, actualLength: currentLength } };
-    }
-    return null;
-  };
-
   checkoutForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     countryCode: ['+94', Validators.required],
-    phone: ['', [Validators.required, Validators.pattern(/^[0-9\s-]{7,15}$/), this.phoneValidator]],
+    phone: ['', [Validators.required, Validators.pattern(/^[0-9\s-]{7,15}$/), phoneValidator]],
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     notes: ['', Validators.maxLength(500)]
