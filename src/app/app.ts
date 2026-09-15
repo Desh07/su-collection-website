@@ -25,9 +25,7 @@ import {CartService} from './services/cart.service';
           <div class="gradient-shell-inner !rounded-full px-6 sm:px-8 py-3.5 sm:py-4 flex justify-between items-center bg-white/80 backdrop-blur-xl border border-white/60">
             <!-- Logo -->
             <a routerLink="/" class="flex items-center gap-3 group">
-              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-900 flex items-center justify-center text-white font-serif text-lg italic group-hover:bg-brand-800 transition-colors shadow-sm">
-                Su
-              </div>
+              <img src="/image.png" alt="Su Collection Logo" class="h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover border-2 border-brand-100 shadow-sm transition-transform group-hover:scale-105">
               <span class="font-serif text-xl sm:text-2xl font-normal tracking-tight text-brand-900">Su Collection</span>
             </a>
 
@@ -100,6 +98,7 @@ import {CartService} from './services/cart.service';
             <div class="grid grid-cols-1 md:grid-cols-4 gap-[64px] lg:gap-[64px]">
               <div class="md:col-span-1">
                 <div class="flex items-center gap-3 mb-[24px]">
+                  <img src="/image.png" alt="Su Collection Logo" class="h-16 w-16 rounded-full object-cover bg-white shadow-md border-2 border-white/20 opacity-95">
                   <span class="font-serif text-[32px] font-normal text-brand-900 tracking-tight">Su Collection</span>
                 </div>
                 <p class="body-md text-brand-700 mb-[24px]">
