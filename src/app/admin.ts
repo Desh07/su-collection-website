@@ -879,7 +879,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
           <!-- Order Details Modal / Drawer -->
           @if (selectedOrder()) {
             <div class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-              <div class="bg-white rounded-[28px] max-w-3xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl border border-brand-100">
+              <div class="printable-receipt bg-white rounded-[28px] max-w-3xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl border border-brand-100">
                 
                 <!-- Modal Header -->
                 <div class="flex items-start justify-between pb-4 border-b border-brand-100 mb-6">
@@ -904,13 +904,13 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                       Placed on {{ selectedOrder().createdAt?.toDate ? (selectedOrder().createdAt?.toDate() | date:'medium') : (selectedOrder().createdAt | date:'medium') }}
                     </p>
                   </div>
-                  <button (click)="closeOrderDetail()" class="text-brand-900/40 hover:text-brand-900 p-2 rounded-full hover:bg-slate-100 transition-colors">
+                  <button (click)="closeOrderDetail()" class="no-print text-brand-900/40 hover:text-brand-900 p-2 rounded-full hover:bg-slate-100 transition-colors">
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>
 
                 <!-- Quick Status Progression Bar -->
-                <div class="bg-slate-50 p-4 rounded-2xl border border-brand-100 mb-6">
+                <div class="no-print bg-slate-50 p-4 rounded-2xl border border-brand-100 mb-6">
                   <span class="text-[11px] uppercase tracking-wider text-brand-900/60 font-semibold block mb-2">Order Stage Progression</span>
                   <div class="flex flex-wrap items-center gap-2">
                     <button (click)="updateOrderStatus(selectedOrder().id, 'pending_receipt')" 
@@ -1000,7 +1000,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                           }
                         </div>
 
-                        <div>
+                        <div class="no-print">
                           <label class="text-[11px] uppercase tracking-wider text-brand-900/60 font-semibold block mb-1">Private Admin Note</label>
                           <textarea [(ngModel)]="adminNoteInput" placeholder="e.g. Checked slip on WhatsApp, matched CommBank Rs. 25,000 credit on 14/09" rows="2" class="w-full border border-brand-200 rounded-xl p-2.5 text-[13px] outline-none focus:border-brand-900"></textarea>
                           <button (click)="saveAdminNote()" class="mt-2 btn-secondary !py-1.5 !px-3 text-[12px] flex items-center gap-1">
@@ -1040,7 +1040,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                 </div>
 
                 <!-- Customer Communication Hub -->
-                <div class="bg-brand-50/50 p-5 rounded-2xl border border-brand-100">
+                <div class="no-print bg-brand-50/50 p-5 rounded-2xl border border-brand-100">
                   <span class="text-[11px] uppercase tracking-wider text-brand-900/60 font-semibold block mb-3">WhatsApp Quick Responses</span>
                   <div class="flex flex-wrap gap-2.5">
                     <a [href]="getCustomerWhatsAppUrl(selectedOrder(), 'reminder')" target="_blank" rel="noopener noreferrer" class="btn-secondary !py-2 !px-3 text-[12px] flex items-center gap-1.5 bg-white">
@@ -1052,9 +1052,6 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                     <a [href]="getCustomerWhatsAppUrl(selectedOrder(), 'guides_sent')" target="_blank" rel="noopener noreferrer" class="btn-secondary !py-2 !px-3 text-[12px] flex items-center gap-1.5 bg-white">
                       <mat-icon class="text-[16px] text-indigo-600">send</mat-icon> Dispatch Guide / Ebook Access
                     </a>
-                    <button (click)="printOrderInvoice(selectedOrder())" class="btn-secondary !py-2 !px-3 text-[12px] flex items-center gap-1.5 bg-white ml-auto">
-                      <mat-icon class="text-[16px]">print</mat-icon> Print Invoice
-                    </button>
                   </div>
                 </div>
 
@@ -1442,10 +1439,6 @@ export class Admin implements OnInit {
 
     await setDoc(doc(db, 'orders', orderId), newOrder);
     this.closeManualOrderModal();
-  }
-
-  printOrderInvoice(_order: any) {
-    window.print();
   }
 
   async updateBookingStatus(id: string, status: string) {

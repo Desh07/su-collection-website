@@ -72,11 +72,11 @@ interface DigitalGuide {
               </div>
               <div class="flex items-center gap-1.5 sm:gap-2">
                 <mat-icon class="text-brand-300 text-[16px] sm:text-[18px]">group</mat-icon>
-                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">150K+ Community</span>
+                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">150K+ Community on TikTok & FB</span>
               </div>
               <div class="flex items-center gap-1.5 sm:gap-2">
                 <mat-icon class="text-brand-300 text-[16px] sm:text-[18px]">chat</mat-icon>
-                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">WhatsApp Support</span>
+                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">100% WhatsApp Support</span>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ interface DigitalGuide {
               {{ c().home.heroDesc }}
             </p>
 
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full">
+            <div class="flex flex-col items-stretch sm:items-start gap-3 w-full">
               <button type="button" (click)="scrollToOfferings()" class="bg-white text-slate-950 hover:bg-brand-50 transition-all rounded-full px-6 py-3.5 label-md font-semibold tracking-wider uppercase text-[11px] sm:text-[12px] shadow-lg flex items-center justify-center gap-2">
                 <span>OUR SERVICES &amp; PRODUCTS</span>
                 <mat-icon class="text-[18px]">arrow_downward</mat-icon>

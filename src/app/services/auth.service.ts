@@ -13,7 +13,8 @@ export class AuthService {
   constructor() {
     const adminEmails = [
       'lakshan.yatiwella@gmail.com',
-      'deshanthv@gmail.com'
+      'deshanthv@gmail.com',
+      'pubuditha.desilva@gmail.com'
     ];
     
     onAuthStateChanged(auth, (user) => {

@@ -31,7 +31,7 @@ import {CartService} from './services/cart.service';
       </div>
 
       <!-- Main Order Receipt & Instructions Card -->
-      <div class="bg-white rounded-[32px] border border-brand-100 shadow-sm overflow-hidden mb-8">
+      <div class="printable-receipt bg-white rounded-[32px] border border-brand-100 shadow-sm overflow-hidden mb-8">
         
         <!-- Header Banner -->
         <div class="bg-slate-900 text-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -39,7 +39,7 @@ import {CartService} from './services/cart.service';
             <span class="text-[12px] uppercase tracking-wider text-slate-400 block mb-1">Official Order Reference</span>
             <div class="flex items-center gap-3">
               <span class="font-mono text-[26px] sm:text-[32px] font-bold text-white tracking-wider">#{{ orderId() }}</span>
-              <button (click)="copyOrderId()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded-lg text-[12px] flex items-center gap-1 transition-colors">
+              <button (click)="copyOrderId()" class="no-print bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded-lg text-[12px] flex items-center gap-1 transition-colors">
                 <mat-icon class="text-[14px]">content_copy</mat-icon>
                 {{ copiedId() ? 'Copied!' : 'Copy' }}
               </button>
@@ -161,7 +161,7 @@ import {CartService} from './services/cart.service';
                 </p>
                 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <a routerLink="/learn" class="btn-primary !py-3.5 flex items-center gap-2 w-full sm:w-auto justify-center">
+                  <a routerLink="/learn" class="no-print btn-primary !py-3.5 flex items-center gap-2 w-full sm:w-auto justify-center">
                     <mat-icon class="text-[20px]">shopping_bag</mat-icon> Continue Shopping
                   </a>
                 </div>
@@ -218,11 +218,9 @@ import {CartService} from './services/cart.service';
           }
 
           <!-- Footer Actions -->
-          <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-brand-100">
+          <div class="no-print flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-brand-100">
             <div class="flex flex-wrap items-center gap-3">
-              <button (click)="printReceipt()" class="text-brand-900/70 hover:text-brand-900 text-[13px] flex items-center gap-1.5 px-3 py-2 transition-colors">
-                <mat-icon class="text-[18px]">print</mat-icon> Print Receipt
-              </button>
+              <!-- Print Receipt Button Removed -->
             </div>
 
             <a routerLink="/learn" class="text-brand-900/80 hover:text-brand-900 label-md text-[13px] flex items-center">
@@ -381,9 +379,5 @@ export class Success implements OnInit {
     } finally {
       this.isSavingRef.set(false);
     }
-  }
-
-  printReceipt() {
-    window.print();
   }
 }

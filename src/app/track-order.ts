@@ -59,13 +59,13 @@ import {ContentService} from './services/content.service';
 
       <!-- Order Result Card -->
       @if (order()) {
-        <div class="bg-white rounded-[32px] border border-brand-100 shadow-sm overflow-hidden animate-fade-in">
+        <div class="printable-receipt bg-white rounded-[32px] border border-brand-100 shadow-sm overflow-hidden animate-fade-in">
           <!-- Header Banner -->
           <div class="bg-slate-900 text-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="text-[12px] uppercase tracking-wider text-slate-400">Order Reference</span>
-                <button (click)="copyOrderId()" class="text-slate-300 hover:text-white transition-colors" title="Copy Order ID">
+                <button (click)="copyOrderId()" class="no-print text-slate-300 hover:text-white transition-colors" title="Copy Order ID">
                   <mat-icon class="text-[16px]">content_copy</mat-icon>
                 </button>
               </div>
@@ -189,7 +189,7 @@ import {ContentService} from './services/content.service';
 
             <!-- Bank Reference Update -->
             @if (order().status === 'pending_receipt' || order().status === 'slip_uploaded') {
-              <div class="border border-brand-100 rounded-2xl p-5 bg-white">
+              <div class="no-print border border-brand-100 rounded-2xl p-5 bg-white">
                 <h4 class="font-medium text-brand-900 text-[15px] mb-2">Have you already made the transfer?</h4>
                 <p class="text-[13px] text-brand-900/70 mb-4">
                   Add your transaction reference number (e.g. FriMi Ref, Bank App Slip ID, or ATM machine ref) to speed up verification.
@@ -256,13 +256,10 @@ import {ContentService} from './services/content.service';
             </div>
 
             <!-- Actions Footer -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-brand-100">
-              <a [href]="getWhatsAppUrl()" target="_blank" rel="noopener noreferrer" class="btn-primary !bg-emerald-700 hover:!bg-emerald-800 w-full sm:w-auto flex items-center justify-center gap-2">
+            <div class="no-print flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-brand-100">
+              <a [href]="getWhatsAppUrl()" target="_blank" rel="noopener noreferrer" class="btn-primary !bg-emerald-700 hover:!bg-emerald-800 w-full flex items-center justify-center gap-2">
                 <mat-icon class="text-[18px]">chat</mat-icon> Chat with Swarna on WhatsApp
               </a>
-              <button (click)="printReceipt()" class="text-brand-900/70 hover:text-brand-900 text-[13px] flex items-center gap-1.5 transition-colors">
-                <mat-icon class="text-[18px]">print</mat-icon> Print Order Summary
-              </button>
             </div>
 
           </div>
@@ -389,9 +386,5 @@ export class TrackOrder implements OnInit {
       `Hello Swarna, I am checking the status of my Su Collection Order #${id} (LKR ${total}). My name is ${name}.`
     );
     return `https://wa.me/${phone}?text=${msg}`;
-  }
-
-  printReceipt() {
-    window.print();
   }
 }

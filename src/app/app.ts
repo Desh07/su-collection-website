@@ -32,12 +32,14 @@ import {CartService} from './services/cart.service';
             <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-8 lg:gap-10">
               @for (link of navLinks(); track link.path) {
-                <a [routerLink]="link.path" 
-                   routerLinkActive="!text-brand-900 !font-bold" 
-                   [routerLinkActiveOptions]="{exact: link.exact}"
-                   class="text-brand-900/70 hover:text-brand-900 transition-colors label-md tracking-wider uppercase text-[12px]">
-                  {{link.label}}
-                </a>
+                @if (!link.mobileOnly) {
+                  <a [routerLink]="link.path" 
+                     routerLinkActive="!text-brand-900 !font-bold" 
+                     [routerLinkActiveOptions]="{exact: link.exact}"
+                     class="text-brand-900/70 hover:text-brand-900 transition-colors label-md tracking-wider uppercase text-[12px]">
+                    {{link.label}}
+                  </a>
+                }
               }
             </nav>
 
@@ -134,7 +136,6 @@ import {CartService} from './services/cart.service';
                 <h4 class="label-md text-brand-900 mb-4 sm:mb-[24px] text-[11px] sm:text-[12px]">Support</h4>
                 <ul class="flex flex-col gap-3 sm:gap-[12px] body-md text-brand-700 text-[13px] sm:text-[14px]">
                   <li><a routerLink="/contact" class="hover:text-brand-900 transition-colors">Contact Us</a></li>
-                  <li><a href="#" class="hover:text-brand-900 transition-colors">FAQs</a></li>
                 </ul>
               </div>
 
@@ -163,7 +164,9 @@ export class App {
   constructor() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }
       }
     });
   }
@@ -173,6 +176,7 @@ export class App {
     { path: '/learn', label: this.contentService.content().app.navCourses, exact: false },
     // { path: '/sew-and-su', label: this.contentService.content().app.navCustom, exact: false }, // Hidden for now
     // { path: '/shop', label: this.contentService.content().app.navShop, exact: false }, // Hidden for now
+    { path: '/contact', label: 'Contact Us', exact: false, mobileOnly: true },
     { path: '/about', label: this.contentService.content().app.navAbout, exact: false },
   ]);
 }
