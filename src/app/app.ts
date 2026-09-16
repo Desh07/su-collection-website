@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, signal, inject, computed} from '@angular/core';
-import {RouterOutlet, RouterLink, RouterLinkActive, Router} from '@angular/router';
+import {RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {ContentService} from './services/content.service';
 import {CartService} from './services/cart.service';
@@ -92,16 +92,16 @@ import {CartService} from './services/cart.service';
       </main>
 
       <!-- Footer -->
-      <footer class="mt-auto px-6 lg:px-[64px] pb-[64px] relative z-10 pt-[64px]">
+      <footer class="mt-auto px-4 sm:px-6 lg:px-[64px] pb-10 sm:pb-[64px] relative z-10 pt-10 sm:pt-[64px]">
         <div class="gradient-shell">
-          <div class="gradient-shell-inner p-[64px] bg-brand-900/95 backdrop-blur-[64px]">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-[64px] lg:gap-[64px]">
-              <div class="md:col-span-1">
-                <div class="flex items-center gap-3 mb-[24px]">
-                  <img src="/image.png" alt="Su Collection Logo" class="h-16 w-16 rounded-full object-cover bg-white shadow-md border-2 border-white/20 opacity-95">
-                  <span class="font-serif text-[32px] font-normal text-brand-900 tracking-tight">Su Collection</span>
+          <div class="gradient-shell-inner p-6 sm:p-10 lg:p-[64px] bg-brand-900/95 backdrop-blur-[64px]">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-[64px]">
+              <div class="col-span-2 md:col-span-1">
+                <div class="flex items-center gap-3 mb-5 sm:mb-[24px]">
+                  <img src="/image.png" alt="Su Collection Logo" class="h-12 w-12 sm:h-16 sm:w-16 rounded-full object-cover bg-white shadow-md border-2 border-white/20 opacity-95">
+                  <span class="font-serif text-[22px] sm:text-[28px] font-normal text-brand-900 tracking-tight">Su Collection</span>
                 </div>
-                <p class="body-md text-brand-700 mb-[24px]">
+                <p class="body-md text-brand-700 mb-5 sm:mb-[24px] text-[13px] sm:text-[14px]">
                   {{ contentService.content().app.footerBrand }}
                 </p>
                 <div class="flex items-center gap-[12px] text-brand-900">
@@ -111,8 +111,8 @@ import {CartService} from './services/cart.service';
               </div>
               
               <div>
-                <h4 class="label-md text-brand-900 mb-[24px]">Explore</h4>
-                <ul class="flex flex-col gap-[12px] body-md text-brand-700">
+                <h4 class="label-md text-brand-900 mb-4 sm:mb-[24px] text-[11px] sm:text-[12px]">Explore</h4>
+                <ul class="flex flex-col gap-3 sm:gap-[12px] body-md text-brand-700 text-[13px] sm:text-[14px]">
                   <li><a routerLink="/learn" class="hover:text-brand-900 transition-colors">{{ contentService.content().app.navCourses }}</a></li>
                   @if (false) {
                     <li><a routerLink="/sew-and-su" class="hover:text-brand-900 transition-colors">{{ contentService.content().app.navCustom }}</a></li>
@@ -123,18 +123,18 @@ import {CartService} from './services/cart.service';
               </div>
               
               <div>
-                <h4 class="label-md text-brand-900 mb-[24px]">Support</h4>
-                <ul class="flex flex-col gap-[12px] body-md text-brand-700">
+                <h4 class="label-md text-brand-900 mb-4 sm:mb-[24px] text-[11px] sm:text-[12px]">Support</h4>
+                <ul class="flex flex-col gap-3 sm:gap-[12px] body-md text-brand-700 text-[13px] sm:text-[14px]">
                   <li><a routerLink="/contact" class="hover:text-brand-900 transition-colors">Contact Us</a></li>
                   <li><a href="#" class="hover:text-brand-900 transition-colors">FAQs</a></li>
                 </ul>
               </div>
 
-              <div>
-                <h4 class="label-md text-brand-900 mb-[24px]">Newsletter</h4>
-                <form class="flex flex-col gap-[12px]">
-                  <input type="email" placeholder="Your email address" class="bg-brand-50 border border-brand-200 text-brand-900 px-[20px] py-[12px] rounded-full focus:outline-none focus:border-brand-400 placeholder:text-brand-900/50 transition-colors body-md">
-                  <button type="submit" class="bg-brand-900 text-white px-[20px] py-[12px] rounded-full hover:bg-brand-800 transition-colors label-md border border-brand-900/30 text-center">
+              <div class="col-span-2 sm:col-span-1">
+                <h4 class="label-md text-brand-900 mb-4 sm:mb-[24px] text-[11px] sm:text-[12px]">Newsletter</h4>
+                <form class="flex flex-col gap-3 sm:gap-[12px]">
+                  <input type="email" placeholder="Your email address" class="bg-brand-50 border border-brand-200 text-brand-900 px-5 py-3 rounded-full focus:outline-none focus:border-brand-400 placeholder:text-brand-900/50 transition-colors body-md text-[13px] sm:text-[14px]">
+                  <button type="submit" class="bg-brand-900 text-white px-5 py-3 rounded-full hover:bg-brand-800 transition-colors label-md border border-brand-900/30 text-center text-[12px] sm:text-[14px]">
                     Subscribe
                   </button>
                 </form>
@@ -152,6 +152,14 @@ export class App {
   cartService = inject(CartService);
   isMobileMenuOpen = signal(false);
   
+  constructor() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+    });
+  }
+
   navLinks = computed(() => [
     { path: '/', label: this.contentService.content().app.navHome, exact: true },
     { path: '/learn', label: this.contentService.content().app.navCourses, exact: false },

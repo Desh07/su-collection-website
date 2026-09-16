@@ -37,8 +37,8 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
   selector: 'app-checkout',
   imports: [RouterLink, MatIconModule, ReactiveFormsModule],
   template: `
-    <main class="min-h-screen pt-[120px] pb-[80px] px-6 max-w-[1100px] mx-auto">
-      <div class="mb-[32px] flex items-center justify-between">
+    <main class="min-h-screen pt-[100px] sm:pt-[120px] pb-[60px] sm:pb-[80px] px-4 sm:px-6 max-w-[1100px] mx-auto">
+      <div class="mb-6 sm:mb-[32px] flex items-center justify-between">
         <a routerLink="/cart" class="text-brand-900/60 hover:text-brand-900 transition-colors label-md flex items-center">
           <mat-icon class="mr-2 text-[18px]">arrow_back</mat-icon> Return to Cart
         </a>

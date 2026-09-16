@@ -12,8 +12,8 @@ import {CartService} from './services/cart.service';
   imports: [MatIconModule, RouterLink],
   template: `
     <!-- Header -->
-    <header class="pt-[40px] pb-[48px] px-6 text-center max-w-[1600px] mx-auto">
-      <div class="relative w-full rounded-[36px] sm:rounded-[48px] overflow-hidden p-10 sm:p-16 border border-white/20 shadow-2xl text-white bg-slate-950 group">
+    <header class="pt-6 pb-6 px-4 sm:px-6 text-center max-w-[1600px] mx-auto">
+      <div class="relative w-full rounded-[28px] sm:rounded-[48px] overflow-hidden p-8 sm:p-16 border border-white/20 shadow-2xl text-white bg-slate-950 group min-h-[240px] flex items-center justify-center">
         <!-- Background Editorial Fashion Tailoring Image -->
         <div class="absolute inset-0 z-0">
           <img src="https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=2000&auto=format&fit=crop" 
@@ -24,23 +24,23 @@ import {CartService} from './services/cart.service';
         </div>
 
         <div class="relative z-10 max-w-4xl mx-auto">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-300 label-md uppercase tracking-[0.2em] text-[12px] mb-6">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-300 label-md uppercase tracking-[0.2em] text-[11px] sm:text-[12px] mb-4 sm:mb-6">
             {{ c().app.navCourses }}
           </span>
-          <h1 class="display-lg mb-[24px] text-white">{{ c().learn.heroTitle }}</h1>
-          <p class="body-md text-[18px] text-white/90 max-w-2xl mx-auto font-light leading-relaxed">
+          <h1 class="font-serif text-[30px] sm:text-[48px] lg:text-[64px] font-normal leading-tight mb-4 sm:mb-6 text-white">{{ c().learn.heroTitle }}</h1>
+          <p class="body-md text-[15px] sm:text-[18px] text-white/90 max-w-2xl mx-auto font-light leading-relaxed">
             {{ c().learn.heroDesc }}
           </p>
         </div>
       </div>
     </header>
 
-    <main class="px-6 lg:px-[64px] pb-[64px] w-full">
-      <div class="flex flex-col gap-[48px] max-w-[1400px] mx-auto">
+    <main class="px-4 sm:px-6 lg:px-[64px] pb-12 sm:pb-[64px] w-full">
+      <div class="flex flex-col gap-8 sm:gap-[48px] max-w-[1400px] mx-auto">
         @for (course of displayCourses(); track course.id) {
           <div [id]="course.id">
             <div class="gradient-shell">
-            <div class="gradient-shell-inner p-[48px] lg:p-[64px] relative overflow-hidden flex flex-col lg:flex-row gap-[64px] items-center">
+            <div class="gradient-shell-inner p-6 sm:p-10 lg:p-[64px] relative overflow-hidden flex flex-col lg:flex-row gap-8 sm:gap-10 lg:gap-[64px] items-center">
               
               <!-- Background Image -->
               <div class="absolute inset-0 z-0">
@@ -49,37 +49,37 @@ import {CartService} from './services/cart.service';
               </div>
 
               <!-- Image Side -->
-              <div class="w-full lg:w-1/2 rounded-[32px] overflow-hidden relative shadow-xl aspect-[4/3] z-10 group">
+              <div class="w-full lg:w-1/2 rounded-[24px] sm:rounded-[32px] overflow-hidden relative shadow-xl aspect-[4/3] z-10 group">
                 <img [src]="course.image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" [alt]="course.title" referrerpolicy="no-referrer">
-                <div class="absolute top-[24px] left-[24px] glass-panel text-brand-900 px-[16px] py-[8px] rounded-full shadow-sm label-md font-semibold">
+                <div class="absolute top-4 left-4 glass-panel text-brand-900 px-4 py-2 rounded-full shadow-sm label-md font-semibold text-[12px] sm:text-[14px]">
                   {{ course.level }}
                 </div>
               </div>
               
               <!-- Text Side -->
               <div class="w-full lg:w-1/2 relative z-10">
-                <div class="flex items-center gap-[8px] text-brand-600 mb-[12px] label-md font-medium">
+                <div class="flex items-center gap-2 text-brand-600 mb-3 label-md font-medium">
                   <mat-icon class="text-[16px]">star</mat-icon>
                   <span>{{ course.duration }}</span>
                 </div>
-                <h2 class="font-serif text-[36px] lg:text-[44px] text-brand-900 mb-[16px] leading-[1.1] tracking-tight">{{ course.title }}</h2>
-                <div class="body-md font-medium text-brand-900 text-[24px] mb-[16px]">{{ course.price }}</div>
-                <p class="body-md text-[16px] text-brand-900/80 mb-[40px] leading-relaxed">
+                <h2 class="font-serif text-[26px] sm:text-[36px] lg:text-[44px] text-brand-900 mb-3 sm:mb-4 leading-tight tracking-tight">{{ course.title }}</h2>
+                <div class="body-md font-medium text-brand-900 text-[20px] sm:text-[24px] mb-3 sm:mb-4">{{ course.price }}</div>
+                <p class="body-md text-[14px] sm:text-[16px] text-brand-900/80 mb-8 sm:mb-10 leading-relaxed">
                   {{ course.description }}
                 </p>
-                <div class="flex flex-col sm:flex-row items-center gap-[12px]">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   @if (cartService.isInCart('course-' + course.id)()) {
-                    <a routerLink="/checkout" class="w-full sm:w-auto btn-primary !bg-emerald-600 hover:!bg-emerald-700 flex items-center justify-center gap-2 !px-8 !py-3.5">
+                    <a routerLink="/checkout" class="btn-primary !bg-emerald-600 hover:!bg-emerald-700 flex items-center justify-center gap-2 !px-8 !py-3.5">
                       <mat-icon class="text-[18px]">check_circle</mat-icon>
                       <span>Proceed to Checkout</span>
                     </a>
                   } @else {
-                    <button (click)="enrollCourse(course)" class="w-full sm:w-auto btn-primary flex items-center justify-center gap-2 !px-8 !py-3.5">
+                    <button (click)="enrollCourse(course)" class="btn-primary flex items-center justify-center gap-2 !px-8 !py-3.5">
                       <mat-icon class="text-[18px]">{{ course.level === 'PDF E-Book' ? 'book' : 'school' }}</mat-icon>
                       <span>{{ course.level === 'PDF E-Book' ? 'Get E-Book' : 'Enroll in Mentorship' }}</span>
                     </button>
                   }
-                  <button (click)="inquireCourse(course)" class="w-full sm:w-auto btn-secondary bg-white/80 backdrop-blur-sm flex items-center justify-center gap-2 !px-8 !py-3.5">
+                  <button (click)="inquireCourse(course)" class="btn-secondary bg-white/80 backdrop-blur-sm flex items-center justify-center gap-2 !px-8 !py-3.5">
                     <mat-icon class="text-[18px]">chat</mat-icon>
                     <span>Inquire on WhatsApp</span>
                   </button>

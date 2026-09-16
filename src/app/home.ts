@@ -35,8 +35,8 @@ interface DigitalGuide {
   imports: [RouterLink, MatIconModule],
   template: `
     <!-- 1. Hero Section (Attention-Grabbing, No Eyebrows, Clear Human Copy) -->
-    <section class="p-4 sm:p-6 lg:p-8 w-full max-w-[1600px] mx-auto pt-2 sm:pt-4">
-      <div class="relative w-full rounded-[32px] sm:rounded-[44px] lg:rounded-[52px] overflow-hidden min-h-[75vh] lg:min-h-[82vh] flex flex-col justify-end p-6 sm:p-10 lg:p-14 border border-white/20 shadow-2xl text-white bg-slate-950 group">
+    <section class="p-3 sm:p-4 sm:p-6 lg:p-8 w-full max-w-[1600px] mx-auto pt-1 sm:pt-2 sm:pt-4">
+      <div class="relative w-full rounded-[24px] sm:rounded-[44px] lg:rounded-[52px] overflow-hidden min-h-[80vh] sm:min-h-[75vh] lg:min-h-[82vh] flex flex-col justify-end p-5 sm:p-10 lg:p-14 border border-white/20 shadow-2xl text-white bg-slate-950 group">
         
         <!-- Background Atelier & Tailoring Imagery -->
         <div class="absolute inset-0 z-0">
@@ -56,43 +56,43 @@ interface DigitalGuide {
         </svg>
 
         <!-- Main Hero Content -->
-        <div class="relative z-20 flex flex-col lg:flex-row items-end justify-between gap-8 sm:gap-12 mt-auto pt-16 lg:pt-24">
+        <div class="relative z-20 flex flex-col lg:flex-row items-end justify-between gap-6 sm:gap-8 sm:gap-12 mt-auto pt-20 sm:pt-16 lg:pt-24">
           
           <!-- Left Display Headline & Trust Strip -->
           <div class="w-full lg:w-7/12">
-            <h1 class="font-serif text-[44px] sm:text-[68px] lg:text-[96px] font-normal leading-[0.95] text-white tracking-tight mb-6">
+            <h1 class="font-serif text-[38px] sm:text-[68px] lg:text-[96px] font-normal leading-[0.95] text-white tracking-tight mb-4 sm:mb-6">
               {{ c().home.heroTitle }}
             </h1>
 
             <!-- Quick Trust Strip -->
-            <div class="flex flex-wrap items-center gap-6 pt-2 text-white/80">
-              <div class="flex items-center gap-2">
-                <mat-icon class="text-brand-300 text-[18px]">verified</mat-icon>
-                <span class="text-[13px] tracking-wide font-medium">34 Years Master Craft</span>
+            <div class="flex flex-wrap items-center gap-3 sm:gap-6 pt-2 text-white/80">
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <mat-icon class="text-brand-300 text-[16px] sm:text-[18px]">verified</mat-icon>
+                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">34 Years Master Craft</span>
               </div>
-              <div class="flex items-center gap-2">
-                <mat-icon class="text-brand-300 text-[18px]">group</mat-icon>
-                <span class="text-[13px] tracking-wide font-medium">150K+ Community on TikTok & FB</span>
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <mat-icon class="text-brand-300 text-[16px] sm:text-[18px]">group</mat-icon>
+                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">150K+ Community</span>
               </div>
-              <div class="flex items-center gap-2">
-                <mat-icon class="text-brand-300 text-[18px]">chat</mat-icon>
-                <span class="text-[13px] tracking-wide font-medium">100% WhatsApp Support</span>
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <mat-icon class="text-brand-300 text-[16px] sm:text-[18px]">chat</mat-icon>
+                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">WhatsApp Support</span>
               </div>
             </div>
           </div>
 
           <!-- Right Supporting Narrative & High-Intent Action Buttons -->
-          <div class="w-full lg:w-5/12 flex flex-col items-start gap-6 pb-2 lg:pl-6">
-            <p class="body-md text-white/95 text-[16px] sm:text-[17px] leading-[1.7] font-light max-w-lg">
+          <div class="w-full lg:w-5/12 flex flex-col items-start gap-4 sm:gap-6 pb-2 lg:pl-6">
+            <p class="body-md text-white/95 text-[14px] sm:text-[16px] lg:text-[17px] leading-[1.7] font-light max-w-lg">
               {{ c().home.heroDesc }}
             </p>
 
-            <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-              <button type="button" (click)="scrollToOfferings()" class="bg-white text-slate-950 hover:bg-brand-50 transition-all rounded-full px-7 py-3.5 label-md font-semibold tracking-wider uppercase text-[12px] shadow-lg flex items-center justify-center gap-2 w-full sm:w-auto">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full">
+              <button type="button" (click)="scrollToOfferings()" class="bg-white text-slate-950 hover:bg-brand-50 transition-all rounded-full px-6 py-3.5 label-md font-semibold tracking-wider uppercase text-[11px] sm:text-[12px] shadow-lg flex items-center justify-center gap-2">
                 <span>OUR SERVICES &amp; PRODUCTS</span>
                 <mat-icon class="text-[18px]">arrow_downward</mat-icon>
               </button>
-              <a [href]="getGeneralWhatsAppUrl()" target="_blank" rel="noopener noreferrer" class="border border-emerald-400/40 bg-emerald-950/60 hover:bg-emerald-900/80 backdrop-blur-md text-emerald-200 rounded-full px-6 py-3.5 label-md font-medium tracking-wider uppercase text-[12px] transition-all flex items-center justify-center gap-2 w-full sm:w-auto">
+              <a [href]="getGeneralWhatsAppUrl()" target="_blank" rel="noopener noreferrer" class="border border-emerald-400/40 bg-emerald-950/60 hover:bg-emerald-900/80 backdrop-blur-md text-emerald-200 rounded-full px-5 py-3.5 label-md font-medium tracking-wider uppercase text-[11px] sm:text-[12px] transition-all flex items-center justify-center gap-2">
                 <mat-icon class="text-emerald-400 text-[18px]">chat</mat-icon>
                 <span>Chat on WhatsApp</span>
               </a>
@@ -105,7 +105,7 @@ interface DigitalGuide {
     </section>
 
     <!-- 2. TikTok & Facebook Video Showcase (Touch Slider) -->
-    <section class="py-12 lg:py-16 px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto overflow-hidden">
+    <section class="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto overflow-hidden">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
           <h2 class="font-serif text-[32px] sm:text-[44px] text-brand-900 leading-tight">
@@ -237,56 +237,56 @@ interface DigitalGuide {
 
     <!-- 3. Mentorship Offers & Digital Guides Section (Addressing WhatsApp Sales Flow) -->
     <div id="digital-offerings">
-      <section class="py-14 lg:py-20 px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto">
-      <div class="text-center max-w-3xl mx-auto mb-14">
-        <h2 class="font-serif text-[36px] sm:text-[50px] text-brand-900 leading-tight mb-4">
-          Our Services & Products
+      <section class="py-10 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+        <h2 class="font-serif text-[28px] sm:text-[40px] lg:text-[50px] text-brand-900 leading-tight mb-3 sm:mb-4">
+          Our Services &amp; Products
         </h2>
-        <p class="body-md text-[16px] sm:text-[18px] text-brand-900/80 font-light leading-relaxed">
+        <p class="body-md text-[14px] sm:text-[16px] lg:text-[18px] text-brand-900/80 font-light leading-relaxed">
           Get personal 1-on-1 coaching or download instant PDF pattern blueprints. Everything is handled directly via WhatsApp with direct bank deposit confirmation.
         </p>
       </div>
 
-      <!-- How WhatsApp & Bank Transfer Orders Work (Transparent Visual Banner) -->
-      <div class="bg-white/80 backdrop-blur-xl border border-brand-200 rounded-[32px] p-6 sm:p-8 mb-12 shadow-sm">
-        <h3 class="font-serif text-[20px] text-brand-900 mb-6 flex items-center justify-center gap-2 text-center">
+      <!-- How WhatsApp & Bank Transfer Orders Work -->
+      <div class="bg-white/80 backdrop-blur-xl border border-brand-200 rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 mb-8 sm:mb-12 shadow-sm">
+        <h3 class="font-serif text-[17px] sm:text-[20px] text-brand-900 mb-5 sm:mb-6 flex items-center justify-center gap-2 text-center">
           <mat-icon class="text-emerald-600">verified_user</mat-icon>
-          How WhatsApp & Bank Transfer Orders Work
+          How WhatsApp &amp; Bank Transfer Orders Work
         </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="flex items-start gap-4">
-            <span class="w-8 h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[15px] shrink-0">1</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div class="flex items-start gap-3 sm:gap-4">
+            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">1</span>
             <div>
-              <h4 class="font-medium text-brand-900 text-[15px] mb-1">Pick Your Guide</h4>
-              <p class="text-[13px] text-brand-900/70 leading-relaxed">Select any 1-on-1 mentorship offer or PDF cutting guide below.</p>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Pick Your Guide</h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">Select any 1-on-1 mentorship offer or PDF cutting guide below.</p>
             </div>
           </div>
-          <div class="flex items-start gap-4">
-            <span class="w-8 h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[15px] shrink-0">2</span>
+          <div class="flex items-start gap-3 sm:gap-4">
+            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">2</span>
             <div>
-              <h4 class="font-medium text-brand-900 text-[15px] mb-1">Click "Order on WhatsApp"</h4>
-              <p class="text-[13px] text-brand-900/70 leading-relaxed">A pre-formatted message sends to Swarna's official WhatsApp requesting bank details.</p>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Click "Order on WhatsApp"</h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">A pre-formatted message sends to Swarna's official WhatsApp requesting bank details.</p>
             </div>
           </div>
-          <div class="flex items-start gap-4">
-            <span class="w-8 h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[15px] shrink-0">3</span>
+          <div class="flex items-start gap-3 sm:gap-4">
+            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">3</span>
             <div>
-              <h4 class="font-medium text-brand-900 text-[15px] mb-1">Transfer & Send Slip</h4>
-              <p class="text-[13px] text-brand-900/70 leading-relaxed">Transfer via your online banking app (Flash, FriMi, Web) and reply with your slip photo.</p>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Transfer &amp; Send Slip</h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">Transfer via your online banking app (Flash, FriMi, Web) and reply with your slip photo.</p>
             </div>
           </div>
-          <div class="flex items-start gap-4">
-            <span class="w-8 h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[15px] shrink-0">4</span>
+          <div class="flex items-start gap-3 sm:gap-4">
+            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">4</span>
             <div>
-              <h4 class="font-medium text-brand-900 text-[15px] mb-1">Instant Verification</h4>
-              <p class="text-[13px] text-brand-900/70 leading-relaxed">Our team verifies your receipt and sends your PDF guide or schedules your 1st session!</p>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Instant Verification</h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">Our team verifies your receipt and sends your PDF guide or schedules your 1st session!</p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Offerings Grid (Mentorship & E-Books) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
         @for (item of digitalGuides; track item.id) {
           <div class="gradient-shell flex flex-col h-full group hover:shadow-[0_25px_50px_-12px_rgba(248,58,100,0.2)] transition-all duration-500">
             <div class="gradient-shell-inner p-7 sm:p-8 flex flex-col h-full bg-white/70">
@@ -354,20 +354,20 @@ interface DigitalGuide {
     </section>
     </div>
 
-    <!-- 4. Bento Grid Services (Custom Tailoring, Classes, Physical Tools) -->
-    <section class="py-12 px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto">
-      <div class="flex flex-col md:flex-row gap-6">
+    <!-- 4. Bento Grid Services -->
+    <section class="py-8 sm:py-12 px-4 sm:px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto">
+      <div class="flex flex-col md:flex-row gap-4 sm:gap-6">
         
         <!-- About Swarna -->
         <div class="w-full">
           <div class="gradient-shell h-full">
-            <a routerLink="/about" class="gradient-shell-inner p-8 lg:p-14 flex flex-col justify-end min-h-[460px] relative overflow-hidden group hover:shadow-[0_25px_50px_-12px_rgba(248,58,100,0.15)] transition-shadow">
+            <a routerLink="/about" class="gradient-shell-inner p-6 sm:p-10 lg:p-14 flex flex-col justify-end min-h-[300px] sm:min-h-[380px] lg:min-h-[460px] relative overflow-hidden group hover:shadow-[0_25px_50px_-12px_rgba(248,58,100,0.15)] transition-shadow">
               <div class="absolute inset-0 z-0">
                  <img src="https://images.unsplash.com/photo-1584034879669-e74f1d431051?q=80&w=2000&auto=format&fit=crop" alt="Swarna teaching" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-70 mix-blend-multiply" referrerpolicy="no-referrer">
               </div>
-              <div class="relative z-10 max-w-lg bg-white/80 p-8 rounded-[32px] backdrop-blur-md border border-white/60 shadow-lg">
-                <h3 class="font-serif text-[36px] text-brand-900 mb-3 leading-tight">{{ c().home.meetTitle }}</h3>
-                <p class="body-md text-brand-900/80 mb-6 text-[15px] leading-relaxed">
+              <div class="relative z-10 max-w-lg bg-white/80 p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] backdrop-blur-md border border-white/60 shadow-lg">
+                <h3 class="font-serif text-[26px] sm:text-[36px] text-brand-900 mb-2 sm:mb-3 leading-tight">{{ c().home.meetTitle }}</h3>
+                <p class="body-md text-brand-900/80 mb-4 sm:mb-6 text-[13px] sm:text-[15px] leading-relaxed">
                   {{ c().home.meetDesc }}
                 </p>
                 <div class="flex items-center label-md text-brand-900 group-hover:text-brand-600 transition-colors font-semibold">
@@ -407,16 +407,16 @@ interface DigitalGuide {
     </section>
 
     <!-- 5. Testimonial Quote -->
-    <section class="py-12 px-6 lg:px-[64px] w-full mb-12 max-w-[1600px] mx-auto">
+    <section class="py-8 sm:py-12 px-4 sm:px-6 lg:px-[64px] w-full mb-8 sm:mb-12 max-w-[1600px] mx-auto">
       <div class="gradient-shell">
-        <div class="gradient-shell-inner p-10 md:p-20 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[360px] bg-white/60">
+        <div class="gradient-shell-inner p-8 sm:p-12 md:p-20 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[280px] sm:min-h-[360px] bg-white/60">
           <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1583922606661-0822ed0bd916?q=80&w=1600&auto=format&fit=crop" alt="Couture Atelier Fabric" class="w-full h-full object-cover opacity-20 mix-blend-multiply scale-105" referrerpolicy="no-referrer">
             <div class="absolute inset-0 bg-gradient-to-b from-brand-50/90 via-white/80 to-brand-100/90"></div>
           </div>
 
-          <mat-icon class="text-brand-400 text-[56px] mb-4 relative z-10">format_quote</mat-icon>
-          <p class="font-serif text-[26px] md:text-[40px] text-brand-900 leading-[1.2] tracking-tight mb-8 max-w-4xl relative z-10">
+          <mat-icon class="text-brand-400 text-[40px] sm:text-[56px] mb-3 sm:mb-4 relative z-10">format_quote</mat-icon>
+          <p class="font-serif text-[20px] sm:text-[28px] md:text-[40px] text-brand-900 leading-[1.3] sm:leading-[1.2] tracking-tight mb-6 sm:mb-8 max-w-4xl relative z-10">
             {{ c().home.testimonialQuote }}
           </p>
           <div class="flex flex-col items-center justify-center relative z-10">
