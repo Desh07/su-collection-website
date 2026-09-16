@@ -79,7 +79,7 @@ import {CartService} from './services/cart.service';
                       <span>{{ course.level === 'PDF E-Book' ? 'Get E-Book' : 'Enroll in Mentorship' }}</span>
                     </button>
                   }
-                  <a [routerLink]="['/learn', course.id]" class="btn-primary !bg-brand-800 hover:!bg-brand-900 flex items-center justify-center gap-2 !px-8 !py-3.5">
+                  <a [routerLink]="['/learn', course.id]" [state]="{ course: course }" class="btn-primary !bg-brand-800 hover:!bg-brand-900 flex items-center justify-center gap-2 !px-8 !py-3.5">
                     <mat-icon class="text-[18px]">visibility</mat-icon>
                     <span>View Details</span>
                   </a>

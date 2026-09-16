@@ -105,6 +105,14 @@ export class CourseDetail implements OnInit {
   course = signal<any>(null);
   loading = signal(true);
 
+  constructor() {
+    const nav = this.router.getCurrentNavigation();
+    if (nav?.extras.state && nav.extras.state['course']) {
+      this.course.set(nav.extras.state['course']);
+      this.loading.set(false);
+    }
+  }
+
   defaultCourses = [
     {
       id: 'couture-and-tailoring-business-mentorship',
@@ -130,7 +138,9 @@ export class CourseDetail implements OnInit {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
-        this.fetchCourse(id);
+        if (!this.course()) {
+          this.fetchCourse(id);
+        }
       } else {
         this.loading.set(false);
       }
