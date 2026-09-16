@@ -17,7 +17,7 @@ import {CartService} from './services/cart.service';
         <!-- Background Editorial Fashion Tailoring Image -->
         <div class="absolute inset-0 z-0">
           <img src="https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=2000&auto=format&fit=crop" 
-               alt="Tailoring Drafting & Pattern Making" 
+               alt="" 
                class="w-full h-full object-cover opacity-45 mix-blend-luminosity group-hover:scale-105 transition-transform duration-1000" 
                referrerpolicy="no-referrer">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/50"></div>
@@ -79,6 +79,10 @@ import {CartService} from './services/cart.service';
                       <span>{{ course.level === 'PDF E-Book' ? 'Get E-Book' : 'Enroll in Mentorship' }}</span>
                     </button>
                   }
+                  <a [routerLink]="['/learn', course.id]" class="btn-primary !bg-brand-800 hover:!bg-brand-900 flex items-center justify-center gap-2 !px-8 !py-3.5">
+                    <mat-icon class="text-[18px]">visibility</mat-icon>
+                    <span>View Details</span>
+                  </a>
                   <button (click)="inquireCourse(course)" class="btn-secondary bg-white/80 backdrop-blur-sm flex items-center justify-center gap-2 !px-8 !py-3.5">
                     <mat-icon class="text-[18px]">chat</mat-icon>
                     <span>Inquire on WhatsApp</span>

@@ -51,9 +51,6 @@ import {CartService} from './services/cart.service';
                   <span class="absolute top-1 right-1 bg-brand-900 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{{ cartService.totalItems() }}</span>
                 }
               </a>
-              <a routerLink="/admin" class="p-2 text-brand-900/70 hover:text-brand-900 transition-colors relative" title="Admin Dashboard">
-                <mat-icon>admin_panel_settings</mat-icon>
-              </a>
               @if (false) {
                 <a routerLink="/sew-and-su" class="btn-primary !px-5 !py-2.5 text-[13px] flex items-center gap-2">
                   <span>Custom Order</span>

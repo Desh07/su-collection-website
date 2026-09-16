@@ -6,7 +6,11 @@ export const serverRoutes: ServerRoute[] = [
   //   renderMode: RenderMode.Server,
   // },
   {
-    path: 'admin',
+    path: 'admin-portal-su',
+    renderMode: RenderMode.Server,
+  },
+  {
+    path: 'learn/:id',
     renderMode: RenderMode.Server,
   },
   {

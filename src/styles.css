@@ -23,6 +23,10 @@ html {
   scroll-behavior: smooth;
 }
 
+mat-icon {
+  overflow: visible !important;
+}
+
 body {
   font-family: var(--font-sans);
   @apply bg-brand-50 text-brand-900 antialiased font-light;
