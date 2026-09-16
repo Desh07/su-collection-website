@@ -706,10 +706,11 @@ export class Home implements OnInit {
   }
 
   addToCart(item: DigitalGuide) {
+    const numericPrice = parseInt(String(item.price).replace(/\D/g, ''), 10) || 0;
     this.cartService.addItem({
       id: item.id,
       name: item.title,
-      price: item.price,
+      price: numericPrice,
       image: item.image,
       quantity: 1
     });
