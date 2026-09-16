@@ -97,7 +97,7 @@ export class Shop implements OnInit {
 
   defaultProducts = [
     {
-      id: '1',
+      id: 'beginner-essential-toolpack',
       name: 'Beginner Essential Toolpack',
       category: 'Toolpacks',
       price: 4500,
@@ -105,7 +105,7 @@ export class Shop implements OnInit {
       description: 'The perfect starter kit containing measuring tape, essential pins, snips, and needles.'
     },
     {
-      id: '2',
+      id: 'precision-invisible-zipper-foot',
       name: 'Precision Invisible Zipper Foot',
       category: 'Machine Feet',
       price: 1200,
@@ -113,7 +113,7 @@ export class Shop implements OnInit {
       description: 'Get perfectly hidden zippers every time with this professional grade machine foot.'
     },
     {
-      id: '3',
+      id: 'premium-rose-gold-shears',
       name: 'Premium Rose Gold Shears',
       category: 'Accessories',
       price: 3800,
@@ -121,7 +121,7 @@ export class Shop implements OnInit {
       description: 'Ultra-sharp, comfortable tailoring shears built for lifetime use.'
     },
     {
-      id: '4',
+      id: 'professional-rolled-hem-set',
       name: 'Professional Rolled Hem Set',
       category: 'Machine Feet',
       price: 2500,
@@ -129,7 +129,7 @@ export class Shop implements OnInit {
       description: 'Create flawless rolled hems on sheer fabrics without frustration.'
     },
     {
-      id: '5',
+      id: 'french-curve-measuring-ruler',
       name: 'French Curve Measuring Ruler',
       category: 'Accessories',
       price: 1800,
@@ -137,7 +137,7 @@ export class Shop implements OnInit {
       description: 'Essential pattern making ruler for perfect necklines and armholes.'
     },
     {
-      id: '6',
+      id: 'advanced-master-toolpack',
       name: 'Advanced Master Toolpack',
       category: 'Toolpacks',
       price: 9500,

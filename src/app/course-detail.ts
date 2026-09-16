@@ -107,7 +107,7 @@ export class CourseDetail implements OnInit {
 
   defaultCourses = [
     {
-      id: 'dg-1',
+      id: 'couture-and-tailoring-business-mentorship',
       title: '6-Month Couture & Tailoring Business Mentorship',
       description: 'Personal 1-on-1 mentorship with Swarna. Learn advanced draping, bridal fitting, and launching your own profitable custom dress boutique.',
       level: 'Mentorship',
@@ -116,7 +116,7 @@ export class CourseDetail implements OnInit {
       image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
     },
     {
-      id: 'dg-2',
+      id: 'sri-lankan-saree-jacket-master-blueprint',
       title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
       description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
       level: 'PDF E-Book',
