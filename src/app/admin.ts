@@ -12,7 +12,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
   selector: 'app-admin',
   imports: [CommonModule, ReactiveFormsModule, FormsModule, MatIconModule],
   template: `
-    <div class="min-h-screen bg-slate-50 pt-32 pb-16 px-6 lg:px-[64px]">
+    <div class="min-h-screen bg-slate-50 pt-[100px] sm:pt-32 pb-16 px-4 sm:px-6 lg:px-[64px]">
       <div class="max-w-[1200px] mx-auto">
         
         @if (!auth.isInitialized()) {
@@ -20,32 +20,32 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
             <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-900"></div>
           </div>
         } @else if (!auth.user()) {
-          <div class="bg-white p-12 rounded-[32px] shadow-sm text-center max-w-md mx-auto border border-brand-100">
-            <h1 class="font-serif text-[32px] text-brand-900 mb-4">Admin Access</h1>
-            <p class="body-md text-brand-900/70 mb-8">Please sign in to access the Su Collection admin dashboard.</p>
+          <div class="bg-white p-8 sm:p-12 rounded-[24px] sm:rounded-[32px] shadow-sm text-center max-w-md mx-auto border border-brand-100">
+            <h1 class="font-serif text-[28px] sm:text-[32px] text-brand-900 mb-4">Admin Access</h1>
+            <p class="body-md text-brand-900/70 mb-8 text-[14px] sm:text-[16px]">Please sign in to access the Su Collection admin dashboard.</p>
             <button (click)="auth.loginWithGoogle()" class="btn-primary w-full flex items-center justify-center gap-2">
               <mat-icon>login</mat-icon> Sign in with Google
             </button>
           </div>
         } @else if (!auth.isAdmin()) {
-          <div class="bg-white p-12 rounded-[32px] shadow-sm text-center max-w-md mx-auto border border-brand-100">
+          <div class="bg-white p-8 sm:p-12 rounded-[24px] sm:rounded-[32px] shadow-sm text-center max-w-md mx-auto border border-brand-100">
             <mat-icon class="text-red-500 text-[48px] mb-4">gpp_bad</mat-icon>
-            <h1 class="font-serif text-[32px] text-brand-900 mb-4">Access Denied</h1>
-            <p class="body-md text-brand-900/70 mb-8">You do not have administrative privileges.</p>
+            <h1 class="font-serif text-[28px] sm:text-[32px] text-brand-900 mb-4">Access Denied</h1>
+            <p class="body-md text-brand-900/70 mb-8 text-[14px] sm:text-[16px]">You do not have administrative privileges.</p>
             <button (click)="auth.logout()" class="btn-secondary w-full">Sign Out</button>
           </div>
         } @else {
           <!-- Admin Dashboard -->
-          <div class="flex items-center justify-between mb-8">
-            <h1 class="font-serif text-[40px] text-brand-900">Admin Dashboard</h1>
-            <button (click)="auth.logout()" class="text-brand-900/60 hover:text-brand-900 text-[14px] flex items-center gap-2">
-              <mat-icon class="text-[18px]">logout</mat-icon> Sign out
+          <div class="flex items-center justify-between mb-6 sm:mb-8">
+            <h1 class="font-serif text-[28px] sm:text-[40px] text-brand-900 leading-tight">Admin Dashboard</h1>
+            <button (click)="auth.logout()" class="text-brand-900/60 hover:text-brand-900 text-[13px] sm:text-[14px] flex items-center gap-1 sm:gap-2">
+              <mat-icon class="text-[16px] sm:text-[18px]">logout</mat-icon> <span class="hidden sm:inline">Sign out</span>
             </button>
           </div>
 
           <!-- Tabs -->
-          <div class="flex flex-wrap gap-4 mb-8 border-b border-brand-200">
-            <button (click)="activeTab.set('orders')" [class.border-brand-900]="activeTab() === 'orders'" [class.text-brand-900]="activeTab() === 'orders'" class="px-6 py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md transition-colors flex items-center gap-2">
+          <div class="flex overflow-x-auto whitespace-nowrap sm:flex-wrap gap-2 sm:gap-4 mb-6 sm:mb-8 border-b border-brand-200 pb-2 sm:pb-0 hide-scrollbar">
+            <button (click)="activeTab.set('orders')" [class.border-brand-900]="activeTab() === 'orders'" [class.text-brand-900]="activeTab() === 'orders'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors flex items-center gap-2">
               <span>Order Management (OMS)</span>
               @if (orderMetrics().needsReviewCount > 0) {
                 <span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">
@@ -53,19 +53,19 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                 </span>
               }
             </button>
-            <button (click)="activeTab.set('videos')" [class.border-brand-900]="activeTab() === 'videos'" [class.text-brand-900]="activeTab() === 'videos'" class="px-6 py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md transition-colors">
+            <button (click)="activeTab.set('videos')" [class.border-brand-900]="activeTab() === 'videos'" [class.text-brand-900]="activeTab() === 'videos'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
               Social Reel (TikTok & FB)
             </button>
-            <button (click)="activeTab.set('bookings')" [class.border-brand-900]="activeTab() === 'bookings'" [class.text-brand-900]="activeTab() === 'bookings'" class="px-6 py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md transition-colors">
+            <button (click)="activeTab.set('bookings')" [class.border-brand-900]="activeTab() === 'bookings'" [class.text-brand-900]="activeTab() === 'bookings'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
               Consultations
             </button>
-            <button (click)="activeTab.set('courses')" [class.border-brand-900]="activeTab() === 'courses'" [class.text-brand-900]="activeTab() === 'courses'" class="px-6 py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md transition-colors">
+            <button (click)="activeTab.set('courses')" [class.border-brand-900]="activeTab() === 'courses'" [class.text-brand-900]="activeTab() === 'courses'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
               Courses
             </button>
-            <button (click)="activeTab.set('shop')" [class.border-brand-900]="activeTab() === 'shop'" [class.text-brand-900]="activeTab() === 'shop'" class="px-6 py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md transition-colors">
+            <button (click)="activeTab.set('shop')" [class.border-brand-900]="activeTab() === 'shop'" [class.text-brand-900]="activeTab() === 'shop'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
               Shop Inventory
             </button>
-            <button (click)="activeTab.set('content')" [class.border-brand-900]="activeTab() === 'content'" [class.text-brand-900]="activeTab() === 'content'" class="px-6 py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md transition-colors">
+            <button (click)="activeTab.set('content')" [class.border-brand-900]="activeTab() === 'content'" [class.text-brand-900]="activeTab() === 'content'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
               Website Copy & Bank
             </button>
           </div>
@@ -75,36 +75,36 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
             <div class="flex flex-col gap-6">
               
               <!-- 1. OMS Metrics Cards -->
-              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                <div class="bg-white p-5 rounded-2xl border border-brand-100 shadow-sm">
-                  <span class="text-[11px] uppercase tracking-wider text-brand-900/60 font-semibold block mb-1">Total Orders</span>
-                  <div class="font-serif text-[28px] text-brand-900 font-bold leading-tight">{{ orderMetrics().totalCount }}</div>
-                  <span class="text-[11px] text-brand-900/50">All recorded orders</span>
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+                <div class="bg-white p-4 sm:p-5 rounded-[16px] sm:rounded-2xl border border-brand-100 shadow-sm">
+                  <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-brand-900/60 font-semibold block mb-1">Total Orders</span>
+                  <div class="font-serif text-[24px] sm:text-[28px] text-brand-900 font-bold leading-tight">{{ orderMetrics().totalCount }}</div>
+                  <span class="text-[10px] sm:text-[11px] text-brand-900/50">All recorded orders</span>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-amber-200 bg-amber-50/30 shadow-sm">
-                  <span class="text-[11px] uppercase tracking-wider text-amber-900/70 font-semibold block mb-1">Awaiting Slip</span>
-                  <div class="font-serif text-[28px] text-amber-700 font-bold leading-tight">{{ orderMetrics().awaitingSlipCount }}</div>
-                  <span class="text-[11px] text-amber-800/60">Pending customer receipt</span>
+                <div class="bg-white p-4 sm:p-5 rounded-[16px] sm:rounded-2xl border border-amber-200 bg-amber-50/30 shadow-sm">
+                  <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-amber-900/70 font-semibold block mb-1">Awaiting Slip</span>
+                  <div class="font-serif text-[24px] sm:text-[28px] text-amber-700 font-bold leading-tight">{{ orderMetrics().awaitingSlipCount }}</div>
+                  <span class="text-[10px] sm:text-[11px] text-amber-800/60">Pending receipt</span>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-sky-300 bg-sky-50/40 shadow-sm relative overflow-hidden">
-                  <div class="absolute top-0 right-0 w-2 h-full bg-sky-500"></div>
-                  <span class="text-[11px] uppercase tracking-wider text-sky-950 font-semibold block mb-1">Slips Uploaded</span>
-                  <div class="font-serif text-[28px] text-sky-700 font-bold leading-tight">{{ orderMetrics().needsReviewCount }}</div>
-                  <span class="text-[11px] text-sky-800 font-medium">Ready for verification!</span>
+                <div class="bg-white p-4 sm:p-5 rounded-[16px] sm:rounded-2xl border border-sky-300 bg-sky-50/40 shadow-sm relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-1.5 sm:w-2 h-full bg-sky-500"></div>
+                  <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-sky-950 font-semibold block mb-1">Slips Uploaded</span>
+                  <div class="font-serif text-[24px] sm:text-[28px] text-sky-700 font-bold leading-tight">{{ orderMetrics().needsReviewCount }}</div>
+                  <span class="text-[10px] sm:text-[11px] text-sky-800 font-medium">Ready for review!</span>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-emerald-200 bg-emerald-50/30 shadow-sm">
-                  <span class="text-[11px] uppercase tracking-wider text-emerald-900/70 font-semibold block mb-1">Verified & Active</span>
-                  <div class="font-serif text-[28px] text-emerald-700 font-bold leading-tight">{{ orderMetrics().verifiedCount }}</div>
-                  <span class="text-[11px] text-emerald-800/60">Paid / Guides sent</span>
+                <div class="bg-white p-4 sm:p-5 rounded-[16px] sm:rounded-2xl border border-emerald-200 bg-emerald-50/30 shadow-sm">
+                  <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-emerald-900/70 font-semibold block mb-1">Verified</span>
+                  <div class="font-serif text-[24px] sm:text-[28px] text-emerald-700 font-bold leading-tight">{{ orderMetrics().verifiedCount }}</div>
+                  <span class="text-[10px] sm:text-[11px] text-emerald-800/60">Paid & active</span>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl border border-brand-100 shadow-sm col-span-2 sm:col-span-1">
-                  <span class="text-[11px] uppercase tracking-wider text-brand-900/60 font-semibold block mb-1">Gross Revenue</span>
-                  <div class="font-serif text-[22px] text-brand-950 font-bold leading-tight truncate">LKR {{ orderMetrics().totalRevenue.toLocaleString() }}</div>
-                  <span class="text-[11px] text-emerald-700 font-medium">Verified payments</span>
+                <div class="bg-white p-4 sm:p-5 rounded-[16px] sm:rounded-2xl border border-brand-100 shadow-sm col-span-2 sm:col-span-1">
+                  <span class="text-[10px] sm:text-[11px] uppercase tracking-wider text-brand-900/60 font-semibold block mb-1">Gross Revenue</span>
+                  <div class="font-serif text-[20px] sm:text-[22px] text-brand-950 font-bold leading-tight truncate">LKR {{ orderMetrics().totalRevenue.toLocaleString() }}</div>
+                  <span class="text-[10px] sm:text-[11px] text-emerald-700 font-medium">Verified payments</span>
                 </div>
               </div>
 
@@ -192,25 +192,25 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                       class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-brand-200 rounded-xl text-[13px] outline-none focus:border-brand-900 transition-colors">
                   </div>
 
-                  <div class="flex items-center gap-2.5 w-full sm:w-auto justify-between sm:justify-end">
-                    <select [ngModel]="orderSortBy()" (ngModelChange)="orderSortBy.set($event)" class="border border-brand-200 rounded-xl px-3 py-2 text-[13px] bg-white outline-none">
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto justify-start sm:justify-end">
+                    <select [ngModel]="orderSortBy()" (ngModelChange)="orderSortBy.set($event)" class="w-full sm:w-auto border border-brand-200 rounded-xl px-3 py-2 text-[13px] bg-white outline-none">
                       <option value="newest">Newest First</option>
                       <option value="oldest">Oldest First</option>
                       <option value="highest">Highest Total</option>
                       <option value="lowest">Lowest Total</option>
                     </select>
 
-                    <button (click)="openManualOrderModal()" class="btn-primary !py-2 !px-4 text-[13px] flex items-center gap-1.5 whitespace-nowrap shadow-sm">
+                    <button (click)="openManualOrderModal()" class="w-full sm:w-auto justify-center btn-primary !py-2 !px-4 text-[13px] flex items-center gap-1.5 whitespace-nowrap shadow-sm">
                       <mat-icon class="text-[16px]">add</mat-icon>
-                      <span>+ Record Order</span>
+                      <span>Record Order</span>
                     </button>
                   </div>
                 </div>
               </div>
 
               <!-- 3. Orders Table -->
-              <div class="bg-white rounded-[24px] shadow-sm border border-brand-100 overflow-hidden">
-                <div class="overflow-x-auto">
+              <div class="bg-white rounded-[16px] sm:rounded-[24px] shadow-sm border border-brand-100 overflow-hidden">
+                <div class="overflow-x-auto hide-scrollbar">
                   <table class="w-full text-left border-collapse min-w-[920px]">
                     <thead>
                       <tr class="bg-brand-50 border-b border-brand-100">
@@ -446,10 +446,11 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
 
           <!-- Tab Content: Bookings -->
           @if (activeTab() === 'bookings') {
-            <div class="bg-white rounded-[24px] shadow-sm border border-brand-100 overflow-hidden">
-              <table class="w-full text-left border-collapse">
-                <thead>
-                  <tr class="bg-brand-50 border-b border-brand-100">
+            <div class="bg-white rounded-[16px] sm:rounded-[24px] shadow-sm border border-brand-100 overflow-hidden">
+              <div class="overflow-x-auto hide-scrollbar">
+                <table class="w-full text-left border-collapse min-w-[600px]">
+                  <thead>
+                    <tr class="bg-brand-50 border-b border-brand-100">
                     <th class="p-4 label-md text-brand-900">Date</th>
                     <th class="p-4 label-md text-brand-900">Client</th>
                     <th class="p-4 label-md text-brand-900">Garment</th>
@@ -489,6 +490,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                   }
                 </tbody>
               </table>
+              </div>
             </div>
           }
 

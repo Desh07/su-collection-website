@@ -41,7 +41,7 @@ import {CartService} from './services/cart.service';
               }
             </nav>
 
-            <!-- Actions -->
+            <!-- Desktop Actions -->
             <div class="hidden md:flex items-center gap-4 lg:gap-6">
               <a routerLink="/cart" class="p-2 text-brand-900/70 hover:text-brand-900 transition-colors relative" title="Shopping Cart">
                 <mat-icon>shopping_bag</mat-icon>
@@ -59,12 +59,20 @@ import {CartService} from './services/cart.service';
               }
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button (click)="isMobileMenuOpen.set(!isMobileMenuOpen())" 
-                    aria-label="Toggle Menu"
-                    class="md:hidden p-2 text-brand-900/80 hover:text-brand-900 focus:outline-none">
-              <mat-icon>{{ isMobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
-            </button>
+            <!-- Mobile Actions & Menu Button -->
+            <div class="md:hidden flex items-center gap-2">
+              <a routerLink="/cart" class="p-2 text-brand-900/70 hover:text-brand-900 transition-colors relative" title="Shopping Cart" (click)="isMobileMenuOpen.set(false)">
+                <mat-icon>shopping_bag</mat-icon>
+                @if (cartService.totalItems() > 0) {
+                  <span class="absolute top-1 right-1 bg-brand-900 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{{ cartService.totalItems() }}</span>
+                }
+              </a>
+              <button (click)="isMobileMenuOpen.set(!isMobileMenuOpen())" 
+                      aria-label="Toggle Menu"
+                      class="p-2 text-brand-900/80 hover:text-brand-900 focus:outline-none">
+                <mat-icon>{{ isMobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -72,13 +80,13 @@ import {CartService} from './services/cart.service';
       <!-- Mobile Menu -->
       @if (isMobileMenuOpen()) {
         <div class="fixed inset-0 z-40 bg-brand-50/98 backdrop-blur-3xl md:hidden pt-[120px] px-[64px] pb-[64px] flex flex-col overflow-y-auto">
-          <nav class="flex flex-col gap-[24px] mt-[24px]">
+          <nav class="flex flex-col gap-6 sm:gap-[24px] mt-[24px]">
             @for (link of navLinks(); track link.path) {
               <a [routerLink]="link.path" 
                  (click)="isMobileMenuOpen.set(false)"
                  routerLinkActive="!text-brand-900 !font-bold"
                  [routerLinkActiveOptions]="{exact: link.exact}"
-                 class="font-serif text-4xl text-brand-900/60 hover:text-brand-900 transition-colors">
+                 class="font-serif text-3xl sm:text-4xl text-brand-900/60 hover:text-brand-900 transition-colors">
                 {{link.label}}
               </a>
             }
