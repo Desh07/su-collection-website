@@ -132,7 +132,7 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
 
                   <div>
                     <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1 font-semibold">
-                      Email Address <span class="text-rose-500">*</span>
+                      Email Address <span class="text-brand-900/50 font-normal normal-case">(Optional)</span>
                     </label>
                     <input 
                       type="email" 
@@ -264,7 +264,7 @@ export class Checkout implements OnInit {
   countries = COUNTRIES;
 
   checkoutForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.email]],
     countryCode: ['+94', Validators.required],
     phone: ['', [Validators.required, Validators.pattern(/^[0-9\s-]{7,15}$/), phoneValidator]],
     firstName: ['', Validators.required],

@@ -11,9 +11,14 @@ export class AuthService {
   isInitialized = signal<boolean>(false);
 
   constructor() {
+    const adminEmails = [
+      'lakshan.yatiwella@gmail.com',
+      'deshanthv@gmail.com'
+    ];
+    
     onAuthStateChanged(auth, (user) => {
       this.user.set(user);
-      this.isAdmin.set(user?.email === 'lakshan.yatiwella@gmail.com');
+      this.isAdmin.set(user?.email ? adminEmails.includes(user.email) : false);
       this.isInitialized.set(true);
     });
   }

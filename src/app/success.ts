@@ -94,7 +94,7 @@ import {CartService} from './services/cart.service';
 
             <!-- Optional: Enter Transaction Reference -->
             <div class="bg-white p-5 rounded-2xl border border-brand-100">
-              <h4 class="font-medium text-brand-900 text-[14px] mb-1">Have your transfer reference number handy?</h4>
+              <h4 class="font-medium text-brand-900 text-[14px] mb-1">Have your transfer reference number handy? <span class="text-brand-900/50 font-normal">(Optional)</span></h4>
               <p class="text-[12px] text-brand-900/60 mb-3">
                 Entering your bank app reference (FriMi, Flash, online banking transaction ID, or slip number) attaches it directly to your order in our database.
               </p>

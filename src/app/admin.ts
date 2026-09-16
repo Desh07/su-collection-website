@@ -1,5 +1,5 @@
 import { Component, inject, signal, OnInit, effect, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from './services/auth.service';
@@ -876,7 +876,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
 
           <!-- Order Details Modal / Drawer -->
           @if (selectedOrder()) {
-            <div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+            <div class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
               <div class="bg-white rounded-[28px] max-w-3xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl border border-brand-100">
                 
                 <!-- Modal Header -->
@@ -1062,7 +1062,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
 
           <!-- Manual Order Modal -->
           @if (isManualOrderOpen()) {
-            <div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+            <div class="fixed inset-0 z-[60] bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
               <div class="bg-white rounded-[28px] max-w-xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl border border-brand-100">
                 <div class="flex items-center justify-between pb-4 border-b border-brand-100 mb-6">
                   <div>
@@ -1150,6 +1150,7 @@ export class Admin implements OnInit {
   auth = inject(AuthService);
   fb = inject(FormBuilder);
   contentService = inject(ContentService);
+  document = inject(DOCUMENT);
 
   activeTab = signal<'orders' | 'bookings' | 'courses' | 'shop' | 'content' | 'videos'>('orders');
 
@@ -1257,6 +1258,14 @@ export class Admin implements OnInit {
     effect(() => {
       if (!this.contentService.loading()) {
         this.draftContent = JSON.parse(JSON.stringify(this.contentService.content()));
+      }
+    });
+
+    effect(() => {
+      if (this.selectedOrder() || this.isManualOrderOpen()) {
+        this.document.body.style.overflow = 'hidden';
+      } else {
+        this.document.body.style.overflow = '';
       }
     });
 

@@ -87,7 +87,7 @@ import {CartService} from './services/cart.service';
       }
 
       <!-- Main Content -->
-      <main class="flex-1 flex flex-col w-full relative z-10">
+      <main class="flex-1 flex flex-col w-full">
         <router-outlet></router-outlet>
       </main>
 
