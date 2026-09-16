@@ -13,6 +13,7 @@ export interface CartItem {
 })
 export class CartService {
   private cartItems = signal<CartItem[]>([]);
+  checkoutDraft = signal<any>(null);
 
   items = this.cartItems.asReadonly();
   

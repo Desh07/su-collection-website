@@ -62,29 +62,29 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
           
           <!-- Checkout Form Side -->
           <div class="lg:col-span-7">
-            <h1 class="font-serif text-[36px] sm:text-[46px] text-brand-900 mb-6 leading-tight">Order Checkout</h1>
+            <h1 class="font-serif text-[36px] sm:text-[46px] text-brand-900 mb-6 leading-tight">ඔයාගේ Order එක Complete කරමු</h1>
             
             <form [formGroup]="checkoutForm" (ngSubmit)="processOrder()" class="flex flex-col gap-6">
               
               <!-- 1. Customer Details -->
-              <section class="bg-white p-6 sm:p-8 rounded-[28px] border border-brand-100 shadow-sm">
+              <section class="bg-brand-50/40 p-6 sm:p-8 rounded-[28px] border border-brand-100 shadow-sm">
                 <div class="flex items-center gap-2.5 mb-5 pb-3 border-b border-brand-50">
                   <div class="w-7 h-7 rounded-full bg-brand-900 text-white flex items-center justify-center text-[12px] font-bold">1</div>
-                  <h3 class="font-serif text-[20px] text-brand-900">Customer Details</h3>
+                  <h3 class="font-serif text-[20px] text-brand-900">ඔයාගේ විස්තර</h3>
                 </div>
 
                 <div class="flex flex-col gap-4">
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1 font-semibold">First Name <span class="text-rose-500">*</span></label>
-                      <input type="text" formControlName="firstName" placeholder="First Name" class="w-full bg-slate-50 border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md" [class.border-rose-400]="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid">
+                      <label class="block text-[13px] sm:text-[14px] text-brand-900/90 mb-1.5 font-bold">මුල් නම <span class="text-rose-500">*</span></label>
+                      <input type="text" formControlName="firstName" placeholder="Hemachandra" class="w-full appearance-none shadow-sm border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md" style="background-color: white !important;" [class.border-rose-400]="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid">
                       @if (checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.errors?.['required']) {
                         <p class="text-rose-500 text-[11px] mt-1">First name is required</p>
                       }
                     </div>
                     <div>
-                      <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1 font-semibold">Last Name <span class="text-rose-500">*</span></label>
-                      <input type="text" formControlName="lastName" placeholder="Last Name" class="w-full bg-slate-50 border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md" [class.border-rose-400]="checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.invalid">
+                      <label class="block text-[13px] sm:text-[14px] text-brand-900/90 mb-1.5 font-bold">අග නම <span class="text-rose-500">*</span></label>
+                      <input type="text" formControlName="lastName" placeholder="Silva" class="w-full appearance-none shadow-sm border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md" style="background-color: white !important;" [class.border-rose-400]="checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.invalid">
                       @if (checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.errors?.['required']) {
                         <p class="text-rose-500 text-[11px] mt-1">Last name is required</p>
                       }
@@ -92,14 +92,14 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
                   </div>
 
                   <div>
-                    <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1 font-semibold">
-                      WhatsApp Phone Number <span class="text-rose-500">*</span>
+                    <label class="block text-[13px] sm:text-[14px] text-brand-900/90 mb-1.5 font-bold">
+                      WhatsApp අංකය <span class="text-rose-500">*</span>
                     </label>
                     <div class="flex flex-col sm:flex-row gap-2">
                       <div class="relative w-full sm:w-[180px] shrink-0">
                         <select 
                           formControlName="countryCode"
-                          class="w-full bg-slate-50 border border-brand-200 rounded-xl py-3 pl-4 pr-8 outline-none focus:border-brand-900 transition-colors body-md appearance-none cursor-pointer truncate">
+                          class="w-full bg-white border border-brand-200 rounded-xl py-3 pl-4 pr-8 outline-none focus:border-brand-900 transition-colors body-md appearance-none cursor-pointer truncate">
                           @for (country of countries; track country.code) {
                             <option [value]="country.code">{{ country.name }}</option>
                           }
@@ -112,7 +112,7 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
                           formControlName="phone" 
                           [placeholder]="getPhonePlaceholder()" 
                           maxlength="15"
-                          class="w-full bg-slate-50 border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md"
+                          class="w-full appearance-none shadow-sm border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md" style="background-color: white !important;"
                           [class.border-rose-400]="checkoutForm.get('phone')?.touched && checkoutForm.get('phone')?.invalid">
                       </div>
                     </div>
@@ -131,14 +131,14 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
                   </div>
 
                   <div>
-                    <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1 font-semibold">
-                      Email Address <span class="text-brand-900/50 font-normal normal-case">(Optional)</span>
+                    <label class="block text-[13px] sm:text-[14px] text-brand-900/90 mb-1.5 font-bold">
+                      Email ලිපිනය (අත්යවශ්ය නොවේ)
                     </label>
                     <input 
                       type="email" 
                       formControlName="email" 
-                      placeholder="e.g. yourname@example.com" 
-                      class="w-full bg-slate-50 border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md"
+                      placeholder="yourname@example.com" 
+                      class="w-full appearance-none shadow-sm border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md" style="background-color: white !important;"
                       [class.border-rose-400]="checkoutForm.get('email')?.touched && checkoutForm.get('email')?.invalid">
                     @if (checkoutForm.get('email')?.touched) {
                       @if (checkoutForm.get('email')?.errors?.['required']) {
@@ -151,10 +151,10 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
 
                   <div>
                     <div class="flex justify-between items-end mb-1">
-                      <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 font-semibold">What are your main goals? / Any questions? (Optional)</label>
+                      <label class="block text-[13px] sm:text-[14px] text-brand-900/90 font-bold">ඔයාගේ ප්රධාන අරමුණු මොනවාද? ප්රශ්න තියෙනවද? (අත්යවශ්ය නොවේ)</label>
                       <span class="text-[10px] text-brand-900/50 font-medium">{{ checkoutForm.get('notes')?.value?.length || 0 }}/500</span>
                     </div>
-                    <textarea formControlName="notes" rows="2" maxlength="500" placeholder="Let Swarna know if you have any specific goals for the mentorship or questions about the guide..." class="w-full bg-slate-50 border border-brand-200 rounded-xl py-2.5 px-4 outline-none focus:border-brand-900 transition-colors text-[14px]" [class.border-rose-400]="checkoutForm.get('notes')?.invalid"></textarea>
+                    <textarea formControlName="notes" rows="4" maxlength="500" placeholder="Mentorship එකෙන් ඔයා බලාපොරොත්තු වෙන දේ, ඔයාට තියෙන questions, guidance එකක් ඕන තැනක්, නැත්නම් Swarna ට personally කියන්න කැමති ඕනෑම දෙයක් මෙතන type කරන්න." class="w-full appearance-none shadow-sm border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors text-[14px] min-h-[120px] sm:min-h-[140px] resize-y" style="background-color: white !important;" [class.border-rose-400]="checkoutForm.get('notes')?.invalid"></textarea>
                     @if (checkoutForm.get('notes')?.errors?.['maxlength']) {
                       <p class="text-rose-500 text-[11px] mt-1">Notes cannot exceed 500 characters</p>
                     }
@@ -187,7 +187,7 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
 
               @if (checkoutForm.invalid && checkoutForm.touched) {
                 <p class="text-rose-600 text-[13px] text-center font-medium">
-                  Please complete all required fields above marked with an asterisk (*).
+                  කරුණාකර ඉහත තරුව (*) ලකුණින් දක්වා ඇති අනිවාර්යයෙන්ම පිරවිය යුතු සියලුම තොරතුරු සම්පූර්ණ කරන්න.
                 </p>
               }
             </form>
@@ -196,7 +196,7 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
           <!-- Order Summary Side -->
           <div class="lg:col-span-5">
             <div class="bg-white p-6 sm:p-8 rounded-[32px] border border-brand-100 shadow-sm sticky top-[120px]">
-              <h2 class="font-serif text-[24px] mb-5 text-brand-900 pb-3 border-b border-brand-100">Order Summary</h2>
+              <h2 class="font-serif text-[24px] mb-5 text-brand-900 pb-3 border-b border-brand-100">ඔයාගේ Order එකේ සාරාංශය</h2>
               
               <div class="flex flex-col gap-3.5 mb-6 max-h-[360px] overflow-y-auto pr-1">
                 @for (item of cartService.items(); track item.id) {
@@ -229,10 +229,10 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
               
               <div class="border-t border-brand-200 pt-4 mt-2">
                 <div class="flex justify-between items-center">
-                  <span class="font-serif text-[18px] text-brand-900">Total Payable</span>
+                  <span class="font-serif text-[18px] text-brand-900">ගෙවිය යුතු මුළු මුදල</span>
                   <span class="font-serif text-[26px] font-bold text-emerald-900">LKR {{ totalPayable().toLocaleString() }}</span>
                 </div>
-                <p class="text-[12px] text-brand-900/60 mt-1">Payment verified via Bank Transfer deposit slip on WhatsApp.</p>
+                <p class="text-[12px] text-brand-900/60 mt-1">Bank Transfer එකෙන් payment එක කරලා, Deposit Slip එක WhatsApp හරහා එවූ පසු ඔයාගේ Order එක confirm කරනවා.</p>
               </div>
             </div>
           </div>
@@ -286,7 +286,12 @@ export class Checkout implements OnInit {
       }
     });
 
-    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    const draft = this.cartService.checkoutDraft();
+    let parsedCustomer = null;
+
+    if (draft) {
+      parsedCustomer = draft;
+    } else if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
       const saved = localStorage.getItem('sc_current_order');
       if (saved) {
         try {
@@ -308,19 +313,27 @@ export class Checkout implements OnInit {
                 }
               }
             }
-
-            this.checkoutForm.patchValue({
+            parsedCustomer = {
               firstName: parsed.customer.firstName,
               lastName: parsed.customer.lastName,
               email: parsed.customer.email,
               countryCode: codeVal,
               phone: phoneVal,
               notes: parsed.customer.notes
-            });
+            };
           }
         } catch (e) {}
       }
     }
+
+    if (parsedCustomer) {
+      this.checkoutForm.patchValue(parsedCustomer);
+    }
+
+    // Save draft on every change
+    this.checkoutForm.valueChanges.subscribe(val => {
+      this.cartService.checkoutDraft.set(val);
+    });
   }
 
   copyAccountNumber() {
@@ -347,7 +360,17 @@ export class Checkout implements OnInit {
     try {
       const orderId = this.existingOrderId || 'SC-' + Math.floor(100000 + Math.random() * 900000);
       const f = this.checkoutForm.value;
-      const items = [...this.cartService.items()];
+      const englishTitles: Record<string, string> = {
+        'course-couture-and-tailoring-business-mentorship': 'Mentorship',
+        'course-sri-lankan-saree-jacket-master-blueprint': 'E-Book',
+        'main-foundation-course': 'Course',
+        'dg-1': 'Mentorship',
+        'dg-2': 'E-Book'
+      };
+      const items = this.cartService.items().map(item => ({
+        ...item,
+        name: englishTitles[item.id] || item.name
+      }));
       const total = this.totalPayable();
 
       let cleanPhone = f.phone?.replace(/[^0-9]/g, '') || '';

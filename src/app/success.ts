@@ -342,6 +342,7 @@ export class Success implements OnInit {
   onWhatsAppClick() {
     // Finalize order visually by clearing the cart since they are proceeding to pay
     this.cartService.clearCart();
+    this.cartService.checkoutDraft.set(null);
     // Update local UI state to show next steps
     this.whatsAppOpened.set(true);
   }
@@ -349,6 +350,7 @@ export class Success implements OnInit {
   openWhatsApp() {
     const url = this.whatsAppUrl();
     this.cartService.clearCart();
+    this.cartService.checkoutDraft.set(null);
     this.whatsAppOpened.set(true);
     window.open(url, '_blank');
   }

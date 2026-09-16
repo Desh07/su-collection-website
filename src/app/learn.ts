@@ -76,16 +76,16 @@ import {CartService} from './services/cart.service';
                   } @else {
                     <button (click)="enrollCourse(course)" class="btn-primary flex items-center justify-center gap-2 !px-8 !py-3.5">
                       <mat-icon class="text-[18px]">{{ course.level === 'PDF E-Book' ? 'book' : 'school' }}</mat-icon>
-                      <span>{{ course.level === 'PDF E-Book' ? 'Get E-Book' : 'Enroll in Mentorship' }}</span>
+                      <span>{{ course.level === 'PDF E-Book' ? 'Get E-Book' : 'වැඩසටහනට එකතු වන්න' }}</span>
                     </button>
                   }
                   <a [routerLink]="['/learn', course.id]" [state]="{ course: course }" class="btn-primary !bg-brand-800 hover:!bg-brand-900 flex items-center justify-center gap-2 !px-8 !py-3.5">
                     <mat-icon class="text-[18px]">visibility</mat-icon>
-                    <span>View Details</span>
+                    <span>විස්තර බලන්න</span>
                   </a>
                   <button (click)="inquireCourse(course)" class="btn-secondary bg-white/80 backdrop-blur-sm flex items-center justify-center gap-2 !px-8 !py-3.5">
                     <mat-icon class="text-[18px]">chat</mat-icon>
-                    <span>Inquire on WhatsApp</span>
+                    <span>WhatsApp හරහා විමසන්න</span>
                   </button>
                 </div>
               </div>
@@ -124,11 +124,11 @@ export class Learn implements OnInit {
   defaultCourses = [
     {
       id: 'couture-and-tailoring-business-mentorship',
-      title: '6-Month Couture & Tailoring Business Mentorship',
-      description: 'Personal 1-on-1 mentorship with Swarna. Learn advanced draping, bridal fitting, and launching your own profitable custom dress boutique.',
+      title: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
+      description: 'ස්වර්ණා සමඟ පුද්ගලිකව (1-on-1) සිදු කරන විශේෂ මඟපෙන්වීමකි. උසස් මට්ටමේ ඇඳුම් නිර්මාණ (Advanced draping), මනාලියන්ගේ ඇඳුම් මිනුම් සහ ඔබේම ලාභදායී ඇඳුම් ව්යාපාරයක් (Boutique) සාර්ථකව ආරම්භ කරන ආකාරය මෙහිදී ඉගෙනගත හැක.',
       level: 'Mentorship',
-      price: 'Rs. 45,000',
-      duration: '6 Months',
+      price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
+      duration: 'මාස 6යි (6 Months)',
       image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
     },
     {

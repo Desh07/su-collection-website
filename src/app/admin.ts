@@ -251,8 +251,8 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                               {{ order.items?.length || 0 }} item(s)
                             </div>
                             <div class="text-[12px] text-brand-900/60 max-w-[200px] truncate">
-                              @for (item of order.items; track item.id) {
-                                {{ item.quantity }}x {{ item.name }},
+                              @for (item of order.items; track item.id; let isLast = $last) {
+                                {{ item.quantity }}x {{ item.name }}{{ isLast ? '' : ', ' }}
                               }
                             </div>
                           </td>
