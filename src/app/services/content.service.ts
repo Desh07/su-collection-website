@@ -105,7 +105,7 @@ export const defaultContent: WebsiteContent = {
     whatsappDisplay: "+94 76 926 9586"
   },
   home: {
-    heroTitle: "Cut with precision. Sew with confidence.",
+    heroTitle: "ඔබේ මැහුම් හැකියාවෙන් සාර්ථක ව්යාපාරයක් ගොඩනගමු!",
     heroDesc: "Stop guessing with confusing patterns. Master dressmaking, perfect garment fitting, and pattern drafting with Swarna Herath—backed by 34 years of real workshop experience and 150,000+ social followers across Sri Lanka.",
     stat1: "34+", stat1Label: "Years Master Tailoring",
     stat2: "150k+", stat2Label: "TikTok & FB Followers",
