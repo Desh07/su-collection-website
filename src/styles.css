@@ -107,3 +107,7 @@ strong, b {
     display: none !important;
   }
 }
+
+.noto-sinhala-page, .noto-sinhala-page *:not(mat-icon) {
+  font-family: 'Noto Sans Sinhala', sans-serif !important;
+}
