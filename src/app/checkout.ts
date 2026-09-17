@@ -132,7 +132,7 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
 
                   <div>
                     <label class="block text-[13px] sm:text-[14px] text-brand-900/90 mb-1.5 font-bold">
-                      Email ලිපිනය (අත්යවශ්ය නොවේ)
+                      Email ලිපිනය (අත්‍යවශ්‍ය නොවේ)
                     </label>
                     <input 
                       type="email" 
@@ -151,7 +151,7 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
 
                   <div>
                     <div class="flex justify-between items-end mb-1">
-                      <label class="block text-[13px] sm:text-[14px] text-brand-900/90 font-bold">ඔයාගේ ප්රධාන අරමුණු මොනවාද? ප්රශ්න තියෙනවද? (අත්යවශ්ය නොවේ)</label>
+                      <label class="block text-[13px] sm:text-[14px] text-brand-900/90 font-bold">ඔයාගේ ප්‍රධාන අරමුණු මොනවාද? ප්‍රශ්න තියෙනවද? (අත්‍යවශ්‍ය නොවේ)</label>
                       <span class="text-[10px] text-brand-900/50 font-medium">{{ checkoutForm.get('notes')?.value?.length || 0 }}/500</span>
                     </div>
                     <textarea formControlName="notes" rows="4" maxlength="500" placeholder="Mentorship එකෙන් ඔයා බලාපොරොත්තු වෙන දේ, ඔයාට තියෙන questions, guidance එකක් ඕන තැනක්, නැත්නම් Swarna ට personally කියන්න කැමති ඕනෑම දෙයක් මෙතන type කරන්න." class="w-full appearance-none shadow-sm border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors text-[14px] min-h-[120px] sm:min-h-[140px] resize-y" style="background-color: white !important;" [class.border-rose-400]="checkoutForm.get('notes')?.invalid"></textarea>

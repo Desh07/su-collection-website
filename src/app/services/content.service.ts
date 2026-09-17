@@ -118,10 +118,10 @@ export const defaultContent: WebsiteContent = {
     stat2: "150k+", stat2Label: "TikTok & FB Followers",
     stat3: "1-on-1", stat3Label: "Personal WhatsApp Mentorship",
     meetTitle: "Meet Swarna Herath",
-    meetDesc: "වසර 25කට වැඩි කාලයක් පුරා විලාසිතා නිර්මාණකරණයේ නියැලෙමින්, කාන්තාවන් සිය ගණනකට සාර්ථක නිවෙස් පදනම් කරගත් විලාසිතා ව්යාපාර ආරම්භ කිරීමට මඟපෙන්වූ ප්රවීණ අත්දැකීම්.",
+    meetDesc: "වසර 25කට වැඩි කාලයක් පුරා විලාසිතා නිර්මාණකරණයේ නියැලෙමින්, කාන්තාවන් සිය ගණනකට සාර්ථක නිවෙස් පදනම් කරගත් විලාසිතා ව්‍යාපාර ආරම්භ කිරීමට මඟපෙන්වූ ප්‍රවීණ අත්දැකීම්.",
     meetBtn: "Read Swarna's Story",
     videoTitle: "Watch Swarna in Action",
-    videoDesc: "150,000 කට අධික අපගේ සමාජ මාධ්ය ප්රජාව වෙත ගෙන එන ප්රායෝගික මැහුම් රහස්, කෙටි ක්රමවේද (Pattern secrets) සහ අපගේ සිසුන්ගේ සාර්ථකත්වයේ කතන්දර මෙතැනින් නරඹන්න.",
+    videoDesc: "150,000 කට අධික අපගේ සමාජ මාධ්‍ය ප්‍රජාව වෙත ගෙන එන ප්‍රායෝගික මැහුම් රහස්, කෙටි ක්‍රමවේද (Pattern secrets) සහ අපගේ සිසුන්ගේ සාර්ථකත්වයේ කතන්දර මෙතැනින් නරඹන්න.",
     servicesTitle: "Our Services & Products",
     servicesDesc: "පුද්ගලික මඟපෙන්වීම් (1-on-1 coaching) ලබාගැනීමට හෝ PDF අත්පොත් (Guides) ඇණවුම් කිරීමට පහතින් තෝරාගන්න. සියලුම ගනුදෙනු සහ බැංකු තැන්පතු තහවුරු කිරීම් WhatsApp හරහා ඉතා ආරක්ෂිතව සිදු කෙරේ.",
     howItWorksTitle: "WhatsApp හරහා මුදල් ගෙවා ඇණවුම් කරන ආකාරය",
@@ -176,7 +176,7 @@ export const defaultContent: WebsiteContent = {
     heroPill: "Meet Swarna Herath",
     heroTitle: "Swarna's Story",
     heroDesc: "Over 25 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing.",
-    content: "වසර 25කට වැඩි කාලයක් පුරා ස්වර්ණා හේරත් වන මම, ඇඳුම් නිර්මාණ කලාවේ ඉදිරියෙන්ම සිටිමින් කටයුතු කර ඇත්තෙමි. කුඩා ආශාවකින් ආරම්භ වූ මෙම ගමන, අද වන විට දහස් සංඛ්යාත පිරිසකට ලස්සනට අඳින්න, මහන්න උගන්වන පුළුල් මෙහෙයුමක් බවට පත්ව ඇත.\n\n\"මිනිස්සු කරන ලොකුම වැරැද්ද තමයි, මැහුම් කියන්නේ නිකන් පතරොමක් බලාගෙන මහන එකක් විතරක් කියලා හිතන එක,\" ස්වර්ණා පවසයි. \"ඒක නෙවෙයි; ඩිසයින් එකක් දිහා බලලා, ඇඳුමක් හැදෙන හැටි තේරුම් අරන්, කෙනෙකුගේ සිරුරට හරියටම ගැලපෙන විදිහට ඒක නිමවන එකයි වැදගත්.\"\n\nමේ සරල සත්යය තමයි අපි Su Collection එකේදී උගන්වන්නේ. අද වන විට සමාජ මාධ්ය හරහා 150,000 කට අධික පිරිසකගේ ආදරය දිනාගනිමින්, ස්වර්ණා වන මම උත්සාහ කරන්නේ අලුත් පරම්පරාව සවිබල ගන්වන්නයි — විනෝදාංශයක් ලෙස මැහුම් කරන අය සාර්ථක ඔන්ලයින් ව්යාපාරිකයන් බවට පත් කිරීමට මම උදව් වෙමි.\n\nOver 25 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing. Our mission is to empower the next generation of designers and turn hobbyists into successful business owners."
+    content: "වසර 25කට වැඩි කාලයක් පුරා ස්වර්ණා හේරත් වන මම, ඇඳුම් නිර්මාණ කලාවේ ඉදිරියෙන්ම සිටිමින් කටයුතු කර ඇත්තෙමි. කුඩා ආශාවකින් ආරම්භ වූ මෙම ගමන, අද වන විට දහස් සංඛ්‍යාත පිරිසකට ලස්සනට අඳින්න, මහන්න උගන්වන පුළුල් මෙහෙයුමක් බවට පත්ව ඇත.\n\n\"මිනිස්සු කරන ලොකුම වැරැද්ද තමයි, මැහුම් කියන්නේ නිකන් පතරොමක් බලාගෙන මහන එකක් විතරක් කියලා හිතන එක,\" ස්වර්ණා පවසයි. \"ඒක නෙවෙයි; ඩිසයින් එකක් දිහා බලලා, ඇඳුමක් හැදෙන හැටි තේරුම් අරන්, කෙනෙකුගේ සිරුරට හරියටම ගැලපෙන විදිහට ඒක නිමවන එකයි වැදගත්.\"\n\nමේ සරල සත්‍යය තමයි අපි Su Collection එකේදී උගන්වන්නේ. අද වන විට සමාජ මාධ්‍ය හරහා 150,000 කට අධික පිරිසකගේ ආදරය දිනාගනිමින්, ස්වර්ණා වන මම උත්සාහ කරන්නේ අලුත් පරම්පරාව සවිබල ගන්වන්නයි — විනෝදාංශයක් ලෙස මැහුම් කරන අය සාර්ථක ඔන්ලයින් ව්‍යාපාරිකයන් බවට පත් කිරීමට මම උදව් වෙමි.\n\nOver 25 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing. Our mission is to empower the next generation of designers and turn hobbyists into successful business owners."
   },
   contact: {
     heroTitle: "Contact Us",
