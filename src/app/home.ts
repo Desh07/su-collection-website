@@ -60,7 +60,7 @@ interface DigitalGuide {
           
           <!-- Left Display Headline & Trust Strip -->
           <div class="w-full lg:w-7/12">
-            <h1 class="font-serif text-[38px] sm:text-[68px] lg:text-[96px] font-normal leading-[1.35] lg:leading-[0.95] text-white tracking-tight mb-4 sm:mb-6">
+            <h1 class="font-['Noto_Sans_Sinhala'] text-[32px] sm:text-[56px] lg:text-[76px] font-normal leading-[1.45] lg:leading-[1.35] text-white tracking-tight mb-4 sm:mb-6">
               {{ c().home.heroTitle }}
             </h1>
 
