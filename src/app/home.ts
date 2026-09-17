@@ -61,8 +61,7 @@ interface DigitalGuide {
           
           <!-- Left Display Headline & Trust Strip -->
           <div class="w-full lg:w-7/12">
-            <h1 class="font-['Noto_Sans_Sinhala'] text-[32px] sm:text-[56px] lg:text-[84px] xl:text-[92px] font-normal leading-[1.3] lg:leading-[1.25] text-white tracking-tight mb-4 sm:mb-8">
-              {{ c().home.heroTitle }}
+            <h1 class="font-['Noto_Sans_Sinhala'] text-[32px] sm:text-[56px] lg:text-[84px] xl:text-[92px] font-normal leading-[1.3] lg:leading-[1.25] text-white tracking-tight mb-4 sm:mb-8" [innerHTML]="c().home.heroTitle | formatText">
             </h1>
 
             <!-- Quick Trust Strip -->
@@ -310,13 +309,10 @@ interface DigitalGuide {
                   </span>
                 }
 
-                <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
+                <div class="absolute bottom-4 left-4 flex items-center text-white">
                   <span class="text-[13px] font-medium flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full">
                     <mat-icon class="text-[15px] text-brand-300">schedule</mat-icon>
                     {{ item.duration }}
-                  </span>
-                  <span class="font-serif text-[22px] font-semibold text-white drop-shadow">
-                    {{ item.price }}
                   </span>
                 </div>
               </div>
@@ -326,8 +322,16 @@ interface DigitalGuide {
                 <h3 class="font-serif text-[24px] text-brand-900 mb-2 leading-snug group-hover:text-brand-600 transition-colors">
                   {{ item.title }}
                 </h3>
-                <p class="body-md text-brand-900/80 mb-6 text-[14px] leading-relaxed">
-                  {{ item.description }}
+                <div class="mb-4 flex flex-wrap items-center gap-2">
+                  <div class="flex items-center gap-1.5 text-emerald-700 font-semibold bg-emerald-50 px-3 py-1 rounded-md border border-emerald-100">
+                    <mat-icon class="text-[18px]">local_offer</mat-icon>
+                    <span class="text-[15px]">{{ item.price.split('(')[0].trim() }}</span>
+                  </div>
+                  @if (item.price.includes('(')) {
+                    <span class="text-[13px] text-brand-900/70 font-medium">({{ item.price.split('(')[1] }}</span>
+                  }
+                </div>
+                <p class="body-md text-brand-900/80 mb-6 text-[14px] leading-relaxed" [innerHTML]="item.description | formatText">
                 </p>
 
                 <!-- Features Checklist -->
@@ -336,7 +340,7 @@ interface DigitalGuide {
                     @for (feat of item.features; track feat) {
                       <li class="flex items-start gap-2">
                         <mat-icon class="text-[16px] text-brand-600 shrink-0 mt-0.5">check_circle</mat-icon>
-                        <span class="leading-relaxed">{{ feat }}</span>
+                        <span class="leading-relaxed" [innerHTML]="feat | formatText"></span>
                       </li>
                     }
                   </ul>

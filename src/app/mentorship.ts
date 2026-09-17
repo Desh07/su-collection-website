@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
 import {Title, Meta} from '@angular/platform-browser';
 import {MatIconModule} from '@angular/material/icon';
 import {ContentService} from './services/content.service';
@@ -48,9 +48,19 @@ import {RouterLink, Router} from '@angular/router';
               <strong>Launch offer:</strong> Reserve your place with <strong>LKR 5,000</strong>. Total launch programme fee: <strong>LKR 55,000</strong>. The LKR 5,000 is part of the programme fee.
             </div>
             
-            <button (click)="enroll()" class="block w-full text-center bg-slate-950 hover:bg-slate-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md">
-              Reserve Your Place — LKR 5,000
-            </button>
+            @if (proceeding()) {
+              <button disabled class="block w-full text-center bg-slate-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] shadow-md opacity-80 cursor-wait flex items-center justify-center gap-2">
+                <mat-icon class="animate-spin">sync</mat-icon> Proceeding...
+              </button>
+            } @else if (cartService.hasItem('course-' + courseId)) {
+              <a routerLink="/checkout" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md flex items-center justify-center gap-2">
+                <mat-icon>check_circle</mat-icon> Proceed to Checkout
+              </a>
+            } @else {
+              <button (click)="enroll()" class="block w-full text-center bg-slate-950 hover:bg-slate-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md">
+                Reserve Your Place — LKR 5,000
+              </button>
+            }
             <p class="text-slate-500 text-[12px] text-center mt-4 font-medium">Full-payment offer: LKR 50,000</p>
           </div>
         </div>
@@ -485,9 +495,19 @@ import {RouterLink, Router} from '@angular/router';
             If you are prepared to put in the work for the next 100 days, we will give you the roadmap, the guidance and the support to build from where you are now.
           </p>
           
-          <button (click)="enroll()" class="inline-block bg-slate-950 hover:bg-slate-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-slate-900/20 mb-6">
-            I'm Ready — Reserve My Place for LKR 5,000
-          </button>
+          @if (proceeding()) {
+            <button disabled class="inline-flex items-center justify-center gap-2 bg-slate-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] shadow-lg shadow-slate-900/20 mb-6 opacity-80 cursor-wait">
+              <mat-icon class="animate-spin">sync</mat-icon> Proceeding...
+            </button>
+          } @else if (cartService.hasItem('course-' + courseId)) {
+            <a routerLink="/checkout" class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-emerald-900/20 mb-6">
+              <mat-icon>check_circle</mat-icon> Proceed to Checkout
+            </a>
+          } @else {
+            <button (click)="enroll()" class="inline-block bg-slate-950 hover:bg-slate-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-slate-900/20 mb-6">
+              I'm Ready — Reserve My Place for LKR 5,000
+            </button>
+          }
           
           <p class="text-[13px] text-slate-500 font-medium mb-8">Total launch programme fee: LKR 55,000 · Full-payment offer: LKR 50,000</p>
           
@@ -508,8 +528,10 @@ export class Mentorship implements OnInit {
   private meta = inject(Meta);
 
   courseId = '6-month-tailoring-business-mentorship';
+  proceeding = signal(false);
 
   enroll() {
+    this.proceeding.set(true);
     this.cartService.addItem({
       id: 'course-' + this.courseId,
       name: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
@@ -518,7 +540,9 @@ export class Mentorship implements OnInit {
       quantity: 1
     });
     
-    this.router.navigate(['/checkout']);
+    setTimeout(() => {
+      this.router.navigate(['/checkout']);
+    }, 400);
   }
 
   ngOnInit() {

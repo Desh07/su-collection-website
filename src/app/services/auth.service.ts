@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject, NgZone } from '@angular/core';
 import { auth } from '../../lib/firebase';
 import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut, User } from 'firebase/auth';
 
@@ -6,6 +6,8 @@ import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut as fir
   providedIn: 'root'
 })
 export class AuthService {
+  private zone = inject(NgZone);
+
   user = signal<User | null>(null);
   isAdmin = signal<boolean>(false);
   isInitialized = signal<boolean>(false);
@@ -19,9 +21,11 @@ export class AuthService {
     ];
     
     onAuthStateChanged(auth, (user) => {
-      this.user.set(user);
-      this.isAdmin.set(user?.email ? adminEmails.includes(user.email) : false);
-      this.isInitialized.set(true);
+      this.zone.run(() => {
+        this.user.set(user);
+        this.isAdmin.set(user?.email ? adminEmails.includes(user.email) : false);
+        this.isInitialized.set(true);
+      });
     });
   }
 

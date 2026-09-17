@@ -20,7 +20,9 @@ export class CartService {
   totalItems = computed(() => this.cartItems().reduce((sum, item) => sum + item.quantity, 0));
   totalPrice = computed(() => this.cartItems().reduce((sum, item) => sum + (item.price * item.quantity), 0));
 
-  isInCart = (productId: string) => computed(() => this.cartItems().some(i => i.id === productId));
+  hasItem(productId: string): boolean {
+    return this.cartItems().some(i => i.id === productId);
+  }
 
   addItem(product: any) {
     this.cartItems.update(items => {

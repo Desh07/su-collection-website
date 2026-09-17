@@ -78,15 +78,23 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
                     <div>
                       <label class="block text-[13px] sm:text-[14px] text-brand-900/90 mb-1.5 font-bold">මුල් නම <span class="text-rose-500">*</span></label>
                       <input type="text" formControlName="firstName" placeholder="Hemachandra" class="w-full appearance-none shadow-sm border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md" style="background-color: white !important;" [class.border-rose-400]="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid">
-                      @if (checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.errors?.['required']) {
-                        <p class="text-rose-500 text-[11px] mt-1">First name is required</p>
+                      @if (checkoutForm.get('firstName')?.touched) {
+                        @if (checkoutForm.get('firstName')?.errors?.['required']) {
+                          <p class="text-rose-500 text-[11px] mt-1">First name is required</p>
+                        } @else if (checkoutForm.get('firstName')?.errors?.['pattern']) {
+                          <p class="text-rose-500 text-[11px] mt-1">Only letters and spaces are allowed</p>
+                        }
                       }
                     </div>
                     <div>
                       <label class="block text-[13px] sm:text-[14px] text-brand-900/90 mb-1.5 font-bold">අග නම <span class="text-rose-500">*</span></label>
                       <input type="text" formControlName="lastName" placeholder="Silva" class="w-full appearance-none shadow-sm border border-brand-200 rounded-xl py-3 px-4 outline-none focus:border-brand-900 transition-colors body-md" style="background-color: white !important;" [class.border-rose-400]="checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.invalid">
-                      @if (checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.errors?.['required']) {
-                        <p class="text-rose-500 text-[11px] mt-1">Last name is required</p>
+                      @if (checkoutForm.get('lastName')?.touched) {
+                        @if (checkoutForm.get('lastName')?.errors?.['required']) {
+                          <p class="text-rose-500 text-[11px] mt-1">Last name is required</p>
+                        } @else if (checkoutForm.get('lastName')?.errors?.['pattern']) {
+                          <p class="text-rose-500 text-[11px] mt-1">Only letters and spaces are allowed</p>
+                        }
                       }
                     </div>
                   </div>
@@ -267,8 +275,8 @@ export class Checkout implements OnInit {
     email: ['', [Validators.email]],
     countryCode: ['+94', Validators.required],
     phone: ['', [Validators.required, Validators.pattern(/^[0-9\s-]{7,15}$/), phoneValidator]],
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
+    firstName: ['', [Validators.required, Validators.pattern(/^[A-Za-z\u0D80-\u0DFF\s\-']+$/)]],
+    lastName: ['', [Validators.required, Validators.pattern(/^[A-Za-z\u0D80-\u0DFF\s\-']+$/)]],
     notes: ['', Validators.maxLength(500)]
   });
 

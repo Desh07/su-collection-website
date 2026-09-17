@@ -55,24 +55,32 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                 <span class="body-md font-semibold text-[20px] sm:text-[24px]">{{ course()?.price }}</span>
               </div>
               
-              <p class="body-md text-brand-900/80 leading-[1.8] mb-[32px] text-[16px] lg:text-[18px]">
-                {{ course()?.description }}
+              <p class="body-md text-brand-900/80 leading-[1.8] mb-[32px] text-[16px] lg:text-[18px]" [innerHTML]="course()?.description | formatText">
               </p>
             } @else {
               <!-- Dedicated Course Top Details -->
               @let dedicatedData = c().dedicatedCourses[course()?.id];
               <div class="body-md font-medium text-brand-900/60 mb-4">{{ dedicatedData.subtitle }}</div>
               <h1 class="font-serif text-[32px] lg:text-[44px] text-brand-900 leading-tight mb-[16px]">{{ dedicatedData.title }}</h1>
-              <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-5 py-2.5 rounded-full mb-[32px] shadow-sm w-fit">
-                <mat-icon class="text-[24px]">local_offer</mat-icon>
-                <span class="body-md font-semibold text-[20px] sm:text-[24px]">{{ dedicatedData.price }}</span>
+              <div class="mb-[32px] flex flex-wrap items-center gap-3">
+                <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-5 py-2.5 rounded-full shadow-sm w-fit">
+                  <mat-icon class="text-[24px]">local_offer</mat-icon>
+                  <span class="body-md font-semibold text-[20px] sm:text-[24px]">{{ dedicatedData.price.split('(')[0].trim() }}</span>
+                </div>
+                @if (dedicatedData.price.includes('(')) {
+                  <span class="text-[14px] sm:text-[15px] text-brand-900/60 font-medium">({{ dedicatedData.price.split('(')[1] }}</span>
+                }
               </div>
               <p class="body-md font-semibold text-brand-900 leading-[1.8] mb-[16px] text-[16px] lg:text-[18px]" [innerHTML]="dedicatedData.mainDesc | formatText"></p>
               <p class="body-md text-brand-900/80 leading-[1.8] mb-[32px] text-[15px] whitespace-pre-wrap" [innerHTML]="dedicatedData.subDesc | formatText"></p>
             }
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3" [class.mb-[48px]]="!c().dedicatedCourses[course()?.id]?.mainDesc">
-              @if (cartService.isInCart('course-' + course()?.id)()) {
+              @if (proceedingId()) {
+                <button disabled class="btn-primary flex-1 flex items-center justify-center gap-2 shadow-sm !py-4 opacity-80 cursor-wait">
+                  <mat-icon class="animate-spin">sync</mat-icon> Proceeding...
+                </button>
+              } @else if (cartService.hasItem('course-' + course()?.id)) {
                 <button (click)="goToCheckout()" class="btn-primary flex-1 flex items-center justify-center gap-2 shadow-sm !bg-emerald-600 hover:!bg-emerald-700 !py-4">
                   <mat-icon>check_circle</mat-icon> Proceed to Checkout
                 </button>
@@ -201,6 +209,7 @@ export class CourseDetail implements OnInit {
 
   course = signal<any>(null);
   loading = signal(true);
+  proceedingId = signal<boolean>(false);
 
   constructor() {
     const nav = this.router.getCurrentNavigation();
@@ -272,6 +281,8 @@ export class CourseDetail implements OnInit {
     const c = this.course();
     if (!c) return;
     
+    this.proceedingId.set(true);
+    
     // Convert string price 'Rs. 45,000' to number 45000
     const rawPrice = c.price || '0';
     const numericPrice = Number(rawPrice.replace(/[^0-9]/g, ""));
@@ -284,7 +295,9 @@ export class CourseDetail implements OnInit {
       quantity: 1
     });
     
-    this.router.navigate(['/checkout']);
+    setTimeout(() => {
+      this.router.navigate(['/checkout']);
+    }, 400);
   }
 
   goToCheckout() {

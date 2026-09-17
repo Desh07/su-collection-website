@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, effect, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, effect, computed, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,10 +7,13 @@ import { db } from '../lib/firebase';
 import { collection, query, orderBy, onSnapshot, addDoc, updateDoc, doc, deleteDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 import { ContentService, WebsiteContent, defaultContent } from './services/content.service';
+import { COUNTRIES } from './countries';
+
+import { FormatTextPipe } from './pipes/format-text.pipe';
 
 @Component({
   selector: 'app-admin',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MatIconModule, FormatTextPipe],
   template: `
     <div class="min-h-screen bg-slate-50 pt-[100px] sm:pt-32 pb-16 px-4 sm:px-6 lg:px-[64px]">
       <div class="max-w-[1200px] mx-auto">
@@ -238,12 +241,23 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                           <!-- Customer -->
                           <td class="p-4">
                             <div class="font-medium text-brand-900 text-[14px]">{{ order.customer?.firstName }} {{ order.customer?.lastName }}</div>
-                            <div class="text-[12px] text-brand-900/60 font-mono">{{ order.customer?.phone }}</div>
+                            <div class="text-[12px] text-brand-900/60 font-mono flex items-center gap-1 mt-0.5">
+                              <span>{{ getCountryFlag(order.customer?.phone) }}</span> 
+                              <span>{{ order.customer?.phone }}</span>
+                            </div>
+                            @if (order.customer?.email) {
+                              <div class="text-[12px] text-brand-900/60 mt-0.5">{{ order.customer?.email }}</div>
+                            }
                             @if (order.customer?.phone) {
                               <div class="flex items-center gap-1.5 mt-1.5">
                                 <a [href]="getCustomerWhatsAppUrl(order, 'general')" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] font-medium bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-2.5 py-0.5 rounded-full transition-colors">
                                   <mat-icon class="text-[12px]">chat</mat-icon> WhatsApp
                                 </a>
+                              </div>
+                            }
+                            @if (order.customer?.notes) {
+                              <div class="mt-2 text-[10px] px-2 py-0.5 bg-amber-50 text-amber-900 border border-amber-200 rounded-full font-bold inline-flex items-center gap-1 shadow-sm whitespace-nowrap w-fit" title="Click 'Details' to read the full note">
+                                <mat-icon class="text-[14px]">edit_note</mat-icon> Note Attached
                               </div>
                             }
                           </td>
@@ -390,8 +404,12 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                   </div>
 
                   <div class="flex gap-3 mt-4">
-                    <button type="submit" [disabled]="videoForm.invalid" class="btn-primary flex-1 py-2.5">
-                      {{ editingVideoId() ? 'Update Video' : 'Add to Reel' }}
+                    <button type="submit" [disabled]="videoForm.invalid || isSavingVideo()" class="btn-primary flex-1 py-2.5 flex items-center justify-center gap-1.5 disabled:opacity-50">
+                      @if (isSavingVideo()) {
+                        <mat-icon class="animate-spin text-[16px]">autorenew</mat-icon> <span>Saving...</span>
+                      } @else {
+                        <span>{{ editingVideoId() ? 'Update Video' : 'Add to Reel' }}</span>
+                      }
                     </button>
                     @if (editingVideoId()) {
                       <button type="button" (click)="cancelEditVideo()" class="btn-secondary py-2.5 px-4">
@@ -555,8 +573,12 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                   </div>
                   
                   <div class="flex gap-3 mt-4">
-                    <button type="submit" [disabled]="courseForm.invalid" class="btn-primary flex-1 disabled:opacity-50">
-                      {{ editingCourseId() ? 'Update' : 'Save' }}
+                    <button type="submit" [disabled]="courseForm.invalid || isSavingCourse()" class="btn-primary flex-1 disabled:opacity-50 flex items-center justify-center gap-1.5">
+                      @if (isSavingCourse()) {
+                        <mat-icon class="animate-spin text-[16px]">autorenew</mat-icon> <span>Saving...</span>
+                      } @else {
+                        <span>{{ editingCourseId() ? 'Update' : 'Save' }}</span>
+                      }
                     </button>
                     @if (editingCourseId()) {
                       <button type="button" (click)="cancelEditCourse()" class="btn-secondary flex-1">Cancel</button>
@@ -572,8 +594,8 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                   <div class="bg-white rounded-[20px] shadow-sm border border-brand-100 overflow-hidden flex flex-col h-[340px]">
                     <img [src]="course.image" [alt]="course.title" class="w-full h-32 object-cover shrink-0" referrerpolicy="no-referrer">
                     <div class="p-5 flex flex-col flex-grow">
-                      <h4 class="font-serif text-[18px] leading-tight text-brand-900 mb-1.5 line-clamp-2">{{ course.title }}</h4>
-                      <p class="text-[13px] text-brand-900/70 mb-2 line-clamp-2">{{ course.description }}</p>
+                      <h4 class="font-serif text-[18px] leading-tight text-brand-900 mb-1.5 line-clamp-2" [innerHTML]="course.title | formatText"></h4>
+                      <p class="text-[13px] text-brand-900/70 mb-2 line-clamp-2" [innerHTML]="course.description | formatText"></p>
                       <div class="mt-auto flex items-center justify-between pt-2 border-t border-brand-50">
                         <div class="text-[14px] font-medium text-brand-900">{{ course.price }}</div>
                         <div class="flex gap-1.5">
@@ -613,8 +635,12 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                   </div>
                   
                   <div class="flex gap-3 mt-4">
-                    <button type="submit" [disabled]="productForm.invalid" class="btn-primary flex-1 disabled:opacity-50">
-                      {{ editingProductId() ? 'Update' : 'Save' }}
+                    <button type="submit" [disabled]="productForm.invalid || isSavingProduct()" class="btn-primary flex-1 disabled:opacity-50 flex items-center justify-center gap-1.5">
+                      @if (isSavingProduct()) {
+                        <mat-icon class="animate-spin text-[16px]">autorenew</mat-icon> <span>Saving...</span>
+                      } @else {
+                        <span>{{ editingProductId() ? 'Update' : 'Save' }}</span>
+                      }
                     </button>
                     @if (editingProductId()) {
                       <button type="button" (click)="cancelEditProduct()" class="btn-secondary flex-1">Cancel</button>
@@ -654,8 +680,12 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                 <h3 class="font-serif text-[32px] text-brand-900">Website Copy Editor</h3>
                 <div class="flex flex-col sm:flex-row gap-3">
 
-                  <button (click)="saveContent()" [disabled]="contentSaving()" class="btn-primary">
-                    {{ contentSaving() ? 'Saving...' : 'Publish Changes' }}
+                  <button (click)="saveContent()" [disabled]="contentSaving()" class="btn-primary flex items-center gap-1.5 disabled:opacity-50">
+                    @if (contentSaving()) {
+                      <mat-icon class="animate-spin text-[16px]">autorenew</mat-icon> <span>Saving...</span>
+                    } @else {
+                      <span>Publish Changes</span>
+                    }
                   </button>
                 </div>
               </div>
@@ -967,8 +997,12 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                 <h2 class="font-serif text-[24px] text-brand-900">Dedicated Course Copy</h2>
                 <p class="text-brand-900/60 text-[14px]">Manage the content for special dedicated course pages.</p>
               </div>
-              <button (click)="saveContent()" class="btn-primary flex items-center gap-2">
-                <mat-icon>save</mat-icon> Save Changes
+              <button (click)="saveDedicatedCoursesContent()" [disabled]="isSavingDedicatedCourses()" class="btn-primary flex items-center gap-1.5 disabled:opacity-50">
+                @if (isSavingDedicatedCourses()) {
+                  <mat-icon class="animate-spin text-[16px]">autorenew</mat-icon> <span>Saving...</span>
+                } @else {
+                  <mat-icon>save</mat-icon> <span>Save Changes</span>
+                }
               </button>
             </div>
 
@@ -1169,6 +1203,16 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                           @if (selectedOrder().customer?.postalCode) { {{ selectedOrder().customer?.postalCode }} }
                         </span>
                       </div>
+                      @if (selectedOrder().customer?.notes) {
+                        <div class="pt-2">
+                          <span class="text-amber-900/80 font-bold text-[12px] uppercase tracking-wider block mb-1 flex items-center gap-1">
+                            <mat-icon class="text-[14px]">edit_note</mat-icon> Customer Note
+                          </span>
+                          <div class="text-amber-900 bg-amber-50 border border-amber-100 p-3 rounded-xl italic break-words whitespace-normal text-[13px]">
+                            {{ selectedOrder().customer?.notes }}
+                          </div>
+                        </div>
+                      }
                     </div>
                   </div>
 
@@ -1193,8 +1237,12 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                         <div class="no-print">
                           <label class="text-[11px] uppercase tracking-wider text-brand-900/60 font-semibold block mb-1">Private Admin Note</label>
                           <textarea [(ngModel)]="adminNoteInput" placeholder="e.g. Checked slip on WhatsApp, matched CommBank Rs. 25,000 credit on 14/09" rows="2" class="w-full border border-brand-200 rounded-xl p-2.5 text-[13px] outline-none focus:border-brand-900"></textarea>
-                          <button (click)="saveAdminNote()" class="mt-2 btn-secondary !py-1.5 !px-3 text-[12px] flex items-center gap-1">
-                            <mat-icon class="text-[14px]">save</mat-icon> Save Note
+                          <button (click)="saveAdminNote()" [disabled]="isSavingAdminNote()" class="mt-2 btn-secondary !py-1.5 !px-3 text-[12px] flex items-center gap-1 disabled:opacity-50">
+                            @if (isSavingAdminNote()) {
+                              <mat-icon class="animate-spin text-[14px]">autorenew</mat-icon> <span>Saving...</span>
+                            } @else {
+                              <mat-icon class="text-[14px]">save</mat-icon> <span>Save Note</span>
+                            }
                           </button>
                         </div>
                       </div>
@@ -1322,8 +1370,12 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                     <button type="button" (click)="closeManualOrderModal()" class="btn-secondary !py-2.5 !px-5 text-[13px]">
                       Cancel
                     </button>
-                    <button type="submit" [disabled]="manualOrderForm.invalid" class="btn-primary !py-2.5 !px-6 text-[13px] flex items-center gap-1.5">
-                      <mat-icon class="text-[16px]">check</mat-icon> Record Order
+                    <button type="submit" [disabled]="manualOrderForm.invalid || isSavingManualOrder()" class="btn-primary !py-2.5 !px-6 text-[13px] flex items-center gap-1.5 disabled:opacity-50">
+                      @if (isSavingManualOrder()) {
+                        <mat-icon class="animate-spin text-[16px]">autorenew</mat-icon> <span>Saving...</span>
+                      } @else {
+                        <mat-icon class="text-[16px]">check</mat-icon> <span>Record Order</span>
+                      }
                     </button>
                   </div>
                 </form>
@@ -1357,6 +1409,14 @@ export class Admin implements OnInit {
   adminNoteInput = signal<string>('');
   isManualOrderOpen = signal<boolean>(false);
   manualOrderForm: FormGroup;
+  
+  private cdr = inject(ChangeDetectorRef);
+  
+  isSavingVideo = signal(false);
+  isSavingCourse = signal(false);
+  isSavingProduct = signal(false);
+  isSavingAdminNote = signal(false);
+  isSavingManualOrder = signal(false);
 
   orderMetrics = computed(() => {
     const list = this.orders();
@@ -1442,6 +1502,7 @@ export class Admin implements OnInit {
 
   draftContent: WebsiteContent = JSON.parse(JSON.stringify(defaultContent));
   contentSaving = signal(false);
+  isSavingDedicatedCourses = signal(false);
 
   constructor() {
     effect(() => {
@@ -1519,13 +1580,28 @@ export class Admin implements OnInit {
 
   async saveContent() {
     this.contentSaving.set(true);
+    this.cdr.detectChanges();
     try {
+      await new Promise(r => setTimeout(r, 800));
       await this.contentService.updateContent(this.draftContent);
     } catch (e) {
       console.error(e);
       alert('Failed to save content');
     }
     this.contentSaving.set(false);
+  }
+
+  async saveDedicatedCoursesContent() {
+    this.isSavingDedicatedCourses.set(true);
+    this.cdr.detectChanges();
+    try {
+      await new Promise(r => setTimeout(r, 800));
+      await this.contentService.updateContent(this.draftContent);
+    } catch (e) {
+      console.error(e);
+      alert('Failed to save content');
+    }
+    this.isSavingDedicatedCourses.set(false);
   }
 
   async resetContentToDefaults() {
@@ -1602,9 +1678,17 @@ export class Admin implements OnInit {
   async saveAdminNote() {
     const current = this.selectedOrder();
     if (!current) return;
-    const note = this.adminNoteInput();
-    await updateDoc(doc(db, 'orders', current.id), { adminNotes: note });
-    this.selectedOrder.update(ord => ({ ...ord, adminNotes: note }));
+    
+    this.isSavingAdminNote.set(true);
+    this.cdr.detectChanges();
+    try {
+      await new Promise(r => setTimeout(r, 800));
+      const note = this.adminNoteInput();
+      await updateDoc(doc(db, 'orders', current.id), { adminNotes: note });
+      this.selectedOrder.update(ord => ({ ...ord, adminNotes: note }));
+    } finally {
+      this.isSavingAdminNote.set(false);
+    }
   }
 
   async quickVerifySlip(order: any) {
@@ -1612,6 +1696,24 @@ export class Admin implements OnInit {
     if (this.selectedOrder()?.id === order.id) {
       this.selectedOrder.update(o => ({ ...o, status: 'paid' }));
     }
+  }
+
+  async updateSlipStatus(orderId: string, status: 'approved' | 'rejected') {
+    await updateDoc(doc(db, 'orders', orderId), {
+      slipStatus: status,
+      status: status === 'approved' ? 'paid' : 'slip-rejected',
+      updatedAt: serverTimestamp()
+    });
+  }
+
+  getCountryFlag(phone: string): string {
+    if (!phone) return '🇱🇰';
+    for (const c of COUNTRIES) {
+      if (phone.startsWith(c.code)) {
+        return c.name.split(' ')[0];
+      }
+    }
+    return '🇱🇰';
   }
 
   openManualOrderModal() {
@@ -1635,34 +1737,42 @@ export class Admin implements OnInit {
 
   async saveManualOrder() {
     if (this.manualOrderForm.invalid) return;
-    const val = this.manualOrderForm.value;
-    const orderId = 'SC-' + Math.floor(100000 + Math.random() * 900000);
-    const newOrder = {
-      orderId,
-      customer: {
-        firstName: val.firstName,
-        lastName: val.lastName || '',
-        phone: val.phone,
-        email: val.email || '',
-        address: val.address || ''
-      },
-      items: [
-        {
-          id: 'manual-item-' + Date.now(),
-          name: val.itemTitle,
-          price: Number(val.totalPrice) || 0,
-          quantity: 1
-        }
-      ],
-      total: Number(val.totalPrice) || 0,
-      status: val.status || 'paid',
-      bankReference: val.notes || 'Direct verification',
-      adminNotes: 'Manually logged by admin on ' + new Date().toLocaleDateString(),
-      createdAt: serverTimestamp()
-    };
+    
+    this.isSavingManualOrder.set(true);
+    this.cdr.detectChanges();
+    try {
+      await new Promise(r => setTimeout(r, 800));
+      const val = this.manualOrderForm.value;
+      const orderId = 'SC-' + Math.floor(100000 + Math.random() * 900000);
+      const newOrder = {
+        orderId,
+        customer: {
+          firstName: val.firstName,
+          lastName: val.lastName || '',
+          phone: val.phone,
+          email: val.email || '',
+          address: val.address || ''
+        },
+        items: [
+          {
+            id: 'manual-item-' + Date.now(),
+            name: val.itemTitle,
+            price: Number(val.totalPrice) || 0,
+            quantity: 1
+          }
+        ],
+        total: Number(val.totalPrice) || 0,
+        status: val.status || 'paid',
+        bankReference: val.notes || 'Direct verification',
+        adminNotes: 'Manually logged by admin on ' + new Date().toLocaleDateString(),
+        createdAt: serverTimestamp()
+      };
 
-    await setDoc(doc(db, 'orders', orderId), newOrder);
-    this.closeManualOrderModal();
+      await setDoc(doc(db, 'orders', orderId), newOrder);
+      this.closeManualOrderModal();
+    } finally {
+      this.isSavingManualOrder.set(false);
+    }
   }
 
   async updateBookingStatus(id: string, status: string) {
@@ -1692,14 +1802,22 @@ export class Admin implements OnInit {
   // Videos (Social Reel)
   async saveVideo() {
     if (this.videoForm.invalid) return;
-    const data = this.videoForm.value;
     
-    if (this.editingVideoId()) {
-      await updateDoc(doc(db, 'videos', this.editingVideoId()!), data);
-    } else {
-      await addDoc(collection(db, 'videos'), { ...data, createdAt: serverTimestamp() });
+    this.isSavingVideo.set(true);
+    this.cdr.detectChanges();
+    try {
+      await new Promise(r => setTimeout(r, 800));
+      const data = this.videoForm.value;
+      
+      if (this.editingVideoId()) {
+        await updateDoc(doc(db, 'videos', this.editingVideoId()!), data);
+      } else {
+        await addDoc(collection(db, 'videos'), { ...data, createdAt: serverTimestamp() });
+      }
+      this.cancelEditVideo();
+    } finally {
+      this.isSavingVideo.set(false);
     }
-    this.cancelEditVideo();
   }
 
   editVideo(video: any) {
@@ -1726,21 +1844,29 @@ export class Admin implements OnInit {
   // Courses
   async saveCourse() {
     if (this.courseForm.invalid) return;
-    const data = this.courseForm.value;
     
-    // Convert features text to array
-    if (data.features) {
-      data.features = data.features.split('\n').map((f: string) => f.trim()).filter((f: string) => f.length > 0);
-    } else {
-      data.features = [];
+    this.isSavingCourse.set(true);
+    this.cdr.detectChanges();
+    try {
+      await new Promise(r => setTimeout(r, 800));
+      const data = this.courseForm.value;
+      
+      // Convert features text to array
+      if (data.features) {
+        data.features = data.features.split('\n').map((f: string) => f.trim()).filter((f: string) => f.length > 0);
+      } else {
+        data.features = [];
+      }
+      
+      if (this.editingCourseId()) {
+        await updateDoc(doc(db, 'courses', this.editingCourseId()!), data);
+      } else {
+        await addDoc(collection(db, 'courses'), { ...data, createdAt: serverTimestamp() });
+      }
+      this.cancelEditCourse();
+    } finally {
+      this.isSavingCourse.set(false);
     }
-    
-    if (this.editingCourseId()) {
-      await updateDoc(doc(db, 'courses', this.editingCourseId()!), data);
-    } else {
-      await addDoc(collection(db, 'courses'), { ...data, createdAt: serverTimestamp() });
-    }
-    this.cancelEditCourse();
   }
 
   editCourse(course: any) {
@@ -1816,14 +1942,22 @@ export class Admin implements OnInit {
   // Products
   async saveProduct() {
     if (this.productForm.invalid) return;
-    const data = this.productForm.value;
     
-    if (this.editingProductId()) {
-      await updateDoc(doc(db, 'products', this.editingProductId()!), data);
-    } else {
-      await addDoc(collection(db, 'products'), { ...data, createdAt: serverTimestamp() });
+    this.isSavingProduct.set(true);
+    this.cdr.detectChanges();
+    try {
+      await new Promise(r => setTimeout(r, 800));
+      const data = this.productForm.value;
+      
+      if (this.editingProductId()) {
+        await updateDoc(doc(db, 'products', this.editingProductId()!), data);
+      } else {
+        await addDoc(collection(db, 'products'), { ...data, createdAt: serverTimestamp() });
+      }
+      this.cancelEditProduct();
+    } finally {
+      this.isSavingProduct.set(false);
     }
-    this.cancelEditProduct();
   }
 
   editProduct(product: any) {

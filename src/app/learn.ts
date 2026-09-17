@@ -69,19 +69,23 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                   }
                 </div>
                 <h2 class="font-serif text-[26px] sm:text-[36px] lg:text-[44px] text-brand-900 mb-3 sm:mb-4 leading-tight tracking-tight">{{ course.title }}</h2>
-                <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-2 rounded-full mb-4 sm:mb-6 shadow-sm w-fit">
-                  <mat-icon class="text-[20px]">local_offer</mat-icon>
-                  <span class="body-md font-semibold text-[18px] sm:text-[20px]">{{ course.price }}</span>
+                <div class="mb-4 sm:mb-6 flex flex-wrap items-center gap-3">
+                  <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-2 rounded-full shadow-sm w-fit">
+                    <mat-icon class="text-[20px]">local_offer</mat-icon>
+                    <span class="body-md font-semibold text-[18px] sm:text-[20px]">{{ course.price.split('(')[0].trim() }}</span>
+                  </div>
+                  @if (course.price.includes('(')) {
+                    <span class="text-[13px] sm:text-[14px] text-brand-900/60 font-medium">({{ course.price.split('(')[1] }}</span>
+                  }
                 </div>
-                <p class="body-md text-[14px] sm:text-[16px] text-brand-900/80 mb-6 leading-relaxed">
-                  {{ course.description }}
+                <p class="body-md text-[14px] sm:text-[16px] text-brand-900/80 mb-6 leading-relaxed" [innerHTML]="course.description | formatText">
                 </p>
                 @if (course.features && course.features.length) {
                   <ul class="flex flex-col gap-3 mb-10 text-[14px] text-brand-900/90 font-medium">
                     @for (feat of course.features; track feat) {
                       <li class="flex items-start gap-2.5">
                         <mat-icon class="text-emerald-600 text-[18px] shrink-0">check_circle</mat-icon>
-                        <span class="leading-snug">{{ feat }}</span>
+                        <span class="leading-snug" [innerHTML]="feat | formatText"></span>
                       </li>
                     }
                   </ul>
@@ -89,7 +93,12 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                   <div class="mb-10"></div>
                 }
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                  @if (cartService.isInCart('course-' + course.id)()) {
+                  @if (proceedingId() === course.id) {
+                    <button disabled class="btn-primary flex items-center justify-center gap-2 !px-8 !py-3.5 opacity-80 cursor-wait">
+                      <mat-icon class="text-[18px] animate-spin">sync</mat-icon>
+                      <span>Proceeding...</span>
+                    </button>
+                  } @else if (cartService.hasItem('course-' + course.id)) {
                     <a routerLink="/checkout" class="btn-primary !bg-emerald-600 hover:!bg-emerald-700 flex items-center justify-center gap-2 !px-8 !py-3.5">
                       <mat-icon class="text-[18px]">check_circle</mat-icon>
                       <span>Proceed to Checkout</span>
@@ -179,6 +188,7 @@ export class Learn implements OnInit {
 
   dbCourses = signal<any[]>([]);
   displayCourses = signal<any[]>(this.defaultCourses);
+  proceedingId = signal<string | null>(null);
 
   ngOnInit() {
     if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
@@ -222,6 +232,7 @@ export class Learn implements OnInit {
   }
 
   enrollCourse(course: any) {
+    this.proceedingId.set(course.id);
     const numericPrice = typeof course.price === 'number'
       ? course.price
       : parseInt(String(course.price).replace(/\D/g, ''), 10) || 15000;
@@ -232,7 +243,11 @@ export class Learn implements OnInit {
       price: numericPrice,
       image: course.image
     });
-    this.router.navigate(['/checkout']);
+    
+    // Slight delay so the user sees the "Proceeding..." state before navigating
+    setTimeout(() => {
+      this.router.navigate(['/checkout']);
+    }, 400);
   }
 
   inquireCourse(course: any) {
