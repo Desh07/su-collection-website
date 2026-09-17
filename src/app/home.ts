@@ -522,8 +522,8 @@ export class Home implements OnInit {
       id: 'v2',
       title: 'The 3-minute collar drafting hack every home tailor needs',
       platform: 'facebook',
-      url: 'https://www.facebook.com',
-      thumbnail: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop',
+      url: 'https://www.facebook.com/share/v/19e5ddqoup/?mibextid=wwXIfr',
+      thumbnail: '/social media card images/Fb_card_1.jpeg',
       views: '210K',
       duration: '1:15',
       author: 'Su Collection'
