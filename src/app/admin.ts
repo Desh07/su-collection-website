@@ -66,7 +66,10 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
               Shop Inventory
             </button>
             <button (click)="activeTab.set('content')" [class.border-brand-900]="activeTab() === 'content'" [class.text-brand-900]="activeTab() === 'content'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
-              Website Copy & Bank
+              Content Editor
+            </button>
+            <button (click)="activeTab.set('dedicatedCourses')" [class.border-brand-900]="activeTab() === 'dedicatedCourses'" [class.text-brand-900]="activeTab() === 'dedicatedCourses'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
+              Dedicated Courses
             </button>
           </div>
 
@@ -708,8 +711,13 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                         <input type="text" [(ngModel)]="draftContent.home.heroTitle" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
                       </div>
                       <div class="col-span-full">
-                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Hero Description</label>
+                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Hero Description (Paragraph 1)</label>
                         <textarea [(ngModel)]="draftContent.home.heroDesc" rows="3" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                      </div>
+
+                      <div class="col-span-full">
+                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Hero Description (Paragraph 2)</label>
+                        <textarea [(ngModel)]="draftContent.home.heroDesc2" rows="3" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
                       </div>
                       
                       <div class="col-span-full">
@@ -744,13 +752,46 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                         <textarea [(ngModel)]="draftContent.home.servicesDesc" placeholder="Services Description" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
                       </div>
 
-                      <div class="col-span-full bg-slate-50 p-4 rounded-xl mt-4">
-                        <h5 class="font-medium text-brand-900 mb-4">How it Works (WhatsApp Order)</h5>
-                        <input type="text" [(ngModel)]="draftContent.home.howItWorksTitle" placeholder="Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400">
-                        <textarea [(ngModel)]="draftContent.home.howItWorksStep1" placeholder="Step 1" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400"></textarea>
-                        <textarea [(ngModel)]="draftContent.home.howItWorksStep2" placeholder="Step 2" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400"></textarea>
-                        <textarea [(ngModel)]="draftContent.home.howItWorksStep3" placeholder="Step 3" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400"></textarea>
-                        <textarea [(ngModel)]="draftContent.home.howItWorksStep4" placeholder="Step 4" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                      <div class="col-span-full bg-slate-50 p-4 rounded-xl mt-4 flex flex-col gap-4">
+                        <h5 class="font-medium text-brand-900">How it Works (WhatsApp Order)</h5>
+                        
+                        <div>
+                          <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Section Title</label>
+                          <input type="text" [(ngModel)]="draftContent.home.howItWorksTitle" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div class="bg-white p-4 rounded-lg border border-brand-100">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 1 Title</label>
+                            <input type="text" [(ngModel)]="draftContent.home.howItWorksStep1Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-2 outline-none focus:border-brand-400">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 1 Description</label>
+                            <textarea [(ngModel)]="draftContent.home.howItWorksStep1" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                          </div>
+                          <div class="bg-white p-4 rounded-lg border border-brand-100">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 2 Title</label>
+                            <input type="text" [(ngModel)]="draftContent.home.howItWorksStep2Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-2 outline-none focus:border-brand-400">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 2 Description</label>
+                            <textarea [(ngModel)]="draftContent.home.howItWorksStep2" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                          </div>
+                          <div class="bg-white p-4 rounded-lg border border-brand-100">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 3 Title</label>
+                            <input type="text" [(ngModel)]="draftContent.home.howItWorksStep3Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-2 outline-none focus:border-brand-400">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 3 Description</label>
+                            <textarea [(ngModel)]="draftContent.home.howItWorksStep3" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                          </div>
+                          <div class="bg-white p-4 rounded-lg border border-brand-100">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 4 Title</label>
+                            <input type="text" [(ngModel)]="draftContent.home.howItWorksStep4Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-2 outline-none focus:border-brand-400">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 4 Description</label>
+                            <textarea [(ngModel)]="draftContent.home.howItWorksStep4" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                          </div>
+                          <div class="bg-white p-4 rounded-lg border border-brand-100">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 5 Title</label>
+                            <input type="text" [(ngModel)]="draftContent.home.howItWorksStep5Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-2 outline-none focus:border-brand-400">
+                            <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-1.5">Step 5 Description</label>
+                            <textarea [(ngModel)]="draftContent.home.howItWorksStep5" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                          </div>
+                        </div>
                       </div>
 
                       <div class="col-span-full mt-4">
@@ -809,7 +850,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                         <input type="text" [(ngModel)]="draftContent.learn.mainCourseTitle" placeholder="Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400">
                         <textarea [(ngModel)]="draftContent.learn.mainCourseDesc" placeholder="Description" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400"></textarea>
                         <input type="text" [(ngModel)]="draftContent.learn.mainCourseBtn1" placeholder="Button 1" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400">
-                        <input type="text" [(ngModel)]="draftContent.learn.mainCourseBtn2" placeholder="Button 2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
+                        <input type="text" [(ngModel)]="draftContent.learn.mainCourseBtn2" placeholder="Button 2" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400">
                       </div>
                       <div class="col-span-full">
                         <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">All Classes Title</label>
@@ -917,6 +958,111 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
 
                 </div>
               }
+            </div>
+          }
+
+          @if (activeTab() === 'dedicatedCourses') {
+            <div class="mb-8 flex items-center justify-between">
+              <div>
+                <h2 class="font-serif text-[24px] text-brand-900">Dedicated Course Copy</h2>
+                <p class="text-brand-900/60 text-[14px]">Manage the content for special dedicated course pages.</p>
+              </div>
+              <button (click)="saveContent()" class="btn-primary flex items-center gap-2">
+                <mat-icon>save</mat-icon> Save Changes
+              </button>
+            </div>
+
+            <div class="bg-white rounded-[24px] shadow-sm border border-brand-100 overflow-hidden mb-[32px]">
+              <div class="p-6 sm:p-8 flex flex-col gap-6">
+                @for (course of courses(); track course.id; let i = $index) {
+                  @if (draftContent.dedicatedCourses[course.id]) {
+                    <div [class.mt-8]="i > 0">
+                      <h3 class="font-serif text-[20px] text-brand-900 mb-[16px] border-b border-brand-100 pb-2">
+                        Product/Service {{ (i + 1).toString().padStart(2, '0') }} - {{ course.title }}
+                      </h3>
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="col-span-1">
+                          <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Pill / Badge</label>
+                          <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].pill" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]">
+                        </div>
+                        <div class="col-span-1">
+                          <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Price</label>
+                          <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].price" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]">
+                        </div>
+                        <div class="col-span-full">
+                          <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Subtitle</label>
+                          <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].subtitle" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]">
+                        </div>
+                        <div class="col-span-full">
+                          <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Main Title</label>
+                          <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].title" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]">
+                        </div>
+                        <div class="col-span-full">
+                          <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Main Bold Description</label>
+                          <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].mainDesc" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                        </div>
+                        <div class="col-span-full">
+                          <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Secondary Description</label>
+                          <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].subDesc" rows="4" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                        </div>
+
+                        <div class="col-span-full border-t border-brand-100 pt-6 mt-2">
+                          <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullets Section Title</label>
+                          <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].bulletTitle" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px] mb-6">
+                          
+                          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullet 1 Title</label>
+                              <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].bullet1Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px] mb-2">
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullet 1 Desc</label>
+                              <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].bullet1Desc" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                            </div>
+                            <div>
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullet 2 Title</label>
+                              <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].bullet2Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px] mb-2">
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullet 2 Desc</label>
+                              <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].bullet2Desc" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                            </div>
+                            <div>
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullet 3 Title</label>
+                              <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].bullet3Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px] mb-2">
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullet 3 Desc</label>
+                              <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].bullet3Desc" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                            </div>
+                            <div>
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullet 4 Title</label>
+                              <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].bullet4Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px] mb-2">
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bullet 4 Desc</label>
+                              <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].bullet4Desc" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-span-full border-t border-brand-100 pt-6 mt-2">
+                          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="col-span-full">
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Extra Bottom Description</label>
+                              <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].bottomDescExtra" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                            </div>
+                            <div>
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bottom Section 1 Title</label>
+                              <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].bottomTitle1" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px] mb-2">
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bottom Section 1 Desc</label>
+                              <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].bottomDesc1" rows="4" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                            </div>
+                            <div>
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bottom Section 2 Title</label>
+                              <input type="text" [(ngModel)]="draftContent.dedicatedCourses[course.id].bottomTitle2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px] mb-2">
+                              <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Bottom Section 2 Desc</label>
+                              <textarea [(ngModel)]="draftContent.dedicatedCourses[course.id].bottomDesc2" rows="4" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-mono text-[13px]"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                }
+              </div>
             </div>
           }
 
@@ -1195,7 +1341,7 @@ export class Admin implements OnInit {
   contentService = inject(ContentService);
   document = inject(DOCUMENT);
 
-  activeTab = signal<'orders' | 'bookings' | 'courses' | 'shop' | 'content' | 'videos'>('orders');
+  activeTab = signal<'orders' | 'bookings' | 'courses' | 'shop' | 'content' | 'videos' | 'dedicatedCourses'>('orders');
 
   orders = signal<any[]>([]);
   bookings = signal<any[]>([]);
@@ -1301,6 +1447,22 @@ export class Admin implements OnInit {
     effect(() => {
       if (!this.contentService.loading()) {
         this.draftContent = JSON.parse(JSON.stringify(this.contentService.content()));
+      }
+    });
+
+    effect(() => {
+      const currentCourses = this.courses();
+      if (this.draftContent?.dedicatedCourses) {
+        currentCourses.forEach(course => {
+          if (!this.draftContent.dedicatedCourses[course.id]) {
+            this.draftContent.dedicatedCourses[course.id] = {
+              pill: '', subtitle: '', title: '', price: '', mainDesc: '', subDesc: '',
+              bulletTitle: '', bullet1Title: '', bullet1Desc: '', bullet2Title: '', bullet2Desc: '',
+              bullet3Title: '', bullet3Desc: '', bullet4Title: '', bullet4Desc: '',
+              bottomDescExtra: '', bottomTitle1: '', bottomDesc1: '', bottomTitle2: '', bottomDesc2: ''
+            };
+          }
+        });
       }
     });
 
@@ -1598,7 +1760,7 @@ export class Admin implements OnInit {
   async initializeDefaultCourses() {
     const defaults = [
       {
-        id: 'couture-and-tailoring-business-mentorship',
+        id: '6-month-tailoring-business-mentorship',
         title: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
         description: 'ස්වර්ණා සමඟ පුද්ගලිකව (1-on-1) සිදු කරන විශේෂ මඟපෙන්වීමකි. උසස් මට්ටමේ ඇඳුම් නිර්මාණ (Advanced draping), මනාලියන්ගේ ඇඳුම් මිනුම් සහ ඔබේම ලාභදායී ඇඳුම් ව්යාපාරයක් (Boutique) සාර්ථකව ආරම්භ කරන ආකාරය මෙහිදී ඉගෙනගත හැක.',
         level: 'Mentorship',
@@ -1618,7 +1780,7 @@ export class Admin implements OnInit {
         createdAt: serverTimestamp()
       },
       {
-        id: 'sri-lankan-saree-jacket-master-blueprint',
+        id: '100-day-tailoring-business-workbook',
         title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
         description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
         level: 'PDF E-Book',

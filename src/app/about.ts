@@ -1,11 +1,12 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {ContentService} from './services/content.service';
+import {FormatTextPipe} from './pipes/format-text.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-about',
-  imports: [MatIconModule],
+  imports: [MatIconModule, FormatTextPipe],
   template: `
     <header class="pt-6 pb-6 px-4 sm:px-6 text-center max-w-[1600px] mx-auto">
       <div class="relative w-full rounded-[28px] sm:rounded-[48px] overflow-hidden p-8 sm:p-16 border border-white/20 shadow-2xl text-white bg-slate-950 group min-h-[260px] flex items-center justify-center">
@@ -22,9 +23,8 @@ import {ContentService} from './services/content.service';
           <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-300 label-md uppercase tracking-[0.2em] text-[11px] sm:text-[12px] mb-4 sm:mb-6">
             {{ c().about.heroPill }}
           </span>
-          <h1 class="font-serif text-[32px] sm:text-[52px] lg:text-[64px] font-normal leading-tight mb-4 sm:mb-6 text-white">{{ c().about.heroTitle }}</h1>
-          <p class="body-md text-[15px] sm:text-[18px] text-white/90 max-w-2xl mx-auto font-light leading-relaxed">
-            {{ c().about.heroDesc }}
+          <h1 class="font-serif text-[32px] sm:text-[52px] lg:text-[64px] font-normal leading-tight mb-4 sm:mb-6 text-white" [innerHTML]="c().about.heroTitle | formatText"></h1>
+          <p class="body-md text-[15px] sm:text-[18px] text-white/90 max-w-2xl mx-auto font-light leading-relaxed" [innerHTML]="c().about.heroDesc | formatText">
           </p>
         </div>
       </div>
@@ -44,7 +44,7 @@ import {ContentService} from './services/content.service';
             <h2 class="font-serif text-[32px] sm:text-[40px] lg:text-[48px] text-brand-900 mb-6 sm:mb-8 leading-tight">The Journey</h2>
             
             <div class="body-md text-[15px] sm:text-[16px] text-brand-900/80 leading-relaxed flex flex-col gap-5">
-              <p class="font-medium text-brand-900 leading-[1.6] whitespace-pre-wrap font-['Noto_Sans_Sinhala']">{{ c().about.content }}</p>
+              <p class="font-medium text-brand-900 leading-[1.6] whitespace-pre-wrap font-['Noto_Sans_Sinhala']" [innerHTML]="c().about.content | formatText"></p>
             </div>
 
             <div class="grid grid-cols-2 gap-6 sm:gap-8 pt-8 mt-8 border-t border-brand-200">

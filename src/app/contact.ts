@@ -2,17 +2,17 @@ import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core'
 import {MatIconModule} from '@angular/material/icon';
 import {FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ContentService} from './services/content.service';
+import {FormatTextPipe} from './pipes/format-text.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-contact',
-  imports: [MatIconModule, FormsModule, ReactiveFormsModule],
+  imports: [MatIconModule, FormsModule, ReactiveFormsModule, FormatTextPipe],
   template: `
     <header class="pt-[120px] pb-[64px] px-6 text-center max-w-[1600px] mx-auto">
       <div class="max-w-4xl mx-auto">
-        <h1 class="display-lg mb-[24px] text-brand-900">{{ c().contact.heroTitle }}</h1>
-        <p class="body-md text-[18px] text-brand-900/80 max-w-2xl mx-auto">
-          {{ c().contact.heroDesc }}
+        <h1 class="display-lg mb-[24px] text-brand-900" [innerHTML]="c().contact.heroTitle | formatText"></h1>
+        <p class="body-md text-[18px] text-brand-900/80 max-w-2xl mx-auto font-light leading-relaxed" [innerHTML]="c().contact.heroDesc | formatText">
         </p>
       </div>
     </header>
@@ -25,9 +25,8 @@ import {ContentService} from './services/content.service';
           <div class="gradient-shell h-full">
             <div class="gradient-shell-inner !bg-brand-900 p-[48px] lg:p-[64px] h-full flex flex-col justify-center">
               <mat-icon class="text-brand-300 text-[48px] mb-[32px] block">chat</mat-icon>
-              <h3 class="font-serif text-[40px] text-white mb-[24px] leading-tight">{{ c().contact.whatsappTitle }}</h3>
-              <p class="body-md text-[16px] text-brand-200/80 mb-[48px] leading-[28px]">
-                {{ c().contact.whatsappDesc }}
+              <h3 class="font-serif text-[40px] text-white mb-[24px] leading-tight" [innerHTML]="c().contact.whatsappTitle | formatText"></h3>
+              <p class="body-md text-[16px] text-brand-100/90 mb-[40px] font-light" [innerHTML]="c().contact.whatsappDesc | formatText">
               </p>
               <a href="https://wa.me/94771234567" target="_blank" class="inline-flex items-center gap-[12px] bg-white text-brand-900 px-[32px] py-[16px] rounded-full label-md hover:bg-brand-50 transition-colors shadow-lg self-start">
                 {{ c().contact.whatsappBtn }}
@@ -40,7 +39,7 @@ import {ContentService} from './services/content.service';
         <div class="w-full lg:w-7/12">
           <div class="gradient-shell h-full">
             <div class="gradient-shell-inner p-[48px] lg:p-[64px] h-full">
-              <h2 class="font-serif text-[40px] text-brand-900 mb-[48px] leading-tight">{{ c().contact.formTitle }}</h2>
+              <h2 class="font-serif text-[40px] text-brand-900 mb-[48px] leading-tight" [innerHTML]="c().contact.formTitle | formatText"></h2>
               <form [formGroup]="contactForm" (ngSubmit)="sendMessage()" class="flex flex-col gap-[32px]">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-[32px]">
                   <div>

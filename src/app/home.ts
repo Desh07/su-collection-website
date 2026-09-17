@@ -5,6 +5,7 @@ import {ContentService} from './services/content.service';
 import {CartService} from './services/cart.service';
 import {db} from '../lib/firebase';
 import {collection, query, orderBy, onSnapshot} from 'firebase/firestore';
+import {FormatTextPipe} from './pipes/format-text.pipe';
 
 interface SocialVideo {
   id: string;
@@ -32,7 +33,7 @@ interface DigitalGuide {
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-home',
-  imports: [RouterLink, MatIconModule],
+  imports: [RouterLink, MatIconModule, FormatTextPipe],
   template: `
     <!-- 1. Hero Section (Attention-Grabbing, No Eyebrows, Clear Human Copy) -->
     <section class="p-3 sm:p-4 sm:p-6 lg:p-8 w-full max-w-[1600px] mx-auto pt-1 sm:pt-2 sm:pt-4">
@@ -56,11 +57,11 @@ interface DigitalGuide {
         </svg>
 
         <!-- Main Hero Content -->
-        <div class="relative z-20 flex flex-col lg:flex-row items-end justify-between gap-6 sm:gap-8 sm:gap-12 mt-auto pt-20 sm:pt-16 lg:pt-24">
+        <div class="relative z-20 flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-16 mt-auto pt-20 sm:pt-16 lg:pt-24">
           
           <!-- Left Display Headline & Trust Strip -->
           <div class="w-full lg:w-7/12">
-            <h1 class="font-['Noto_Sans_Sinhala'] text-[32px] sm:text-[56px] lg:text-[76px] font-normal leading-[1.45] lg:leading-[1.35] text-white tracking-tight mb-4 sm:mb-6">
+            <h1 class="font-['Noto_Sans_Sinhala'] text-[32px] sm:text-[56px] lg:text-[84px] xl:text-[92px] font-normal leading-[1.3] lg:leading-[1.25] text-white tracking-tight mb-4 sm:mb-8">
               {{ c().home.heroTitle }}
             </h1>
 
@@ -68,7 +69,7 @@ interface DigitalGuide {
             <div class="flex flex-wrap items-center gap-3 sm:gap-6 pt-2 text-white/80">
               <div class="flex items-center gap-1.5 sm:gap-2">
                 <mat-icon class="text-brand-300 text-[16px] sm:text-[18px]">verified</mat-icon>
-                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">25 Years Master Craft</span>
+                <span class="text-[11px] sm:text-[13px] tracking-wide font-medium">30+ Years Master Craft</span>
               </div>
               <div class="flex items-center gap-1.5 sm:gap-2">
                 <mat-icon class="text-brand-300 text-[16px] sm:text-[18px]">group</mat-icon>
@@ -83,9 +84,8 @@ interface DigitalGuide {
 
           <!-- Right Supporting Narrative & High-Intent Action Buttons -->
           <div class="w-full lg:w-5/12 flex flex-col items-start gap-4 sm:gap-6 pb-2 lg:pl-6">
-            <p class="body-md text-white/95 text-[14px] sm:text-[16px] lg:text-[17px] leading-[1.7] font-light max-w-lg">
-              {{ c().home.heroDesc }}
-            </p>
+            <p class="body-md text-white/95 text-[14px] sm:text-[16px] lg:text-[17px] leading-[1.7] font-light max-w-lg" [innerHTML]="c().home.heroDesc | formatText"></p>
+            <p class="body-md text-white/80 text-[13px] sm:text-[15px] lg:text-[16px] leading-[1.7] font-light max-w-lg mb-2" [innerHTML]="c().home.heroDesc2 | formatText"></p>
 
             <div class="flex flex-col items-stretch sm:items-start gap-3 w-full">
               <button type="button" (click)="scrollToOfferings()" class="bg-white text-slate-950 hover:bg-brand-50 transition-all rounded-full px-6 py-3.5 label-md font-semibold tracking-wider uppercase text-[11px] sm:text-[12px] shadow-lg flex items-center justify-center gap-2">
@@ -108,11 +108,9 @@ interface DigitalGuide {
     <section class="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
-          <h2 class="font-serif text-[32px] sm:text-[44px] text-brand-900 leading-tight">
-            {{ c().home.videoTitle }}
-          </h2>
-          <p class="text-[15px] sm:text-[16px] text-brand-900/70 font-light mt-1 max-w-2xl">
-            {{ c().home.videoDesc }}
+          <h3 class="font-serif text-[24px] sm:text-[32px] text-brand-900 mb-2 sm:mb-3 leading-tight" [innerHTML]="c().home.videoTitle | formatText">
+          </h3>
+          <p class="body-md text-brand-900/80 max-w-xl mx-auto text-[13px] sm:text-[15px]" [innerHTML]="c().home.videoDesc | formatText">
           </p>
         </div>
         
@@ -239,11 +237,9 @@ interface DigitalGuide {
     <div id="digital-offerings">
       <section class="py-10 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto">
       <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-        <h2 class="font-serif text-[28px] sm:text-[40px] lg:text-[50px] text-brand-900 leading-tight mb-3 sm:mb-4">
-          {{ c().home.servicesTitle }}
+        <h2 class="font-serif text-[28px] sm:text-[40px] lg:text-[50px] text-brand-900 leading-tight mb-3 sm:mb-4" [innerHTML]="c().home.servicesTitle | formatText">
         </h2>
-        <p class="body-md text-[14px] sm:text-[16px] lg:text-[18px] text-brand-900/80 font-light leading-relaxed">
-          {{ c().home.servicesDesc }}
+        <p class="body-md text-[14px] sm:text-[16px] lg:text-[18px] text-brand-900/80 font-light leading-relaxed" [innerHTML]="c().home.servicesDesc | formatText">
         </p>
       </div>
 
@@ -251,35 +247,42 @@ interface DigitalGuide {
       <div class="bg-white/80 backdrop-blur-xl border border-brand-200 rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 mb-8 sm:mb-12 shadow-sm">
         <h3 class="font-serif text-[20px] sm:text-[24px] text-brand-900 mb-6 sm:mb-8 text-center sm:text-left flex items-center justify-center gap-2">
           <mat-icon class="text-emerald-600">verified_user</mat-icon>
-          {{ c().home.howItWorksTitle }}
+          <span [innerHTML]="c().home.howItWorksTitle | formatText"></span>
         </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div class="flex items-start gap-3 sm:gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div class="flex items-start gap-3 sm:gap-4 bg-white/60 p-4 rounded-2xl border border-brand-100 h-full shadow-sm">
             <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">1</span>
             <div>
-              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Pick Your Guide</h4>
-              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">{{ c().home.howItWorksStep1 }}</p>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1" [innerHTML]="c().home.howItWorksStep1Title | formatText"></h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed" [innerHTML]="c().home.howItWorksStep1 | formatText"></p>
             </div>
           </div>
-          <div class="flex items-start gap-3 sm:gap-4">
+          <div class="flex items-start gap-3 sm:gap-4 bg-white/60 p-4 rounded-2xl border border-brand-100 h-full shadow-sm">
             <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">2</span>
             <div>
-              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Click "Order on WhatsApp"</h4>
-              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">{{ c().home.howItWorksStep2 }}</p>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1" [innerHTML]="c().home.howItWorksStep2Title | formatText"></h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed" [innerHTML]="c().home.howItWorksStep2 | formatText"></p>
             </div>
           </div>
-          <div class="flex items-start gap-3 sm:gap-4">
+          <div class="flex items-start gap-3 sm:gap-4 bg-white/60 p-4 rounded-2xl border border-brand-100 h-full shadow-sm">
             <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">3</span>
             <div>
-              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Transfer &amp; Send Slip</h4>
-              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">{{ c().home.howItWorksStep3 }}</p>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1" [innerHTML]="c().home.howItWorksStep3Title | formatText"></h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed" [innerHTML]="c().home.howItWorksStep3 | formatText"></p>
             </div>
           </div>
-          <div class="flex items-start gap-3 sm:gap-4">
+          <div class="flex items-start gap-3 sm:gap-4 bg-white/60 p-4 rounded-2xl border border-brand-100 h-full shadow-sm">
             <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">4</span>
             <div>
-              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Instant Verification</h4>
-              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">{{ c().home.howItWorksStep4 }}</p>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1" [innerHTML]="c().home.howItWorksStep4Title | formatText"></h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed" [innerHTML]="c().home.howItWorksStep4 | formatText"></p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4 bg-white/60 p-4 rounded-2xl border border-brand-100 h-full shadow-sm">
+            <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">5</span>
+            <div>
+              <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1" [innerHTML]="c().home.howItWorksStep5Title | formatText"></h4>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed" [innerHTML]="c().home.howItWorksStep5 | formatText"></p>
             </div>
           </div>
         </div>
@@ -368,9 +371,8 @@ interface DigitalGuide {
                  <img src="https://images.unsplash.com/photo-1584034879669-e74f1d431051?q=80&w=2000&auto=format&fit=crop" alt="Swarna teaching" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-70 mix-blend-multiply" referrerpolicy="no-referrer">
               </div>
               <div class="relative z-10 max-w-lg bg-white/80 p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] backdrop-blur-md border border-white/60 shadow-lg">
-                <h3 class="font-serif text-[26px] sm:text-[36px] text-brand-900 mb-2 sm:mb-3 leading-tight">{{ c().home.meetTitle }}</h3>
-                <p class="body-md text-brand-900/80 mb-4 sm:mb-6 text-[13px] sm:text-[15px] leading-relaxed">
-                  වසර 25කට වැඩි කාලයක් පුරා විලාසිතා නිර්මාණකරණයේ නියැලෙමින්, කාන්තාවන් සිය ගණනකට සාර්ථක නිවෙස් පදනම් කරගත් විලාසිතා ව්‍යාපාර ආරම්භ කිරීමට මඟපෙන්වූ ප්‍රවීණ අත්දැකීම්.
+                <h3 class="font-serif text-[26px] sm:text-[36px] text-brand-900 mb-2 sm:mb-3 leading-tight" [innerHTML]="c().home.meetTitle | formatText"></h3>
+                <p class="body-md text-brand-900/80 mb-4 sm:mb-6 text-[13px] sm:text-[15px] leading-relaxed" [innerHTML]="c().home.meetDesc | formatText">
                 </p>
                 <div class="flex items-center label-md text-brand-900 group-hover:text-brand-600 transition-colors font-semibold">
                   {{ c().home.meetBtn }} <mat-icon class="ml-2 text-[16px] transform group-hover:translate-x-1 transition-transform">arrow_forward</mat-icon>
@@ -394,8 +396,8 @@ interface DigitalGuide {
                </div>
 
                <div class="relative z-10 mt-12">
-                 <h3 class="font-serif text-[28px] text-brand-900 mb-2 leading-tight">{{ c().home.bento2Title }}</h3>
-                 <p class="body-md text-brand-900/80 mb-6 text-[14px] leading-relaxed">{{ c().home.bento2Desc }}</p>
+                 <h3 class="font-serif text-[28px] text-brand-900 mb-2 leading-tight" [innerHTML]="c().home.bento2Title | formatText"></h3>
+                 <p class="body-md text-brand-900/80 mb-6 text-[14px] leading-relaxed" [innerHTML]="c().home.bento2Desc | formatText"></p>
                  <div class="flex items-center label-md text-brand-900 group-hover:text-brand-600 transition-colors font-semibold">
                     {{ c().home.bento2Btn }} <mat-icon class="ml-2 text-[16px] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all">arrow_forward</mat-icon>
                  </div>
@@ -418,8 +420,7 @@ interface DigitalGuide {
           </div>
 
           <mat-icon class="text-brand-400 text-[40px] sm:text-[56px] mb-3 sm:mb-4 relative z-10">format_quote</mat-icon>
-          <p class="font-serif text-[20px] sm:text-[28px] md:text-[40px] text-brand-900 leading-[1.3] sm:leading-[1.2] tracking-tight mb-6 sm:mb-8 max-w-4xl relative z-10">
-            {{ c().home.testimonialQuote }}
+          <p class="font-serif text-[20px] sm:text-[28px] md:text-[40px] text-brand-900 leading-[1.3] sm:leading-[1.2] tracking-tight mb-6 sm:mb-8 max-w-4xl relative z-10" [innerHTML]="c().home.testimonialQuote | formatText">
           </p>
           <div class="flex flex-col items-center justify-center relative z-10">
             <span class="label-md text-brand-900 mb-1 font-semibold">Amasha P. · Colombo</span>

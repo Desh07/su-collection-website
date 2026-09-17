@@ -21,6 +21,7 @@ export interface WebsiteContent {
   home: {
     heroTitle: string;
     heroDesc: string;
+    heroDesc2: string;
     stat1: string; stat1Label: string;
     stat2: string; stat2Label: string;
     stat3: string; stat3Label: string;
@@ -32,10 +33,16 @@ export interface WebsiteContent {
     servicesTitle: string;
     servicesDesc: string;
     howItWorksTitle: string;
+    howItWorksStep1Title: string;
     howItWorksStep1: string;
+    howItWorksStep2Title: string;
     howItWorksStep2: string;
+    howItWorksStep3Title: string;
     howItWorksStep3: string;
+    howItWorksStep4Title: string;
     howItWorksStep4: string;
+    howItWorksStep5Title: string;
+    howItWorksStep5: string;
     bento1Title: string;
     bento1Desc: string;
     bento1Btn: string;
@@ -93,7 +100,30 @@ export interface WebsiteContent {
     whatsappBtn: string;
     formTitle: string;
   };
+  dedicatedCourses: Record<string, {
+    pill: string;
+    subtitle: string;
+    title: string;
+    price: string;
+    mainDesc: string;
+    subDesc: string;
+    bulletTitle: string;
+    bullet1Title: string;
+    bullet1Desc: string;
+    bullet2Title: string;
+    bullet2Desc: string;
+    bullet3Title: string;
+    bullet3Desc: string;
+    bullet4Title: string;
+    bullet4Desc: string;
+    bottomDescExtra: string;
+    bottomTitle1: string;
+    bottomDesc1: string;
+    bottomTitle2: string;
+    bottomDesc2: string;
+  }>;
 }
+
 
 export const defaultContent: WebsiteContent = {
   app: {
@@ -114,7 +144,8 @@ export const defaultContent: WebsiteContent = {
   home: {
     heroTitle: "ඔබේ මැහුම් හැකියාවෙන් සාර්ථක ව්යාපාරයක් ගොඩනගමු!",
     heroDesc: "Stop guessing with confusing patterns. Master dressmaking, perfect garment fitting, and pattern drafting with Swarna Herath—backed by 25 years of real workshop experience and 150,000+ social followers across Sri Lanka.",
-    stat1: "25+", stat1Label: "Years Master Tailoring",
+    heroDesc2: "Join thousands of women who have turned their passion for sewing into profitable home-based businesses under Swarna's expert guidance.",
+    stat1: "30+", stat1Label: "Years Master Tailoring",
     stat2: "150k+", stat2Label: "TikTok & FB Followers",
     stat3: "1-on-1", stat3Label: "Personal WhatsApp Mentorship",
     meetTitle: "Meet Swarna Herath",
@@ -125,10 +156,16 @@ export const defaultContent: WebsiteContent = {
     servicesTitle: "Our Services & Products",
     servicesDesc: "පුද්ගලික මඟපෙන්වීම් (1-on-1 coaching) ලබාගැනීමට හෝ PDF අත්පොත් (Guides) ඇණවුම් කිරීමට පහතින් තෝරාගන්න. සියලුම ගනුදෙනු සහ බැංකු තැන්පතු තහවුරු කිරීම් WhatsApp හරහා ඉතා ආරක්ෂිතව සිදු කෙරේ.",
     howItWorksTitle: "WhatsApp හරහා මුදල් ගෙවා ඇණවුම් කරන ආකාරය",
+    howItWorksStep1Title: "Pick Your Guide",
     howItWorksStep1: "පහතින් ඇති සේවාවන් හෝ PDF අත්පොත් වලින් ඔබට අවශ්ය දේ තෝරාගන්න.",
+    howItWorksStep2Title: 'Click "Order on WhatsApp"',
     howItWorksStep2: "එය ක්ලික් කළ විගස, බැංකු විස්තර ඉල්ලා අපගේ නිල WhatsApp අංකයට ස්වයංක්රීයව පණිවිඩයක් යොමු වේ.",
+    howItWorksStep3Title: "Transfer & Send Slip",
     howItWorksStep3: "ඔබගේ බැංකු යෙදුමකින් (App එකකින්) හෝ බැංකුව හරහා මුදල් තැන්පත් කර, එම රිසිට්පතෙහි ඡායාරූපයක් අපට එවන්න.",
+    howItWorksStep4Title: "Instant Verification",
     howItWorksStep4: "අපගේ කණ්ඩායම ඔබගේ රිසිට්පත පරීක්ෂා කර තහවුරු කළ වහාම, අදාළ PDF අත්පොත එවීමට හෝ පන්ති වේලාවන් වෙන් කිරීමට කටයුතු කරනු ඇත.",
+    howItWorksStep5Title: "Start Learning",
+    howItWorksStep5: "ඔබට අදාළ PDF ගොනු හෝ පන්ති සබැඳි (Links) WhatsApp හරහාම ලැබෙනු ඇත. දැන් ඔබේ මැහුම් ගමන අරඹන්න!",
     bento1Title: "Mentorship & Cutting Guides",
     bento1Desc: "Step-by-step masterclasses, downloadable PDF pattern blueprints, and direct WhatsApp voice feedback.",
     bento1Btn: "Explore Programs",
@@ -185,6 +222,52 @@ export const defaultContent: WebsiteContent = {
     whatsappDesc: "For custom orders, class registrations, or general questions, our team is highly responsive on WhatsApp.",
     whatsappBtn: "Chat on WhatsApp",
     formTitle: "Send a Message"
+  },
+  dedicatedCourses: {
+    '6-month-tailoring-business-mentorship': {
+      pill: "06 MONTHS COMPLETE PROGRAM",
+      subtitle: "6-Month Couture & Tailoring Business Mentorship",
+      title: "Personal 1-on-1 Mentorship with Swarna",
+      price: "LKR 45,000",
+      mainDesc: "ඔයාගේ skill එක ඊළඟ level එකට ගෙනියන්න.",
+      subDesc: "මැහුම් කටයුතු ගැන තියෙන දැනුම තවත් නිවැරදි කරගන්න, difficult designs confidently handle කරන්න, සහ ඔයාගේම Custom Dress Business එකක් ගොඩනගන්න — Swarna මහත්මිය සමඟ Personal 1-on-1 Mentorship එකක් ලබාගන්න.",
+      bulletTitle: "Mentorship එකෙන් ඔයාට ඉගෙනගන්න පුළුවන්:",
+      bullet1Title: "Advanced Draping",
+      bullet1Desc: "Professional draping techniques සහ garment shaping ක්රම ප්රායෝගිකව ඉගෙනගන්න.",
+      bullet2Title: "Bridal Fitting",
+      bullet2Desc: "Bridalwear සඳහා නිවැරදි measurements, fitting adjustments සහ professional finishing techniques ඉගෙනගන්න.",
+      bullet3Title: "Custom Dress Making",
+      bullet3Desc: "Client requirements අනුව custom designs develop කරලා නිවැරදි fit එකක් ලබාදෙන ආකාරය ඉගෙනගන්න.",
+      bullet4Title: "Build Your Own Boutique",
+      bullet4Desc: "ඔයාගේ skill එක business එකක් බවට පත්කරගෙන, තමන්ගේම profitable Custom Dress Boutique එකක් ගොඩනගන්න අවශ්ය මඟපෙන්වීම ලබාගන්න.",
+      bottomTitle1: "Personal Guidance. Practical Learning. Real Results.",
+      bottomDesc1: "ඔයාගේ current skill level එක, අවශ්‍යතාවය සහ ඉලක්කය අනුව personalised guidance එකක් ලබාගන්න. Generic class එකක් වෙනුවට, ඔයාට අවශ්‍ය දේ ගැනම direct guidance ලබාගන්න.",
+      bottomTitle2: "Easy Payment Options Available",
+      bottomDesc2: "Mentorship program එකට join වෙන්න පහසු payment options available. Payment details සහ available options ගැන දැනගන්න අපිත් එක්ක WhatsApp හරහා සම්බන්ධ වෙන්න.",
+      bottomDescExtra: ""
+    },
+    '100-day-tailoring-business-workbook': {
+      pill: "48 Pages | PDF E-Book |",
+      subtitle: "From Housewife to Entrepreneur",
+      title: "100-Day Tailoring Business Workbook (PDF)",
+      price: "LKR 2,500",
+      mainDesc: "ඔයාගේ මැහුම් skill එක business එකක් බවට පත්කරගන්න.",
+      subDesc: "මැහුම් කටයුතු දන්නවා — ඒත් ඒ skill එකෙන් ආදායමක් හදාගන්නේ කොහොමද කියලා තාම clear නැද්ද?\nමේ 48-page PDF Workbook එක ඔයාගේ මැහුම් හැකියාව Online මැහුම් ව්යාපාරයක් බවට පත්කරගන්න පියවරෙන් පියවර guide කරන practical resource එකක්.",
+      bulletTitle: "Workbook එකෙන් ඔයාට:",
+      bullet1Title: "Turn Your Tailoring Skills into a Business",
+      bullet1Desc: "ඔයාගේ මැහුම් හැකියාව ආදායමක් ලැබෙන ව්යාපාරයක් බවට පත්කරගන්න පියවරෙන් පියවර ඉගෙනගන්න.",
+      bullet2Title: "Follow a 100-Day Action Plan",
+      bullet2Desc: "දින 100ක පැහැදිලි ක්රියාකාරී සැලැස්මක් එක්ක, දවසින් දවස ඔයාගේ business එක ඉදිරියට ගෙනියන්න.",
+      bullet3Title: "Build Your Online Presence",
+      bullet3Desc: "Social Media හරහා ඔයාගේ වැඩ පෙන්වලා, අලුත් customers ලා හඳුනාගෙන Online presence එකක් ගොඩනගාගන්න.",
+      bullet4Title: "Take Action with Practical Checklists",
+      bullet4Desc: "කරන්න ඕනේ දේවල් එකින් එක track කරගෙන, ඔයාගේ ideas plans වලට විතරක් සීමා නොකර ඇත්තටම ක්රියාවට නංවන්න.",
+      bottomDescExtra: "දින 100ක clear action plan එකක් එක්ක, අද ඉඳන් කරන්න ඕනේ මොනවාද කියලා step-by-step follow කරන්න පුළුවන්.",
+      bottomTitle1: "මේක කාටද?",
+      bottomDesc1: "ගෙදර ඉඳන් මැහුම් කටයුතු කරන අයට, tailoring skill එකෙන් income එකක් හදාගන්න කැමති අයට, Online වල තමන්ගේ brand එකක් ගොඩනගන්න හිතන අයට සහ තමන්ගේම Home Fashion Business එකක් ආරම්භ කරන්න බලාපොරොත්තු වෙන අයට.",
+      bottomTitle2: "",
+      bottomDesc2: ""
+    }
   }
 };
 
@@ -206,6 +289,29 @@ export class ContentService {
         this.loading.set(false);
         if (docSnap.exists()) {
           const data = docSnap.data() as WebsiteContent;
+          
+          // Migration for old hardcoded keys (SEO updates)
+          if (data.dedicatedCourses) {
+            const dc = data.dedicatedCourses as any;
+            if ((dc['mentorship'] || dc['couture-and-tailoring-business-mentorship']) && !dc['6-month-tailoring-business-mentorship']?.mainDesc) {
+              dc['6-month-tailoring-business-mentorship'] = dc['couture-and-tailoring-business-mentorship'] || dc['mentorship'];
+              delete dc['mentorship'];
+              delete dc['couture-and-tailoring-business-mentorship'];
+            }
+            if (dc['sri-lankan-saree-jacket-master-blueprint'] && !dc['100-day-tailoring-business-workbook']?.mainDesc) {
+              dc['100-day-tailoring-business-workbook'] = dc['sri-lankan-saree-jacket-master-blueprint'];
+              delete dc['sri-lankan-saree-jacket-master-blueprint'];
+            }
+          }
+
+          // If they accidentally saved empty fields, delete it so it falls back to defaultContent
+          if (data.dedicatedCourses?.['6-month-tailoring-business-mentorship'] && !data.dedicatedCourses['6-month-tailoring-business-mentorship'].mainDesc) {
+            delete data.dedicatedCourses['6-month-tailoring-business-mentorship'];
+          }
+          if (data.dedicatedCourses?.['100-day-tailoring-business-workbook'] && !data.dedicatedCourses['100-day-tailoring-business-workbook'].mainDesc) {
+            delete data.dedicatedCourses['100-day-tailoring-business-workbook'];
+          }
+
           this.content.set(this.mergeDeep(defaultContent, data));
         } else {
           this.content.set(defaultContent);

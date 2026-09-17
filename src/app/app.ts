@@ -4,6 +4,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {ContentService} from './services/content.service';
 import {CartService} from './services/cart.service';
 
+import {db} from '../lib/firebase';
+import {doc, getDoc, setDoc, deleteDoc} from 'firebase/firestore';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-root',
@@ -166,6 +169,33 @@ export class App {
         }
       }
     });
+
+    // Run one-off SEO URL migration on load
+    this.migrateSeoUrls();
+  }
+
+  async migrateSeoUrls() {
+    try {
+      const oldMentorship = await getDoc(doc(db, 'courses', 'couture-and-tailoring-business-mentorship'));
+      if (oldMentorship.exists()) {
+        await setDoc(doc(db, 'courses', '6-month-tailoring-business-mentorship'), { ...oldMentorship.data(), id: '6-month-tailoring-business-mentorship' });
+        await deleteDoc(doc(db, 'courses', 'couture-and-tailoring-business-mentorship'));
+      }
+      
+      const oldMentorship2 = await getDoc(doc(db, 'courses', 'mentorship'));
+      if (oldMentorship2.exists()) {
+        await setDoc(doc(db, 'courses', '6-month-tailoring-business-mentorship'), { ...oldMentorship2.data(), id: '6-month-tailoring-business-mentorship' });
+        await deleteDoc(doc(db, 'courses', 'mentorship'));
+      }
+
+      const oldPdf = await getDoc(doc(db, 'courses', 'sri-lankan-saree-jacket-master-blueprint'));
+      if (oldPdf.exists()) {
+        await setDoc(doc(db, 'courses', '100-day-tailoring-business-workbook'), { ...oldPdf.data(), id: '100-day-tailoring-business-workbook' });
+        await deleteDoc(doc(db, 'courses', 'sri-lankan-saree-jacket-master-blueprint'));
+      }
+    } catch (e) {
+      console.error("Migration error:", e);
+    }
   }
 
   navLinks = computed(() => [

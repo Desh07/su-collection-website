@@ -4,12 +4,14 @@ import {MatIconModule} from '@angular/material/icon';
 import {db} from '../lib/firebase';
 import {doc, getDoc} from 'firebase/firestore';
 import {CartService} from './services/cart.service';
+import {ContentService} from './services/content.service';
 import {Location} from '@angular/common';
+import {FormatTextPipe} from './pipes/format-text.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-course-detail',
-  imports: [RouterLink, MatIconModule],
+  imports: [RouterLink, MatIconModule, FormatTextPipe],
   template: `
     <main class="min-h-screen pt-[120px] pb-[64px] px-6 max-w-[1200px] mx-auto">
       <button (click)="goBack()" class="inline-flex items-center text-brand-900/60 hover:text-brand-900 mb-[40px] transition-colors label-md bg-transparent outline-none">
@@ -24,28 +26,52 @@ import {Location} from '@angular/common';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-[48px] lg:gap-[64px]">
           <!-- Image -->
           <div class="rounded-[32px] overflow-hidden bg-slate-50 shadow-sm border border-brand-100 aspect-[4/3] relative">
+            <!-- Common Image Section -->
             <img [src]="course()?.image" [alt]="course()?.title" class="w-full h-full object-cover" referrerpolicy="no-referrer">
-            <div class="absolute top-4 left-4 glass-panel text-brand-900 px-4 py-2 rounded-full shadow-sm label-md font-semibold text-[12px] sm:text-[14px]">
-              {{ course()?.level }}
-            </div>
+            @if (!c().dedicatedCourses[course()?.id]?.mainDesc) {
+              <div class="absolute top-4 left-4 glass-panel text-brand-900 px-4 py-2 rounded-full shadow-sm label-md font-semibold text-[12px] sm:text-[14px]">
+                {{ course()?.level }}
+              </div>
+            } @else {
+              <div class="absolute top-4 left-4 glass-panel text-brand-900 px-4 py-2 rounded-full shadow-sm label-md font-semibold text-[12px] sm:text-[14px]">
+                {{ c().dedicatedCourses[course()?.id].pill }}
+              </div>
+            }
           </div>
 
           <!-- Details -->
           <div class="flex flex-col justify-center">
-            <div class="flex items-center gap-2 text-brand-600 mb-4 label-md font-medium">
-              <mat-icon class="text-[18px]">schedule</mat-icon>
-              <span>{{ course()?.duration }}</span>
-            </div>
-            
-            <h1 class="font-serif text-[32px] lg:text-[44px] text-brand-900 leading-tight mb-[16px]">{{ course()?.title }}</h1>
-            
-            <div class="body-md font-medium text-emerald-800 text-[24px] sm:text-[28px] mb-[32px]">{{ course()?.price }}</div>
-            
-            <p class="body-md text-brand-900/80 leading-[1.8] mb-[48px] text-[16px] lg:text-[18px]">
-              {{ course()?.description }}
-            </p>
+            @if (!c().dedicatedCourses[course()?.id]?.mainDesc) {
+              <!-- Standard Generic Course Details -->
+              <div class="flex items-center gap-2 text-brand-600 mb-4 label-md font-medium">
+                <mat-icon class="text-[18px]">schedule</mat-icon>
+                <span>{{ course()?.duration }}</span>
+              </div>
+              
+              <h1 class="font-serif text-[32px] lg:text-[44px] text-brand-900 leading-tight mb-[16px]">{{ course()?.title }}</h1>
+              
+              <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-5 py-2.5 rounded-full mb-[32px] shadow-sm w-fit">
+                <mat-icon class="text-[24px]">local_offer</mat-icon>
+                <span class="body-md font-semibold text-[20px] sm:text-[24px]">{{ course()?.price }}</span>
+              </div>
+              
+              <p class="body-md text-brand-900/80 leading-[1.8] mb-[32px] text-[16px] lg:text-[18px]">
+                {{ course()?.description }}
+              </p>
+            } @else {
+              <!-- Dedicated Course Top Details -->
+              @let dedicatedData = c().dedicatedCourses[course()?.id];
+              <div class="body-md font-medium text-brand-900/60 mb-4">{{ dedicatedData.subtitle }}</div>
+              <h1 class="font-serif text-[32px] lg:text-[44px] text-brand-900 leading-tight mb-[16px]">{{ dedicatedData.title }}</h1>
+              <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-5 py-2.5 rounded-full mb-[32px] shadow-sm w-fit">
+                <mat-icon class="text-[24px]">local_offer</mat-icon>
+                <span class="body-md font-semibold text-[20px] sm:text-[24px]">{{ dedicatedData.price }}</span>
+              </div>
+              <p class="body-md font-semibold text-brand-900 leading-[1.8] mb-[16px] text-[16px] lg:text-[18px]" [innerHTML]="dedicatedData.mainDesc | formatText"></p>
+              <p class="body-md text-brand-900/80 leading-[1.8] mb-[32px] text-[15px] whitespace-pre-wrap" [innerHTML]="dedicatedData.subDesc | formatText"></p>
+            }
 
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-[48px]">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3" [class.mb-[48px]]="!c().dedicatedCourses[course()?.id]?.mainDesc">
               @if (cartService.isInCart('course-' + course()?.id)()) {
                 <button (click)="goToCheckout()" class="btn-primary flex-1 flex items-center justify-center gap-2 shadow-sm !bg-emerald-600 hover:!bg-emerald-700 !py-4">
                   <mat-icon>check_circle</mat-icon> Proceed to Checkout
@@ -58,33 +84,102 @@ import {Location} from '@angular/common';
               }
             </div>
             
-            <div class="border-t border-brand-100 pt-[32px]">
-              <div class="flex items-start gap-[16px] mb-[24px]">
-                <div class="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-brand-600 flex-shrink-0">
-                  <mat-icon>verified</mat-icon>
+            @if (!c().dedicatedCourses[course()?.id]?.mainDesc) {
+              <div class="border-t border-brand-100 pt-[32px]">
+                <div class="flex items-start gap-[16px] mb-[24px]">
+                  <div class="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-brand-600 flex-shrink-0">
+                    <mat-icon>verified</mat-icon>
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-brand-900 mb-1">Instant Access</h3>
+                    <p class="text-[13px] text-brand-900/60 leading-relaxed">
+                      {{ course()?.level === 'PDF E-Book' ? 'Receive the PDF download immediately after payment verification.' : 'Get enrolled instantly upon successful payment.' }}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="font-medium text-brand-900 mb-1">Instant Access</h3>
-                  <p class="text-[13px] text-brand-900/60 leading-relaxed">
-                    {{ course()?.level === 'PDF E-Book' ? 'Receive the PDF download immediately after payment verification.' : 'Get enrolled instantly upon successful payment.' }}
-                  </p>
+                
+                <div class="flex items-start gap-[16px]">
+                  <div class="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-brand-600 flex-shrink-0">
+                    <mat-icon>support_agent</mat-icon>
+                  </div>
+                  <div>
+                    <h3 class="font-medium text-brand-900 mb-1">Dedicated WhatsApp Support</h3>
+                    <p class="text-[13px] text-brand-900/60 leading-relaxed">
+                      Have questions? Chat directly with Swarna for personalized assistance and guidance.
+                    </p>
+                  </div>
                 </div>
               </div>
-              
-              <div class="flex items-start gap-[16px]">
-                <div class="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-brand-600 flex-shrink-0">
-                  <mat-icon>support_agent</mat-icon>
-                </div>
-                <div>
-                  <h3 class="font-medium text-brand-900 mb-1">Dedicated WhatsApp Support</h3>
-                  <p class="text-[13px] text-brand-900/60 leading-relaxed">
-                    Have questions? Chat directly with Swarna for personalized assistance and guidance.
-                  </p>
-                </div>
-              </div>
-            </div>
+            }
           </div>
         </div>
+
+        <!-- Dedicated Course Full-Width Bottom Sections -->
+        @if (c().dedicatedCourses[course()?.id]?.mainDesc) {
+          @let dedicatedData = c().dedicatedCourses[course()?.id];
+          <div class="mt-8 pt-8 border-t border-brand-100 max-w-4xl mx-auto">
+            <h2 class="font-serif text-[28px] lg:text-[32px] text-brand-900 mb-8">{{ dedicatedData.bulletTitle }}</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
+                  <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet1Title }}</h3>
+                </div>
+                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5" [innerHTML]="dedicatedData.bullet1Desc | formatText"></p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
+                  <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet2Title }}</h3>
+                </div>
+                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5" [innerHTML]="dedicatedData.bullet2Desc | formatText"></p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
+                  <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet3Title }}</h3>
+                </div>
+                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5" [innerHTML]="dedicatedData.bullet3Desc | formatText"></p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
+                  <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet4Title }}</h3>
+                </div>
+                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5" [innerHTML]="dedicatedData.bullet4Desc | formatText"></p>
+              </div>
+            </div>
+
+            <div class="border-t border-brand-100 pt-12 space-y-12">
+              @if (dedicatedData.bottomDescExtra) {
+                <p class="text-[15px] font-medium text-brand-900 leading-relaxed mb-8 bg-brand-50 p-4 rounded-xl border border-brand-100" [innerHTML]="dedicatedData.bottomDescExtra | formatText"></p>
+              }
+              
+              @if (dedicatedData.bottomTitle1 || dedicatedData.bottomDesc1) {
+                <div>
+                  @if (dedicatedData.bottomTitle1) {
+                    <h3 class="font-serif text-[24px] text-brand-900 mb-4">{{ dedicatedData.bottomTitle1 }}</h3>
+                  }
+                  @if (dedicatedData.bottomDesc1) {
+                    <p class="text-brand-900/80 leading-relaxed text-[15px]" [innerHTML]="dedicatedData.bottomDesc1 | formatText"></p>
+                  }
+                </div>
+              }
+              
+              @if (dedicatedData.bottomTitle2 || dedicatedData.bottomDesc2) {
+                <div>
+                  @if (dedicatedData.bottomTitle2) {
+                    <h3 class="font-serif text-[24px] text-brand-900 mb-4">{{ dedicatedData.bottomTitle2 }}</h3>
+                  }
+                  @if (dedicatedData.bottomDesc2) {
+                    <p class="text-brand-900/80 leading-relaxed text-[15px]" [innerHTML]="dedicatedData.bottomDesc2 | formatText"></p>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
       } @else {
         <div class="py-24 text-center">
           <mat-icon class="text-[48px] text-brand-200 mb-4">error_outline</mat-icon>
@@ -100,6 +195,8 @@ export class CourseDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   cartService = inject(CartService);
+  contentService = inject(ContentService);
+  c = this.contentService.content;
   private location = inject(Location);
 
   course = signal<any>(null);

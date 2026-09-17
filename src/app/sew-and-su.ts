@@ -4,11 +4,12 @@ import {FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators} fr
 import {db} from '../lib/firebase';
 import {collection, addDoc, serverTimestamp} from 'firebase/firestore';
 import {ContentService} from './services/content.service';
+import {FormatTextPipe} from './pipes/format-text.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-sew-and-su',
-  imports: [MatIconModule, FormsModule, ReactiveFormsModule],
+  imports: [MatIconModule, FormsModule, ReactiveFormsModule, FormatTextPipe],
   template: `
     <!-- Header -->
     <header class="pt-[40px] pb-[48px] px-6 text-center max-w-[1600px] mx-auto">
@@ -26,9 +27,8 @@ import {ContentService} from './services/content.service';
           <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-300 label-md uppercase tracking-[0.2em] text-[12px] mb-6">
             Custom Tailoring Services
           </span>
-          <h1 class="display-lg mb-[24px] text-white">{{ c().sewAndSu.heroTitle }}</h1>
-          <p class="body-md text-[18px] text-white/90 max-w-2xl mx-auto font-light leading-relaxed">
-            {{ c().sewAndSu.heroDesc }}
+          <h1 class="display-lg mb-[24px] text-white" [innerHTML]="c().sewAndSu.heroTitle | formatText"></h1>
+          <p class="body-md text-[18px] text-brand-100/90 max-w-2xl mx-auto font-light leading-relaxed" [innerHTML]="c().sewAndSu.heroDesc | formatText">
           </p>
         </div>
       </div>
@@ -41,7 +41,7 @@ import {ContentService} from './services/content.service';
         <div class="w-full lg:w-7/12">
           <div class="gradient-shell h-full">
             <div class="gradient-shell-inner p-[64px] relative">
-              <h2 class="font-serif text-[40px] text-brand-900 mb-[48px] leading-tight">{{ c().sewAndSu.formTitle }}</h2>
+              <h2 class="font-serif text-[40px] text-brand-900 mb-[48px] leading-tight" [innerHTML]="c().sewAndSu.formTitle | formatText"></h2>
               
               <form [formGroup]="bookingForm" (ngSubmit)="submitBooking()" class="flex flex-col gap-[32px]">
                 
@@ -111,27 +111,27 @@ import {ContentService} from './services/content.service';
               </div>
 
               <div class="relative z-10">
-                <h3 class="font-serif text-[32px] text-white mb-[40px] leading-tight">{{ c().sewAndSu.processTitle }}</h3>
+                <h3 class="font-serif text-[32px] text-white mb-[40px] leading-tight" [innerHTML]="c().sewAndSu.processTitle | formatText"></h3>
                 <div class="flex flex-col gap-[32px]">
                   <div class="flex gap-[24px]">
                     <div class="w-[40px] h-[40px] rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center body-md font-semibold shrink-0 text-brand-300 shadow-inner">1</div>
                     <div>
-                      <h4 class="body-md font-medium text-white mb-[8px]">{{ c().sewAndSu.step1Title }}</h4>
-                      <p class="body-md text-[14px] text-brand-100/80 font-light">{{ c().sewAndSu.step1Desc }}</p>
+                      <h4 class="body-md font-medium text-white mb-[8px]" [innerHTML]="c().sewAndSu.step1Title | formatText"></h4>
+                      <p class="body-md text-[14px] text-brand-100/80 font-light" [innerHTML]="c().sewAndSu.step1Desc | formatText"></p>
                     </div>
                   </div>
                   <div class="flex gap-[24px]">
                     <div class="w-[40px] h-[40px] rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center body-md font-semibold shrink-0 text-brand-300 shadow-inner">2</div>
                     <div>
-                      <h4 class="body-md font-medium text-white mb-[8px]">{{ c().sewAndSu.step2Title }}</h4>
-                      <p class="body-md text-[14px] text-brand-100/80 font-light">{{ c().sewAndSu.step2Desc }}</p>
+                      <h4 class="body-md font-medium text-white mb-[8px]" [innerHTML]="c().sewAndSu.step2Title | formatText"></h4>
+                      <p class="body-md text-[14px] text-brand-100/80 font-light" [innerHTML]="c().sewAndSu.step2Desc | formatText"></p>
                     </div>
                   </div>
                   <div class="flex gap-[24px]">
                     <div class="w-[40px] h-[40px] rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center body-md font-semibold shrink-0 text-brand-300 shadow-inner">3</div>
                     <div>
-                      <h4 class="body-md font-medium text-white mb-[8px]">{{ c().sewAndSu.step3Title }}</h4>
-                      <p class="body-md text-[14px] text-brand-100/80 font-light">{{ c().sewAndSu.step3Desc }}</p>
+                      <h4 class="body-md font-medium text-white mb-[8px]" [innerHTML]="c().sewAndSu.step3Title | formatText"></h4>
+                      <p class="body-md text-[14px] text-brand-100/80 font-light" [innerHTML]="c().sewAndSu.step3Desc | formatText"></p>
                     </div>
                   </div>
                 </div>

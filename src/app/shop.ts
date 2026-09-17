@@ -4,12 +4,13 @@ import {RouterLink} from '@angular/router';
 import {db} from '../lib/firebase';
 import {collection, query, orderBy, onSnapshot} from 'firebase/firestore';
 import {ContentService} from './services/content.service';
+import {FormatTextPipe} from './pipes/format-text.pipe';
 import {inject} from '@angular/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-shop',
-  imports: [MatIconModule, RouterLink],
+  imports: [MatIconModule, RouterLink, FormatTextPipe],
   template: `
     <header class="pt-[40px] pb-[48px] px-6 text-center max-w-[1600px] mx-auto">
       <div class="relative w-full rounded-[36px] sm:rounded-[48px] overflow-hidden p-10 sm:p-16 border border-white/20 shadow-2xl text-white bg-slate-950 group">
@@ -26,9 +27,8 @@ import {inject} from '@angular/core';
           <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-300 label-md uppercase tracking-[0.2em] text-[12px] mb-6">
             Sewing Essentials
           </span>
-          <h1 class="display-lg mb-[24px] text-white">{{ c().shop.heroTitle }}</h1>
-          <p class="body-md text-[18px] text-white/90 max-w-2xl mx-auto font-light leading-relaxed">
-            {{ c().shop.heroDesc }}
+          <h1 class="display-lg mb-[24px] text-white" [innerHTML]="c().shop.heroTitle | formatText"></h1>
+          <p class="body-md text-[18px] text-brand-100/90 max-w-2xl mx-auto font-light leading-relaxed" [innerHTML]="c().shop.heroDesc | formatText">
           </p>
         </div>
       </div>

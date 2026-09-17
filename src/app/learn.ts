@@ -5,11 +5,12 @@ import {db} from '../lib/firebase';
 import {collection, query, orderBy, onSnapshot} from 'firebase/firestore';
 import {ContentService} from './services/content.service';
 import {CartService} from './services/cart.service';
+import {FormatTextPipe} from './pipes/format-text.pipe';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-learn',
-  imports: [MatIconModule, RouterLink],
+  imports: [RouterLink, MatIconModule, FormatTextPipe],
   template: `
     <!-- Header -->
     <header class="pt-6 pb-6 px-4 sm:px-6 text-center max-w-[1600px] mx-auto">
@@ -27,9 +28,8 @@ import {CartService} from './services/cart.service';
           <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-300 label-md uppercase tracking-[0.2em] text-[11px] sm:text-[12px] mb-4 sm:mb-6">
             {{ c().app.navCourses }}
           </span>
-          <h1 class="font-serif text-[30px] sm:text-[48px] lg:text-[64px] font-normal leading-tight mb-4 sm:mb-6 text-white">{{ c().learn.heroTitle }}</h1>
-          <p class="body-md text-[15px] sm:text-[18px] text-white/90 max-w-2xl mx-auto font-light leading-relaxed">
-            {{ c().learn.heroDesc }}
+          <h1 class="font-serif text-[30px] sm:text-[48px] lg:text-[64px] font-normal leading-tight mb-4 sm:mb-6 text-white" [innerHTML]="c().learn.heroTitle | formatText"></h1>
+          <p class="body-md text-brand-50/90 text-[14px] sm:text-[18px] lg:text-[20px] max-w-2xl mx-auto font-light leading-relaxed mb-6 sm:mb-10" [innerHTML]="c().learn.heroDesc | formatText">
           </p>
         </div>
       </div>
@@ -69,7 +69,10 @@ import {CartService} from './services/cart.service';
                   }
                 </div>
                 <h2 class="font-serif text-[26px] sm:text-[36px] lg:text-[44px] text-brand-900 mb-3 sm:mb-4 leading-tight tracking-tight">{{ course.title }}</h2>
-                <div class="body-md font-medium text-brand-900 text-[20px] sm:text-[24px] mb-3 sm:mb-4">{{ course.price }}</div>
+                <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-2 rounded-full mb-4 sm:mb-6 shadow-sm w-fit">
+                  <mat-icon class="text-[20px]">local_offer</mat-icon>
+                  <span class="body-md font-semibold text-[18px] sm:text-[20px]">{{ course.price }}</span>
+                </div>
                 <p class="body-md text-[14px] sm:text-[16px] text-brand-900/80 mb-6 leading-relaxed">
                   {{ course.description }}
                 </p>
@@ -141,7 +144,7 @@ export class Learn implements OnInit {
 
   defaultCourses = [
     {
-      id: 'couture-and-tailoring-business-mentorship',
+      id: '6-month-tailoring-business-mentorship',
       title: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
       description: 'ස්වර්ණා සමඟ පුද්ගලිකව (1-on-1) සිදු කරන විශේෂ මඟපෙන්වීමකි. උසස් මට්ටමේ ඇඳුම් නිර්මාණ (Advanced draping), මනාලියන්ගේ ඇඳුම් මිනුම් සහ ඔබේම ලාභදායී ඇඳුම් ව්යාපාරයක් (Boutique) සාර්ථකව ආරම්භ කරන ආකාරය මෙහිදී ඉගෙනගත හැක.',
       level: 'Mentorship',
@@ -157,7 +160,7 @@ export class Learn implements OnInit {
       image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
     },
     {
-      id: 'sri-lankan-saree-jacket-master-blueprint',
+      id: '100-day-tailoring-business-workbook',
       title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
       description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
       level: 'PDF E-Book',
