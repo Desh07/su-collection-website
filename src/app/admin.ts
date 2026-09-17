@@ -652,9 +652,9 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
           <!-- Tab Content: Content Copy -->
           @if (activeTab() === 'content') {
             <div class="bg-white p-8 rounded-[24px] shadow-sm border border-brand-100 mb-8">
-              <div class="flex items-center justify-between mb-8">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
                 <h3 class="font-serif text-[32px] text-brand-900">Website Copy Editor</h3>
-                <div class="flex gap-3">
+                <div class="flex flex-col sm:flex-row gap-3">
                   <button type="button" (click)="resetContentToDefaults()" class="btn-secondary">
                     Reset to Defaults
                   </button>
