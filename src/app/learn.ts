@@ -58,15 +58,33 @@ import {CartService} from './services/cart.service';
               
               <!-- Text Side -->
               <div class="w-full lg:w-1/2 relative z-10">
-                <div class="flex items-center gap-2 text-brand-600 mb-3 label-md font-medium">
-                  <mat-icon class="text-[16px]">star</mat-icon>
-                  <span>{{ course.duration }}</span>
+                <div class="flex items-center gap-3 text-brand-600 mb-3 font-medium">
+                  <span class="px-3 py-1 bg-brand-50 text-brand-900 text-[11px] font-semibold uppercase tracking-wider rounded-lg">{{ course.level }}</span>
+                  <div class="flex items-center gap-1.5 label-md text-[13px]">
+                    <mat-icon class="text-[16px]">schedule</mat-icon>
+                    <span>{{ course.duration }}</span>
+                  </div>
+                  @if (course.badge) {
+                    <span class="bg-brand-900 text-white px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full shadow-sm ml-auto sm:ml-0">{{ course.badge }}</span>
+                  }
                 </div>
                 <h2 class="font-serif text-[26px] sm:text-[36px] lg:text-[44px] text-brand-900 mb-3 sm:mb-4 leading-tight tracking-tight">{{ course.title }}</h2>
                 <div class="body-md font-medium text-brand-900 text-[20px] sm:text-[24px] mb-3 sm:mb-4">{{ course.price }}</div>
-                <p class="body-md text-[14px] sm:text-[16px] text-brand-900/80 mb-8 sm:mb-10 leading-relaxed">
+                <p class="body-md text-[14px] sm:text-[16px] text-brand-900/80 mb-6 leading-relaxed">
                   {{ course.description }}
                 </p>
+                @if (course.features && course.features.length) {
+                  <ul class="flex flex-col gap-3 mb-10 text-[14px] text-brand-900/90 font-medium">
+                    @for (feat of course.features; track feat) {
+                      <li class="flex items-start gap-2.5">
+                        <mat-icon class="text-emerald-600 text-[18px] shrink-0">check_circle</mat-icon>
+                        <span class="leading-snug">{{ feat }}</span>
+                      </li>
+                    }
+                  </ul>
+                } @else {
+                  <div class="mb-10"></div>
+                }
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   @if (cartService.isInCart('course-' + course.id)()) {
                     <a routerLink="/checkout" class="btn-primary !bg-emerald-600 hover:!bg-emerald-700 flex items-center justify-center gap-2 !px-8 !py-3.5">
@@ -76,16 +94,16 @@ import {CartService} from './services/cart.service';
                   } @else {
                     <button (click)="enrollCourse(course)" class="btn-primary flex items-center justify-center gap-2 !px-8 !py-3.5">
                       <mat-icon class="text-[18px]">{{ course.level === 'PDF E-Book' ? 'book' : 'school' }}</mat-icon>
-                      <span>{{ course.level === 'PDF E-Book' ? 'Get E-Book' : 'වැඩසටහනට එකතු වන්න' }}</span>
+                      <span>{{ course.btnJoinText || (course.level === 'PDF E-Book' ? 'Get E-Book' : 'Join Now') }}</span>
                     </button>
                   }
                   <a [routerLink]="['/learn', course.id]" [state]="{ course: course }" class="btn-primary !bg-brand-800 hover:!bg-brand-900 flex items-center justify-center gap-2 !px-8 !py-3.5">
                     <mat-icon class="text-[18px]">visibility</mat-icon>
-                    <span>විස්තර බලන්න</span>
+                    <span>{{ course.btnViewText || 'View Details' }}</span>
                   </a>
                   <button (click)="inquireCourse(course)" class="btn-secondary bg-white/80 backdrop-blur-sm flex items-center justify-center gap-2 !px-8 !py-3.5">
                     <mat-icon class="text-[18px]">chat</mat-icon>
-                    <span>WhatsApp හරහා විමසන්න</span>
+                    <span>{{ course.btnInquireText || 'WhatsApp Us' }}</span>
                   </button>
                 </div>
               </div>
@@ -129,6 +147,13 @@ export class Learn implements OnInit {
       level: 'Mentorship',
       price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
       duration: 'මාස 6යි (6 Months)',
+      badge: 'Limited Slots',
+      features: [
+        'Weekly 1-on-1 voice & video reviews',
+        'Direct WhatsApp line to Swarna Herath',
+        'Bridal, frock, & saree jacket masterclasses',
+        'Boutique pricing & fabric sourcing guidance'
+      ],
       image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
     },
     {
@@ -136,8 +161,15 @@ export class Learn implements OnInit {
       title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
       description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
       level: 'PDF E-Book',
-      price: 'Rs. 2,500',
+      price: 'LKR 2,500',
       duration: '48 Pages',
+      badge: 'Best Seller',
+      features: [
+        'Precise cup dart manipulation formulas',
+        'Deep back neck stabilization secrets',
+        'Printable standard Sri Lankan size charts',
+        'Step-by-step lining & piping tutorial'
+      ],
       image: 'https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=800&auto=format&fit=crop'
     }
   ];

@@ -527,6 +527,29 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                     <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Image URL</label>
                     <input type="text" formControlName="image" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
                   </div>
+                  <div>
+                    <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Badge (Optional)</label>
+                    <input type="text" formControlName="badge" placeholder="e.g. Best Seller" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
+                  </div>
+                  <div>
+                    <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Features (One per line)</label>
+                    <textarea formControlName="features" rows="4" placeholder="Weekly 1-on-1 voice & video reviews&#10;Direct WhatsApp line" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                  </div>
+                  
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Join Button Text</label>
+                      <input type="text" formControlName="btnJoinText" placeholder="e.g. Enroll Now" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
+                    </div>
+                    <div>
+                      <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">View Button Text</label>
+                      <input type="text" formControlName="btnViewText" placeholder="e.g. View Details" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
+                    </div>
+                    <div>
+                      <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Inquire Button Text</label>
+                      <input type="text" formControlName="btnInquireText" placeholder="e.g. WhatsApp Us" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
+                    </div>
+                  </div>
                   
                   <div class="flex gap-3 mt-4">
                     <button type="submit" [disabled]="courseForm.invalid" class="btn-primary flex-1 disabled:opacity-50">
@@ -541,6 +564,12 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
 
               <!-- Course List -->
               <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="sm:col-span-2 flex justify-between items-center bg-white p-4 rounded-xl border border-brand-100 mb-2">
+                  <span class="text-[13px] text-brand-900/70">Need to setup the database? Use this button to push the initial courses to Firestore.</span>
+                  <button (click)="initializeDefaultCourses()" class="btn-secondary !py-2 !px-4 text-[13px] flex items-center gap-1.5 whitespace-nowrap shadow-sm">
+                    <mat-icon class="text-[16px]">cloud_upload</mat-icon> Initialize Defaults
+                  </button>
+                </div>
                 @for (course of courses(); track course.id) {
                   <div class="bg-white rounded-[24px] shadow-sm border border-brand-100 overflow-hidden flex flex-col">
                     <img [src]="course.image" [alt]="course.title" class="w-full h-40 object-cover" referrerpolicy="no-referrer">
@@ -625,9 +654,14 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
             <div class="bg-white p-8 rounded-[24px] shadow-sm border border-brand-100 mb-8">
               <div class="flex items-center justify-between mb-8">
                 <h3 class="font-serif text-[32px] text-brand-900">Website Copy Editor</h3>
-                <button (click)="saveContent()" [disabled]="contentSaving()" class="btn-primary">
-                  {{ contentSaving() ? 'Saving...' : 'Publish Changes' }}
-                </button>
+                <div class="flex gap-3">
+                  <button type="button" (click)="resetContentToDefaults()" class="btn-secondary">
+                    Reset to Defaults
+                  </button>
+                  <button (click)="saveContent()" [disabled]="contentSaving()" class="btn-primary">
+                    {{ contentSaving() ? 'Saving...' : 'Publish Changes' }}
+                  </button>
+                </div>
               </div>
 
               @if (contentService.loading()) {
@@ -685,6 +719,15 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                         <textarea [(ngModel)]="draftContent.home.heroDesc" rows="3" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
                       </div>
                       
+                      <div class="col-span-full">
+                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Video Title</label>
+                        <input type="text" [(ngModel)]="draftContent.home.videoTitle" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
+                      </div>
+                      <div class="col-span-full">
+                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Video Description</label>
+                        <textarea [(ngModel)]="draftContent.home.videoDesc" rows="3" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                      </div>
+                      
                       <!-- Home Bento 1 -->
                       <div class="bg-slate-50 p-4 rounded-xl">
                         <h5 class="font-medium text-brand-900 mb-4">Service Card 1 (Classes)</h5>
@@ -701,7 +744,23 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                         <input type="text" [(ngModel)]="draftContent.home.bento2Btn" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400">
                       </div>
 
-                      <div class="col-span-full">
+                      <!-- Services Section -->
+                      <div class="col-span-full bg-slate-50 p-4 rounded-xl mt-4">
+                        <h5 class="font-medium text-brand-900 mb-4">Services Section Intro</h5>
+                        <input type="text" [(ngModel)]="draftContent.home.servicesTitle" placeholder="Services Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400">
+                        <textarea [(ngModel)]="draftContent.home.servicesDesc" placeholder="Services Description" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                      </div>
+
+                      <div class="col-span-full bg-slate-50 p-4 rounded-xl mt-4">
+                        <h5 class="font-medium text-brand-900 mb-4">How it Works (WhatsApp Order)</h5>
+                        <input type="text" [(ngModel)]="draftContent.home.howItWorksTitle" placeholder="Title" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400">
+                        <textarea [(ngModel)]="draftContent.home.howItWorksStep1" placeholder="Step 1" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400"></textarea>
+                        <textarea [(ngModel)]="draftContent.home.howItWorksStep2" placeholder="Step 2" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400"></textarea>
+                        <textarea [(ngModel)]="draftContent.home.howItWorksStep3" placeholder="Step 3" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 mb-3 outline-none focus:border-brand-400"></textarea>
+                        <textarea [(ngModel)]="draftContent.home.howItWorksStep4" placeholder="Step 4" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                      </div>
+
+                      <div class="col-span-full mt-4">
                         <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Testimonial Quote</label>
                         <textarea [(ngModel)]="draftContent.home.testimonialQuote" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
                       </div>
@@ -725,16 +784,8 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
                         <textarea [(ngModel)]="draftContent.about.heroDesc" rows="2" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
                       </div>
                       <div class="col-span-full">
-                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Paragraph 1</label>
-                        <textarea [(ngModel)]="draftContent.about.content1" rows="3" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
-                      </div>
-                      <div class="col-span-full">
-                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Paragraph 2 (Quote)</label>
-                        <textarea [(ngModel)]="draftContent.about.content2" rows="3" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
-                      </div>
-                      <div class="col-span-full">
-                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Paragraph 3</label>
-                        <textarea [(ngModel)]="draftContent.about.content3" rows="3" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400"></textarea>
+                        <label class="block text-[12px] uppercase tracking-wider text-brand-900/70 mb-2">Main Content</label>
+                        <textarea [(ngModel)]="draftContent.about.content" rows="12" class="w-full border border-brand-200 rounded-lg px-4 py-2 outline-none focus:border-brand-400 font-['Noto_Sans_Sinhala']"></textarea>
                       </div>
                     </div>
                   </section>
@@ -1287,6 +1338,11 @@ export class Admin implements OnInit {
       duration: ['', Validators.required],
       price: ['', Validators.required],
       image: ['', Validators.required],
+      badge: [''],
+      features: [''],
+      btnJoinText: [''],
+      btnViewText: [''],
+      btnInquireText: ['']
     });
 
     this.productForm = this.fb.group({
@@ -1313,6 +1369,19 @@ export class Admin implements OnInit {
     } catch (e) {
       console.error(e);
       alert('Failed to save content');
+    }
+    this.contentSaving.set(false);
+  }
+
+  async resetContentToDefaults() {
+    if (!confirm('Are you sure you want to reset all website text to the default Sinhala settings? This will overwrite any custom text you have saved.')) return;
+    this.contentSaving.set(true);
+    try {
+      await this.contentService.updateContent(defaultContent);
+      this.draftContent = JSON.parse(JSON.stringify(defaultContent));
+    } catch (e) {
+      console.error(e);
+      alert('Failed to reset content');
     }
     this.contentSaving.set(false);
   }
@@ -1504,6 +1573,13 @@ export class Admin implements OnInit {
     if (this.courseForm.invalid) return;
     const data = this.courseForm.value;
     
+    // Convert features text to array
+    if (data.features) {
+      data.features = data.features.split('\n').map((f: string) => f.trim()).filter((f: string) => f.length > 0);
+    } else {
+      data.features = [];
+    }
+    
     if (this.editingCourseId()) {
       await updateDoc(doc(db, 'courses', this.editingCourseId()!), data);
     } else {
@@ -1514,12 +1590,66 @@ export class Admin implements OnInit {
 
   editCourse(course: any) {
     this.editingCourseId.set(course.id);
-    this.courseForm.patchValue(course);
+    const formData = { ...course };
+    if (Array.isArray(formData.features)) {
+      formData.features = formData.features.join('\n');
+    }
+    this.courseForm.patchValue(formData);
   }
 
   cancelEditCourse() {
     this.editingCourseId.set(null);
     this.courseForm.reset();
+  }
+
+  async initializeDefaultCourses() {
+    const defaults = [
+      {
+        id: 'couture-and-tailoring-business-mentorship',
+        title: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
+        description: 'ස්වර්ණා සමඟ පුද්ගලිකව (1-on-1) සිදු කරන විශේෂ මඟපෙන්වීමකි. උසස් මට්ටමේ ඇඳුම් නිර්මාණ (Advanced draping), මනාලියන්ගේ ඇඳුම් මිනුම් සහ ඔබේම ලාභදායී ඇඳුම් ව්යාපාරයක් (Boutique) සාර්ථකව ආරම්භ කරන ආකාරය මෙහිදී ඉගෙනගත හැක.',
+        level: 'Mentorship',
+        price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
+        duration: 'මාස 6යි (6 Months)',
+        image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop',
+        badge: 'Limited Slots',
+        features: [
+          'Weekly 1-on-1 voice & video reviews',
+          'Direct WhatsApp line to Swarna Herath',
+          'Bridal, frock, & saree jacket masterclasses',
+          'Boutique pricing & fabric sourcing guidance'
+        ],
+        btnJoinText: 'වැඩසටහනට එකතු වන්න',
+        btnViewText: 'විස්තර බලන්න',
+        btnInquireText: 'WhatsApp හරහා විමසන්න',
+        createdAt: serverTimestamp()
+      },
+      {
+        id: 'sri-lankan-saree-jacket-master-blueprint',
+        title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
+        description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
+        level: 'PDF E-Book',
+        price: 'LKR 2,500',
+        duration: '48 Pages',
+        image: 'https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=800&auto=format&fit=crop',
+        badge: 'Best Seller',
+        features: [
+          'Precise cup dart manipulation formulas',
+          'Deep back neck stabilization secrets',
+          'Printable standard Sri Lankan size charts',
+          'Step-by-step lining & piping tutorial'
+        ],
+        btnJoinText: 'Get E-Book',
+        btnViewText: 'විස්තර බලන්න',
+        btnInquireText: 'WhatsApp හරහා විමසන්න',
+        createdAt: serverTimestamp()
+      }
+    ];
+
+    for (const course of defaults) {
+      await setDoc(doc(db, 'courses', course.id), course);
+    }
+    alert('Default courses initialized successfully!');
   }
 
   async deleteCourse(id: string) {

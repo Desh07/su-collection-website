@@ -14,7 +14,8 @@ export class AuthService {
     const adminEmails = [
       'lakshan.yatiwella@gmail.com',
       'deshanthv@gmail.com',
-      'pubuditha.desilva@gmail.com'
+      'pubuditha.desilva@gmail.com',
+      'fazna9405@gmail.com'
     ];
     
     onAuthStateChanged(auth, (user) => {

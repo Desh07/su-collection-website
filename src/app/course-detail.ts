@@ -53,7 +53,7 @@ import {Location} from '@angular/common';
               } @else {
                 <button (click)="enroll()" class="btn-primary flex-1 flex items-center justify-center gap-2 shadow-sm !py-4">
                   <mat-icon>{{ course()?.level === 'PDF E-Book' ? 'book' : 'school' }}</mat-icon>
-                  {{ course()?.level === 'PDF E-Book' ? 'Get E-Book Now' : 'Enroll Now' }}
+                  {{ course()?.btnJoinText || (course()?.level === 'PDF E-Book' ? 'Get E-Book Now' : 'Enroll Now') }}
                 </button>
               }
             </div>

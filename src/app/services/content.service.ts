@@ -27,6 +27,15 @@ export interface WebsiteContent {
     meetTitle: string;
     meetDesc: string;
     meetBtn: string;
+    videoTitle: string;
+    videoDesc: string;
+    servicesTitle: string;
+    servicesDesc: string;
+    howItWorksTitle: string;
+    howItWorksStep1: string;
+    howItWorksStep2: string;
+    howItWorksStep3: string;
+    howItWorksStep4: string;
     bento1Title: string;
     bento1Desc: string;
     bento1Btn: string;
@@ -74,9 +83,7 @@ export interface WebsiteContent {
     heroPill: string;
     heroTitle: string;
     heroDesc: string;
-    content1: string;
-    content2: string;
-    content3: string;
+    content: string;
   };
   contact: {
     heroTitle: string;
@@ -113,6 +120,15 @@ export const defaultContent: WebsiteContent = {
     meetTitle: "Meet Swarna Herath",
     meetDesc: "වසර 25කට වැඩි කාලයක් පුරා විලාසිතා නිර්මාණකරණයේ නියැලෙමින්, කාන්තාවන් සිය ගණනකට සාර්ථක නිවෙස් පදනම් කරගත් විලාසිතා ව්යාපාර ආරම්භ කිරීමට මඟපෙන්වූ ප්රවීණ අත්දැකීම්.",
     meetBtn: "Read Swarna's Story",
+    videoTitle: "Watch Swarna in Action",
+    videoDesc: "150,000 කට අධික අපගේ සමාජ මාධ්ය ප්රජාව වෙත ගෙන එන ප්රායෝගික මැහුම් රහස්, කෙටි ක්රමවේද (Pattern secrets) සහ අපගේ සිසුන්ගේ සාර්ථකත්වයේ කතන්දර මෙතැනින් නරඹන්න.",
+    servicesTitle: "Our Services & Products",
+    servicesDesc: "පුද්ගලික මඟපෙන්වීම් (1-on-1 coaching) ලබාගැනීමට හෝ PDF අත්පොත් (Guides) ඇණවුම් කිරීමට පහතින් තෝරාගන්න. සියලුම ගනුදෙනු සහ බැංකු තැන්පතු තහවුරු කිරීම් WhatsApp හරහා ඉතා ආරක්ෂිතව සිදු කෙරේ.",
+    howItWorksTitle: "WhatsApp හරහා මුදල් ගෙවා ඇණවුම් කරන ආකාරය",
+    howItWorksStep1: "පහතින් ඇති සේවාවන් හෝ PDF අත්පොත් වලින් ඔබට අවශ්ය දේ තෝරාගන්න.",
+    howItWorksStep2: "එය ක්ලික් කළ විගස, බැංකු විස්තර ඉල්ලා අපගේ නිල WhatsApp අංකයට ස්වයංක්රීයව පණිවිඩයක් යොමු වේ.",
+    howItWorksStep3: "ඔබගේ බැංකු යෙදුමකින් (App එකකින්) හෝ බැංකුව හරහා මුදල් තැන්පත් කර, එම රිසිට්පතෙහි ඡායාරූපයක් අපට එවන්න.",
+    howItWorksStep4: "අපගේ කණ්ඩායම ඔබගේ රිසිට්පත පරීක්ෂා කර තහවුරු කළ වහාම, අදාළ PDF අත්පොත එවීමට හෝ පන්ති වේලාවන් වෙන් කිරීමට කටයුතු කරනු ඇත.",
     bento1Title: "Mentorship & Cutting Guides",
     bento1Desc: "Step-by-step masterclasses, downloadable PDF pattern blueprints, and direct WhatsApp voice feedback.",
     bento1Btn: "Explore Programs",
@@ -159,10 +175,8 @@ export const defaultContent: WebsiteContent = {
   about: {
     heroPill: "Meet Swarna Herath",
     heroTitle: "Swarna's Story",
-    heroDesc: "34 years of experience making beautiful dresses. A lifelong passion for teaching others how to sew.",
-    content1: "For over three decades, Swarna Herath has been at the forefront of the custom tailoring industry. What began as a local passion project has evolved into a nationwide movement, teaching thousands how to sew beautiful clothes.",
-    content2: "\"The biggest mistake people make,\" Swarna notes, \"is thinking that sewing is just about following a pattern. It's not. It's about looking at a design, understanding how clothes are made and making them fit a person perfectly.\"",
-    content3: "This simple idea is the heart of what we teach at Su Collection. Today, with over 150,000 followers across social media, Swarna focuses on empowering the next generation of tailors—helping them transition from hobbyists to successful online business owners."
+    heroDesc: "Over 25 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing.",
+    content: "වසර 25කට වැඩි කාලයක් පුරා ස්වර්ණා හේරත් වන මම, ඇඳුම් නිර්මාණ කලාවේ ඉදිරියෙන්ම සිටිමින් කටයුතු කර ඇත්තෙමි. කුඩා ආශාවකින් ආරම්භ වූ මෙම ගමන, අද වන විට දහස් සංඛ්යාත පිරිසකට ලස්සනට අඳින්න, මහන්න උගන්වන පුළුල් මෙහෙයුමක් බවට පත්ව ඇත.\n\n\"මිනිස්සු කරන ලොකුම වැරැද්ද තමයි, මැහුම් කියන්නේ නිකන් පතරොමක් බලාගෙන මහන එකක් විතරක් කියලා හිතන එක,\" ස්වර්ණා පවසයි. \"ඒක නෙවෙයි; ඩිසයින් එකක් දිහා බලලා, ඇඳුමක් හැදෙන හැටි තේරුම් අරන්, කෙනෙකුගේ සිරුරට හරියටම ගැලපෙන විදිහට ඒක නිමවන එකයි වැදගත්.\"\n\nමේ සරල සත්යය තමයි අපි Su Collection එකේදී උගන්වන්නේ. අද වන විට සමාජ මාධ්ය හරහා 150,000 කට අධික පිරිසකගේ ආදරය දිනාගනිමින්, ස්වර්ණා වන මම උත්සාහ කරන්නේ අලුත් පරම්පරාව සවිබල ගන්වන්නයි — විනෝදාංශයක් ලෙස මැහුම් කරන අය සාර්ථක ඔන්ලයින් ව්යාපාරිකයන් බවට පත් කිරීමට මම උදව් වෙමි.\n\nOver 25 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing. Our mission is to empower the next generation of designers and turn hobbyists into successful business owners."
   },
   contact: {
     heroTitle: "Contact Us",
@@ -182,23 +196,32 @@ export class ContentService {
   loading = signal<boolean>(true);
 
   constructor() {
-    this.listenToContent();
   }
 
-  private listenToContent() {
-    const docRef = doc(db, 'content', 'website');
-    onSnapshot(docRef, (docSnap) => {
-      this.loading.set(false);
-      if (docSnap.exists()) {
-        const data = docSnap.data() as WebsiteContent;
-        // Merge to ensure no missing keys break the UI if schema updates
-        this.content.set(this.mergeDeep(defaultContent, data));
-      } else {
-        this.content.set(defaultContent);
-      }
-    }, (error) => {
-      console.error("Error fetching content:", error);
-      this.loading.set(false);
+  init(): Promise<void> {
+    return new Promise((resolve) => {
+      let resolved = false;
+      const docRef = doc(db, 'content', 'website');
+      onSnapshot(docRef, (docSnap) => {
+        this.loading.set(false);
+        if (docSnap.exists()) {
+          const data = docSnap.data() as WebsiteContent;
+          this.content.set(this.mergeDeep(defaultContent, data));
+        } else {
+          this.content.set(defaultContent);
+        }
+        if (!resolved) {
+          resolved = true;
+          resolve();
+        }
+      }, (error) => {
+        console.error("Error fetching content:", error);
+        this.loading.set(false);
+        if (!resolved) {
+          resolved = true;
+          resolve();
+        }
+      });
     });
   }
 

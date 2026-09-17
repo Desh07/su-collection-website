@@ -109,10 +109,10 @@ interface DigitalGuide {
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
           <h2 class="font-serif text-[32px] sm:text-[44px] text-brand-900 leading-tight">
-            Watch Swarna in Action
+            {{ c().home.videoTitle }}
           </h2>
           <p class="text-[15px] sm:text-[16px] text-brand-900/70 font-light mt-1 max-w-2xl">
-            150,000 කට අධික අපගේ සමාජ මාධ්ය ප්රජාව වෙත ගෙන එන ප්රායෝගික මැහුම් රහස්, කෙටි ක්රමවේද (Pattern secrets) සහ අපගේ සිසුන්ගේ සාර්ථකත්වයේ කතන්දර මෙතැනින් නරඹන්න.
+            {{ c().home.videoDesc }}
           </p>
         </div>
         
@@ -240,46 +240,46 @@ interface DigitalGuide {
       <section class="py-10 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-[64px] w-full max-w-[1600px] mx-auto">
       <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
         <h2 class="font-serif text-[28px] sm:text-[40px] lg:text-[50px] text-brand-900 leading-tight mb-3 sm:mb-4">
-          Our Services &amp; Products
+          {{ c().home.servicesTitle }}
         </h2>
         <p class="body-md text-[14px] sm:text-[16px] lg:text-[18px] text-brand-900/80 font-light leading-relaxed">
-          පුද්ගලික මඟපෙන්වීම් (1-on-1 coaching) ලබාගැනීමට හෝ PDF අත්පොත් (Guides) ඇණවුම් කිරීමට පහතින් තෝරාගන්න. සියලුම ගනුදෙනු සහ බැංකු තැන්පතු තහවුරු කිරීම් WhatsApp හරහා ඉතා ආරක්ෂිතව සිදු කෙරේ.
+          {{ c().home.servicesDesc }}
         </p>
       </div>
 
       <!-- How WhatsApp & Bank Transfer Orders Work -->
       <div class="bg-white/80 backdrop-blur-xl border border-brand-200 rounded-[24px] sm:rounded-[32px] p-5 sm:p-8 mb-8 sm:mb-12 shadow-sm">
-        <h3 class="font-serif text-[17px] sm:text-[20px] text-brand-900 mb-5 sm:mb-6 flex items-center justify-center gap-2 text-center">
+        <h3 class="font-serif text-[20px] sm:text-[24px] text-brand-900 mb-6 sm:mb-8 text-center sm:text-left flex items-center justify-center gap-2">
           <mat-icon class="text-emerald-600">verified_user</mat-icon>
-          WhatsApp හරහා මුදල් ගෙවා ඇණවුම් කරන ආකාරය
+          {{ c().home.howItWorksTitle }}
         </h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div class="flex items-start gap-3 sm:gap-4">
             <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">1</span>
             <div>
               <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Pick Your Guide</h4>
-              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">පහතින් ඇති සේවාවන් හෝ PDF අත්පොත් වලින් ඔබට අවශ්ය දේ තෝරාගන්න.</p>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">{{ c().home.howItWorksStep1 }}</p>
             </div>
           </div>
           <div class="flex items-start gap-3 sm:gap-4">
             <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">2</span>
             <div>
               <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Click "Order on WhatsApp"</h4>
-              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">එය ක්ලික් කළ විගස, බැංකු විස්තර ඉල්ලා අපගේ නිල WhatsApp අංකයට ස්වයංක්රීයව පණිවිඩයක් යොමු වේ.</p>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">{{ c().home.howItWorksStep2 }}</p>
             </div>
           </div>
           <div class="flex items-start gap-3 sm:gap-4">
             <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">3</span>
             <div>
               <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Transfer &amp; Send Slip</h4>
-              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">ඔබගේ බැංකු යෙදුමකින් (App එකකින්) හෝ බැංකුව හරහා මුදල් තැන්පත් කර, එම රිසිට්පතෙහි ඡායාරූපයක් අපට එවන්න.</p>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">{{ c().home.howItWorksStep3 }}</p>
             </div>
           </div>
           <div class="flex items-start gap-3 sm:gap-4">
             <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-900 text-white flex items-center justify-center font-serif text-[13px] sm:text-[15px] shrink-0">4</span>
             <div>
               <h4 class="font-medium text-brand-900 text-[14px] sm:text-[15px] mb-1">Instant Verification</h4>
-              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">අපගේ කණ්ඩායම ඔබගේ රිසිට්පත පරීක්ෂා කර තහවුරු කළ වහාම, අදාළ PDF අත්පොත එවීමට හෝ පන්ති වේලාවන් වෙන් කිරීමට කටයුතු කරනු ඇත.</p>
+              <p class="text-[12px] sm:text-[13px] text-brand-900/70 leading-relaxed">{{ c().home.howItWorksStep4 }}</p>
             </div>
           </div>
         </div>
@@ -287,7 +287,7 @@ interface DigitalGuide {
 
       <!-- Offerings Grid (Mentorship & E-Books) -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
-        @for (item of digitalGuides; track item.id) {
+        @for (item of displayCourses(); track item.id) {
           <div class="gradient-shell flex flex-col h-full group hover:shadow-[0_25px_50px_-12px_rgba(248,58,100,0.2)] transition-all duration-500">
             <div class="gradient-shell-inner p-7 sm:p-8 flex flex-col h-full bg-white/70">
               
@@ -298,19 +298,19 @@ interface DigitalGuide {
                 
                 <div class="absolute top-4 left-4 flex gap-2">
                   <span class="bg-brand-900 text-white text-[11px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full shadow-sm">
-                    {{ item.category }}
+                    {{ item.level }}
                   </span>
-                  @if (item.badge) {
-                    <span class="bg-amber-400 text-slate-950 text-[11px] uppercase tracking-wider font-bold px-3 py-1 rounded-full shadow-sm">
-                      {{ item.badge }}
-                    </span>
-                  }
                 </div>
+                @if (item.badge) {
+                  <span class="absolute top-4 right-4 bg-brand-900/90 text-white px-3 py-1 text-[11px] font-semibold tracking-widest uppercase rounded-full shadow-md z-10 backdrop-blur-sm">
+                    {{ item.badge }}
+                  </span>
+                }
 
                 <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
                   <span class="text-[13px] font-medium flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full">
                     <mat-icon class="text-[15px] text-brand-300">schedule</mat-icon>
-                    {{ item.durationOrPages }}
+                    {{ item.duration }}
                   </span>
                   <span class="font-serif text-[22px] font-semibold text-white drop-shadow">
                     {{ item.price }}
@@ -328,19 +328,21 @@ interface DigitalGuide {
                 </p>
 
                 <!-- Features Checklist -->
-                <ul class="flex flex-col gap-2.5 mb-8 text-[13px] text-brand-900/90 font-medium">
-                  @for (feat of item.features; track feat) {
-                    <li class="flex items-center gap-2">
-                      <mat-icon class="text-emerald-600 text-[16px] shrink-0">check_circle</mat-icon>
-                      <span>{{ feat }}</span>
-                    </li>
-                  }
-                </ul>
+                @if (item.features && item.features.length) {
+                  <ul class="flex flex-col gap-2.5 mb-6 text-[13px] text-brand-900/70">
+                    @for (feat of item.features; track feat) {
+                      <li class="flex items-start gap-2">
+                        <mat-icon class="text-[16px] text-brand-600 shrink-0 mt-0.5">check_circle</mat-icon>
+                        <span class="leading-relaxed">{{ feat }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
 
                 <!-- Action Button -->
                 <div class="mt-auto flex flex-col pt-4 border-t border-brand-200">
                   <button type="button" (click)="viewDetails(item.id)" class="btn-primary flex items-center justify-center gap-2 !py-3.5 w-full">
-                    <span>විස්තර බලන්න</span>
+                    <span>{{ item.btnViewText || 'View Details' }}</span>
                     <mat-icon class="text-[18px]">arrow_forward</mat-icon>
                   </button>
                 </div>
@@ -467,14 +469,14 @@ export class Home implements OnInit {
   activeVideo = signal<SocialVideo | null>(null);
 
   // Digital Guides & Mentorship Programs
-  digitalGuides: DigitalGuide[] = [
+  defaultCourses = [
     {
-      id: 'dg-1',
+      id: 'couture-and-tailoring-business-mentorship',
       title: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
-      category: 'Mentorship',
+      level: 'Mentorship',
       badge: 'Limited Slots',
       price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
-      durationOrPages: 'මාස 6යි (6 Months) · Direct WhatsApp',
+      duration: 'මාස 6යි (6 Months) · Direct WhatsApp',
       description: 'ස්වර්ණා සමඟ පුද්ගලිකව (1-on-1) සිදු කරන විශේෂ මඟපෙන්වීමකි. උසස් මට්ටමේ ඇඳුම් නිර්මාණ (Advanced draping), මනාලියන්ගේ ඇඳුම් මිනුම් සහ ඔබේම ලාභදායී ඇඳුම් ව්යාපාරයක් (Boutique) සාර්ථකව ආරම්භ කරන ආකාරය මෙහිදී ඉගෙනගත හැක.',
       features: [
         'Weekly 1-on-1 voice & video reviews',
@@ -485,12 +487,12 @@ export class Home implements OnInit {
       image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
     },
     {
-      id: 'dg-2',
+      id: 'sri-lankan-saree-jacket-master-blueprint',
       title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
-      category: 'PDF E-Book',
+      level: 'PDF E-Book',
       badge: 'Best Seller',
       price: 'LKR 2,500',
-      durationOrPages: '48 Pages · Instant Download',
+      duration: '48 Pages · Instant Download',
       description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
       features: [
         'Precise cup dart manipulation formulas',
@@ -501,6 +503,8 @@ export class Home implements OnInit {
       image: 'https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=800&auto=format&fit=crop'
     }
   ];
+
+  displayCourses = signal<any[]>(this.defaultCourses);
 
   // Default Seed Videos (TikTok & Facebook Sewing Tips)
   defaultVideos: SocialVideo[] = [
@@ -598,6 +602,18 @@ export class Home implements OnInit {
     }, (err) => {
       console.warn("Using fallback default videos:", err);
       this.displayVideos.set(this.defaultVideos);
+    });
+
+    const coursesQ = query(collection(db, 'courses'), orderBy('createdAt', 'desc'));
+    onSnapshot(coursesQ, (snapshot) => {
+      if (!snapshot.empty) {
+        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        this.displayCourses.set(items);
+      } else {
+        this.displayCourses.set(this.defaultCourses);
+      }
+    }, (err) => {
+      this.displayCourses.set(this.defaultCourses);
     });
   }
 
@@ -705,7 +721,7 @@ export class Home implements OnInit {
     return `https://wa.me/${phone}?text=${message}`;
   }
 
-  addToCart(item: DigitalGuide) {
+  addToCart(item: any) {
     const numericPrice = parseInt(String(item.price).replace(/\D/g, ''), 10) || 0;
     this.cartService.addItem({
       id: item.id,
