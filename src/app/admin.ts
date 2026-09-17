@@ -563,26 +563,21 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
               </div>
 
               <!-- Course List -->
-              <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div class="sm:col-span-2 flex justify-between items-center bg-white p-4 rounded-xl border border-brand-100 mb-2">
-                  <span class="text-[13px] text-brand-900/70">Need to setup the database? Use this button to push the initial courses to Firestore.</span>
-                  <button (click)="initializeDefaultCourses()" class="btn-secondary !py-2 !px-4 text-[13px] flex items-center gap-1.5 whitespace-nowrap shadow-sm">
-                    <mat-icon class="text-[16px]">cloud_upload</mat-icon> Initialize Defaults
-                  </button>
-                </div>
+              <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-5">
+
                 @for (course of courses(); track course.id) {
-                  <div class="bg-white rounded-[24px] shadow-sm border border-brand-100 overflow-hidden flex flex-col">
-                    <img [src]="course.image" [alt]="course.title" class="w-full h-40 object-cover" referrerpolicy="no-referrer">
-                    <div class="p-6 flex flex-col flex-grow">
-                      <h4 class="font-serif text-[20px] text-brand-900 mb-2">{{ course.title }}</h4>
-                      <p class="text-[14px] text-brand-900/70 mb-4 line-clamp-2">{{ course.description }}</p>
-                      <div class="mt-auto flex items-center justify-between">
+                  <div class="bg-white rounded-[20px] shadow-sm border border-brand-100 overflow-hidden flex flex-col h-[340px]">
+                    <img [src]="course.image" [alt]="course.title" class="w-full h-32 object-cover shrink-0" referrerpolicy="no-referrer">
+                    <div class="p-5 flex flex-col flex-grow">
+                      <h4 class="font-serif text-[18px] leading-tight text-brand-900 mb-1.5 line-clamp-2">{{ course.title }}</h4>
+                      <p class="text-[13px] text-brand-900/70 mb-2 line-clamp-2">{{ course.description }}</p>
+                      <div class="mt-auto flex items-center justify-between pt-2 border-t border-brand-50">
                         <div class="text-[14px] font-medium text-brand-900">{{ course.price }}</div>
-                        <div class="flex gap-2">
-                          <button (click)="editCourse(course)" class="p-2 text-brand-900/60 hover:text-brand-900 bg-brand-50 rounded-full transition-colors">
+                        <div class="flex gap-1.5">
+                          <button (click)="editCourse(course)" title="Edit Course" class="p-2 text-brand-900/60 hover:text-brand-900 bg-brand-50 rounded-full transition-colors">
                             <mat-icon class="text-[18px]">edit</mat-icon>
                           </button>
-                          <button (click)="deleteCourse(course.id)" class="p-2 text-red-500/60 hover:text-red-500 bg-red-50 rounded-full transition-colors">
+                          <button (click)="deleteCourse(course.id)" title="Delete Course" class="p-2 text-red-500/60 hover:text-red-500 bg-red-50 rounded-full transition-colors">
                             <mat-icon class="text-[18px]">delete</mat-icon>
                           </button>
                         </div>
@@ -655,9 +650,7 @@ import { ContentService, WebsiteContent, defaultContent } from './services/conte
               <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
                 <h3 class="font-serif text-[32px] text-brand-900">Website Copy Editor</h3>
                 <div class="flex flex-col sm:flex-row gap-3">
-                  <button type="button" (click)="resetContentToDefaults()" class="btn-secondary">
-                    Reset to Defaults
-                  </button>
+
                   <button (click)="saveContent()" [disabled]="contentSaving()" class="btn-primary">
                     {{ contentSaving() ? 'Saving...' : 'Publish Changes' }}
                   </button>
