@@ -431,14 +431,14 @@ interface DigitalGuide {
 
     <!-- Video Modal Viewer -->
     @if (activeVideo()) {
-      <div role="dialog" aria-modal="true" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      <div role="dialog" aria-modal="true" class="fixed inset-0 z-50 flex p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
         <button type="button" (click)="closeVideo()" class="fixed inset-0 w-full h-full cursor-default bg-transparent border-0 -z-10" aria-label="Close modal background"></button>
-        <div class="relative w-full max-w-md bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl border border-white/20">
+        <div class="relative m-auto w-full max-w-[calc(85vh*9/16)] aspect-[9/16] bg-slate-900 rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-2xl border border-white/20 shrink-0">
           <button type="button" (click)="closeVideo()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/90 transition-colors" aria-label="Close video player">
             <mat-icon>close</mat-icon>
           </button>
           
-          <div class="relative aspect-[9/16] w-full bg-black">
+          <div class="relative w-full h-full bg-black">
             <img [src]="activeVideo()!.thumbnail" [alt]="activeVideo()!.title" class="w-full h-full object-cover" referrerpolicy="no-referrer">
             <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/40 p-6 text-center text-white">
               <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center mb-4">
