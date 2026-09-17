@@ -49,7 +49,7 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
 
             <div class="grid grid-cols-2 gap-6 sm:gap-8 pt-8 mt-8 border-t border-brand-200">
               <div>
-                <span class="block font-serif text-[44px] sm:text-[56px] lg:text-[64px] text-brand-900 mb-1 leading-none">25+</span>
+                <span class="block font-serif text-[44px] sm:text-[56px] lg:text-[64px] text-brand-900 mb-1 leading-none">30+</span>
                 <span class="label-md text-brand-600 text-[13px] sm:text-[14px]">Years Experience</span>
               </div>
               <div>

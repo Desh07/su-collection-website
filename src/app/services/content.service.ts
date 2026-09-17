@@ -143,13 +143,13 @@ export const defaultContent: WebsiteContent = {
   },
   home: {
     heroTitle: "ඔබේ මැහුම් හැකියාවෙන් සාර්ථක ව්යාපාරයක් ගොඩනගමු!",
-    heroDesc: "Stop guessing with confusing patterns. Master dressmaking, perfect garment fitting, and pattern drafting with Swarna Herath—backed by 25 years of real workshop experience and 150,000+ social followers across Sri Lanka.",
+    heroDesc: "Stop guessing with confusing patterns. Master dressmaking, perfect garment fitting, and pattern drafting with Swarna Herath—backed by 30 years of real workshop experience and 150,000+ social followers across Sri Lanka.",
     heroDesc2: "Join thousands of women who have turned their passion for sewing into profitable home-based businesses under Swarna's expert guidance.",
     stat1: "30+", stat1Label: "Years Master Tailoring",
     stat2: "150k+", stat2Label: "TikTok & FB Followers",
     stat3: "1-on-1", stat3Label: "Personal WhatsApp Mentorship",
     meetTitle: "Meet Swarna Herath",
-    meetDesc: "වසර 25කට වැඩි කාලයක් පුරා විලාසිතා නිර්මාණකරණයේ නියැලෙමින්, කාන්තාවන් සිය ගණනකට සාර්ථක නිවෙස් පදනම් කරගත් විලාසිතා ව්‍යාපාර ආරම්භ කිරීමට මඟපෙන්වූ ප්‍රවීණ අත්දැකීම්.",
+    meetDesc: "වසර 30කට වැඩි කාලයක් පුරා විලාසිතා නිර්මාණකරණයේ නියැලෙමින්, කාන්තාවන් සිය ගණනකට සාර්ථක නිවෙස් පදනම් කරගත් විලාසිතා ව්‍යාපාර ආරම්භ කිරීමට මඟපෙන්වූ ප්‍රවීණ අත්දැකීම්.",
     meetBtn: "Read Swarna's Story",
     videoTitle: "Watch Swarna in Action",
     videoDesc: "150,000 කට අධික අපගේ සමාජ මාධ්‍ය ප්‍රජාව වෙත ගෙන එන ප්‍රායෝගික මැහුම් රහස්, කෙටි ක්‍රමවේද (Pattern secrets) සහ අපගේ සිසුන්ගේ සාර්ථකත්වයේ කතන්දර මෙතැනින් නරඹන්න.",
@@ -212,8 +212,8 @@ export const defaultContent: WebsiteContent = {
   about: {
     heroPill: "Meet Swarna Herath",
     heroTitle: "Swarna's Story",
-    heroDesc: "Over 25 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing.",
-    content: "වසර 25කට වැඩි කාලයක් පුරා ස්වර්ණා හේරත් වන මම, ඇඳුම් නිර්මාණ කලාවේ ඉදිරියෙන්ම සිටිමින් කටයුතු කර ඇත්තෙමි. කුඩා ආශාවකින් ආරම්භ වූ මෙම ගමන, අද වන විට දහස් සංඛ්‍යාත පිරිසකට ලස්සනට අඳින්න, මහන්න උගන්වන පුළුල් මෙහෙයුමක් බවට පත්ව ඇත.\n\n\"මිනිස්සු කරන ලොකුම වැරැද්ද තමයි, මැහුම් කියන්නේ නිකන් පතරොමක් බලාගෙන මහන එකක් විතරක් කියලා හිතන එක,\" ස්වර්ණා පවසයි. \"ඒක නෙවෙයි; ඩිසයින් එකක් දිහා බලලා, ඇඳුමක් හැදෙන හැටි තේරුම් අරන්, කෙනෙකුගේ සිරුරට හරියටම ගැලපෙන විදිහට ඒක නිමවන එකයි වැදගත්.\"\n\nමේ සරල සත්‍යය තමයි අපි Su Collection එකේදී උගන්වන්නේ. අද වන විට සමාජ මාධ්‍ය හරහා 150,000 කට අධික පිරිසකගේ ආදරය දිනාගනිමින්, ස්වර්ණා වන මම උත්සාහ කරන්නේ අලුත් පරම්පරාව සවිබල ගන්වන්නයි — විනෝදාංශයක් ලෙස මැහුම් කරන අය සාර්ථක ඔන්ලයින් ව්‍යාපාරිකයන් බවට පත් කිරීමට මම උදව් වෙමි.\n\nOver 25 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing. Our mission is to empower the next generation of designers and turn hobbyists into successful business owners."
+    heroDesc: "Over 30 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing.",
+    content: "වසර 30කට වැඩි කාලයක් පුරා ස්වර්ණා හේරත් වන මම, ඇඳුම් නිර්මාණ කලාවේ ඉදිරියෙන්ම සිටිමින් කටයුතු කර ඇත්තෙමි. කුඩා ආශාවකින් ආරම්භ වූ මෙම ගමන, අද වන විට දහස් සංඛ්‍යාත පිරිසකට ලස්සනට අඳින්න, මහන්න උගන්වන පුළුල් මෙහෙයුමක් බවට පත්ව ඇත.\n\n\"මිනිස්සු කරන ලොකුම වැරැද්ද තමයි, මැහුම් කියන්නේ නිකන් පතරොමක් බලාගෙන මහන එකක් විතරක් කියලා හිතන එක,\" ස්වර්ණා පවසයි. \"ඒක නෙවෙයි; ඩිසයින් එකක් දිහා බලලා, ඇඳුමක් හැදෙන හැටි තේරුම් අරන්, කෙනෙකුගේ සිරුරට හරියටම ගැලපෙන විදිහට ඒක නිමවන එකයි වැදගත්.\"\n\nමේ සරල සත්‍යය තමයි අපි Su Collection එකේදී උගන්වන්නේ. අද වන විට සමාජ මාධ්‍ය හරහා 150,000 කට අධික පිරිසකගේ ආදරය දිනාගනිමින්, ස්වර්ණා වන මම උත්සාහ කරන්නේ අලුත් පරම්පරාව සවිබල ගන්වන්නයි — විනෝදාංශයක් ලෙස මැහුම් කරන අය සාර්ථක ඔන්ලයින් ව්‍යාපාරිකයන් බවට පත් කිරීමට මම උදව් වෙමි.\n\nOver 30 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing. Our mission is to empower the next generation of designers and turn hobbyists into successful business owners."
   },
   contact: {
     heroTitle: "Contact Us",

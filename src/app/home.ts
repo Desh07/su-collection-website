@@ -376,7 +376,8 @@ interface DigitalGuide {
               </div>
               <div class="relative z-10 max-w-lg bg-white/80 p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] backdrop-blur-md border border-white/60 shadow-lg">
                 <h3 class="font-serif text-[26px] sm:text-[36px] text-brand-900 mb-2 sm:mb-3 leading-tight" [innerHTML]="c().home.meetTitle | formatText"></h3>
-                <p class="body-md text-brand-900/80 mb-4 sm:mb-6 text-[13px] sm:text-[15px] leading-relaxed" [innerHTML]="c().home.meetDesc | formatText">
+                <p class="body-md text-brand-900/80 mb-4 sm:mb-6 text-[13px] sm:text-[15px] leading-relaxed font-['Noto_Sans_Sinhala']">
+                  වසර 30කට වැඩි කාලයක් පුරා විලාසිතා නිර්මාණකරණයේ නියැලෙමින්, කාන්තාවන් සිය ගණනකට සාර්ථක නිවෙස් පදනම් කරගත් විලාසිතා ව්‍යාපාර ආරම්භ කිරීමට මඟපෙන්වූ ප්‍රවීණ අත්දැකීම්.
                 </p>
                 <div class="flex items-center label-md text-brand-900 group-hover:text-brand-600 transition-colors font-semibold">
                   {{ c().home.meetBtn }} <mat-icon class="ml-2 text-[16px] transform group-hover:translate-x-1 transition-transform">arrow_forward</mat-icon>
