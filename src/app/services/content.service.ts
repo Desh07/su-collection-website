@@ -213,7 +213,43 @@ export const defaultContent: WebsiteContent = {
     heroPill: "Meet Swarna Herath",
     heroTitle: "Swarna's Story",
     heroDesc: "Over 30 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing.",
-    content: "වසර 30කට වැඩි කාලයක් පුරා ස්වර්ණා හේරත් වන මම, ඇඳුම් නිර්මාණ කලාවේ ඉදිරියෙන්ම සිටිමින් කටයුතු කර ඇත්තෙමි. කුඩා ආශාවකින් ආරම්භ වූ මෙම ගමන, අද වන විට දහස් සංඛ්‍යාත පිරිසකට ලස්සනට අඳින්න, මහන්න උගන්වන පුළුල් මෙහෙයුමක් බවට පත්ව ඇත.\n\n\"මිනිස්සු කරන ලොකුම වැරැද්ද තමයි, මැහුම් කියන්නේ නිකන් පතරොමක් බලාගෙන මහන එකක් විතරක් කියලා හිතන එක,\" ස්වර්ණා පවසයි. \"ඒක නෙවෙයි; ඩිසයින් එකක් දිහා බලලා, ඇඳුමක් හැදෙන හැටි තේරුම් අරන්, කෙනෙකුගේ සිරුරට හරියටම ගැලපෙන විදිහට ඒක නිමවන එකයි වැදගත්.\"\n\nමේ සරල සත්‍යය තමයි අපි Su Collection එකේදී උගන්වන්නේ. අද වන විට සමාජ මාධ්‍ය හරහා 150,000 කට අධික පිරිසකගේ ආදරය දිනාගනිමින්, ස්වර්ණා වන මම උත්සාහ කරන්නේ අලුත් පරම්පරාව සවිබල ගන්වන්නයි — විනෝදාංශයක් ලෙස මැහුම් කරන අය සාර්ථක ඔන්ලයින් ව්‍යාපාරිකයන් බවට පත් කිරීමට මම උදව් වෙමි.\n\nOver 30 years of crafting beautiful dresses with love. A lifelong journey and passion for teaching others the art of sewing. Our mission is to empower the next generation of designers and turn hobbyists into successful business owners."
+    content: `අවුරුදු <strong>30කට වැඩි කාලයක්</strong> තිස්සේ මැහුම් කලාවත් එක්ක ගත කරපු ගමනක් තමයි අද <strong>Su Collection</strong> කියන්නේ. මුලින් මැහුම් ගැන තිබුණු ආසාවත් එක්ක පොඩියට පටන්ගත්ත මේ ගමන, අද වෙනකොට දහස් ගණනකට ලස්සනට, නිවැරදිව ඇඳුම් මහන්න ඉගෙනගන්න පුළුවන් තැනක් වෙලා තියෙනවා.
+
+<strong>“මැහුම් ඉගෙනගන්න ගොඩක් අය කරන ලොකුම වැරැද්ද තමයි, පතරොමක් බලාගෙන ඒ විදිහටම මහන්න පුළුවන් වුණාම මැහුම් දන්නවා කියලා හිතන එක.”</strong>
+
+ඇත්තටම මැහුම් කියන්නේ ඒක විතරක් නෙවෙයි.
+
+Design එකක් දැක්කාම ඒක හැදිලා තියෙන්නේ කොහොමද කියලා තේරුම්ගන්න, ඒකට ගැළපෙන Pattern එක හදාගන්න, නිවැරදිව Cut කරගන්න, අන්තිමේදී ඒ ඇඳුම අඳින කෙනාගේ ඇඟට ලස්සනට Fit වෙන විදිහට නිම කරන්න දැනගන්න ඕනේ.
+
+<strong>Su Collection එකේ අපි උගන්වන්නේ ඒ Skill එක.</strong>
+
+අද වෙනකොට Social Media හරහා <strong>150,000කට වැඩි පිරිසක්</strong> අපිත් එක්ක එකතු වෙලා ඉන්නවා. දැන් මගේ බලාපොරොත්තුව මැහුම් කරන හැටි කියලා දීලා එතනින් නවතින එක නෙවෙයි.
+
+මැහුම් Hobby එකක් විදිහට කරන කෙනෙක්ට ඒ Skill එක තවත් දියුණු කරගෙන, තමන්ගේම ආදායමක් හදාගන්න, Customers ලා හොයාගන්න, Online එකේ තමන්ගේම Brand එකක් හදාගෙන Business එකක් විදිහට ඉස්සරහට යන්න අවශ්‍ය මඟපෙන්වීම ලබාදෙන එකයි.
+
+ඒ ගමන තවත් ඉස්සරහට අරගෙන යන්න තමයි <strong>Su Collection, The UVA VEC එක්ක එකතු වෙන්නේ.</strong> Su Collection එකෙන් ලැබෙන මැහුම් සහ Product Development අත්දැකීමත්, <strong>The UVA VEC වෙතින් ලැබෙන Business, Digital සහ Technology පැත්තේ මඟපෙන්වීමත්</strong> එකට එකතු කරලා, ඔයාගේ Skill එක වර්තමානයට ගැළපෙන <strong>Business එකක් විදිහට ගොඩනගාගන්න අවශ්‍ය Support එක ලබාදෙනවා.</strong>
+
+<strong>මැහුම් කියන්නේ Skill එකක් විතරක් නෙවෙයි. හරියට ගොඩනගාගත්තොත්, ඒකෙන් ඔයාගේම අනාගතයක් හදාගන්න පුළුවන්.</strong>
+
+<hr class="border-t border-brand-200/60 my-10 w-2/3">
+
+For over <strong>30 years</strong>, Swarna Herath has dedicated her journey to the art of tailoring. What began with a simple passion for sewing has grown into <strong>Su Collection</strong> — a trusted learning community that has helped thousands learn how to create beautiful, well-fitted garments with confidence.
+
+<strong>“One of the biggest mistakes people make is thinking that knowing how to follow a pattern means knowing how to sew.”</strong>
+
+For Swarna, tailoring goes much deeper than that.
+
+It is about looking at a design and understanding <strong>how the garment is constructed</strong>, creating the right pattern, cutting it accurately, shaping it correctly, and ultimately making it <strong>fit beautifully on the person wearing it.</strong>
+
+<strong>That is the skill we teach at Su Collection.</strong>
+
+Today, more than <strong>150,000 people</strong> are connected with Su Collection across social media. But Swarna’s vision goes beyond simply teaching people how to sew.
+
+The goal is to help people who may have started sewing as a hobby develop their skills further, <strong>create an income from what they know, find customers, build their own brand online, and eventually turn their tailoring skills into a real business.</strong>
+
+To take that journey even further, <strong>Su Collection has joined forces with The UVA VEC.</strong> By bringing together Su Collection’s practical tailoring and product development experience with <strong>The UVA VEC’s expertise in business, digital transformation and technology</strong>, the aim is to give aspiring entrepreneurs the guidance and support they need to turn their skills into a <strong>modern, sustainable business.</strong>
+
+<strong>Tailoring doesn’t have to remain just a skill. With the right knowledge, guidance and action, it can become something you build your future around.</strong>`
   },
   contact: {
     heroTitle: "Contact Us",
@@ -226,9 +262,9 @@ export const defaultContent: WebsiteContent = {
   dedicatedCourses: {
     '6-month-tailoring-business-mentorship': {
       pill: "06 MONTHS COMPLETE PROGRAM",
-      subtitle: "6-Month Couture & Tailoring Business Mentorship",
+      subtitle: "100-Day Tailoring Business Building Program",
       title: "Personal 1-on-1 Mentorship with Swarna",
-      price: "LKR 45,000",
+      price: "රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)",
       mainDesc: "ඔයාගේ skill එක ඊළඟ level එකට ගෙනියන්න.",
       subDesc: "මැහුම් කටයුතු ගැන තියෙන දැනුම තවත් නිවැරදි කරගන්න, difficult designs confidently handle කරන්න, සහ ඔයාගේම Custom Dress Business එකක් ගොඩනගන්න — Swarna මහත්මිය සමඟ Personal 1-on-1 Mentorship එකක් ලබාගන්න.",
       bulletTitle: "Mentorship එකෙන් ඔයාට ඉගෙනගන්න පුළුවන්:",
@@ -311,6 +347,9 @@ export class ContentService {
           if (data.dedicatedCourses?.['100-day-tailoring-business-workbook'] && !data.dedicatedCourses['100-day-tailoring-business-workbook'].mainDesc) {
             delete data.dedicatedCourses['100-day-tailoring-business-workbook'];
           }
+          
+          // Force use of hardcoded about us content (overrides stale database content)
+          delete (data as any).about;
 
           this.content.set(this.mergeDeep(defaultContent, data));
         } else {

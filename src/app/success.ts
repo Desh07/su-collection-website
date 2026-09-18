@@ -14,8 +14,8 @@ import {CartService} from './services/cart.service';
   template: `
     <main class="min-h-screen pt-[100px] sm:pt-[120px] pb-[60px] sm:pb-[80px] px-4 sm:px-6 max-w-[960px] mx-auto">
       <div class="mb-[32px]">
-        <a routerLink="/checkout" class="text-brand-900/60 hover:text-brand-900 transition-colors label-md flex items-center w-fit">
-          <mat-icon class="mr-2 text-[18px]">arrow_back</mat-icon> Return to Checkout
+        <a routerLink="/" [replaceUrl]="true" class="text-brand-900/60 hover:text-brand-900 transition-colors label-md flex items-center w-fit">
+          <mat-icon class="mr-2 text-[18px]">home</mat-icon> Return to Home
         </a>
       </div>
       
@@ -230,7 +230,7 @@ import {CartService} from './services/cart.service';
               <!-- Print Receipt Button Removed -->
             </div>
 
-            <a routerLink="/learn" class="text-brand-900/80 hover:text-brand-900 label-md text-[13px] flex items-center">
+            <a routerLink="/learn" [replaceUrl]="true" class="text-brand-900/80 hover:text-brand-900 label-md text-[13px] flex items-center">
               Continue Shopping <mat-icon class="ml-1 text-[16px]">arrow_forward</mat-icon>
             </a>
           </div>

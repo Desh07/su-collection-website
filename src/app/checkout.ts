@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, signal, OnInit} from '@angular/core';
 import {RouterLink, Router} from '@angular/router';
+import {Location} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {FormBuilder, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors} from '@angular/forms';
 import {CartService} from './services/cart.service';
@@ -39,9 +40,9 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
   template: `
     <main class="min-h-screen pt-[100px] sm:pt-[120px] pb-[60px] sm:pb-[80px] px-4 sm:px-6 max-w-[1100px] mx-auto">
       <div class="mb-6 sm:mb-[32px] flex items-center justify-between">
-        <a routerLink="/cart" class="text-brand-900/60 hover:text-brand-900 transition-colors label-md flex items-center">
-          <mat-icon class="mr-2 text-[18px]">arrow_back</mat-icon> Return to Cart
-        </a>
+        <button (click)="goBack()" class="text-brand-900/60 hover:text-brand-900 transition-colors label-md flex items-center bg-transparent border-none cursor-pointer p-0">
+          <mat-icon class="mr-2 text-[18px]">arrow_back</mat-icon> Back
+        </button>
       </div>
 
       @if (cartService.items().length === 0) {
@@ -255,6 +256,7 @@ export class Checkout implements OnInit {
   contentService = inject(ContentService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private location = inject(Location);
 
   isProcessing = signal(false);
   copied = signal(false);
@@ -351,6 +353,10 @@ export class Checkout implements OnInit {
     });
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   async processOrder() {
     if (this.checkoutForm.invalid) {
       this.checkoutForm.markAllAsTouched();
@@ -415,7 +421,7 @@ export class Checkout implements OnInit {
 
 
       // Navigate to order confirmation success screen
-      this.router.navigate(['/success'], { queryParams: { id: orderId } });
+      this.router.navigate(['/success'], { queryParams: { id: orderId }, replaceUrl: true });
 
     } catch (e: any) {
       console.error('Checkout error:', e);

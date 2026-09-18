@@ -39,11 +39,13 @@ import {RouterLink, Router} from '@angular/router';
             <div>
               @if (isOfferValid()) {
                 <div class="flex flex-col">
-                  <div class="flex items-baseline gap-3 mb-6 border-b border-brand-200 pb-4">
-                    <span class="line-through text-brand-900/50 text-[18px] font-medium">LKR 65,000</span>
-                    <span class="text-[26px] sm:text-[32px] font-extrabold text-brand-900">LKR 50,000</span>
+                  <div class="flex flex-col gap-1 mb-6 border-b border-brand-200 pb-4">
+                    <div class="flex items-baseline gap-3">
+                      <span class="line-through text-brand-900/50 text-[18px] font-medium">LKR 65,000</span>
+                      <span class="text-[26px] sm:text-[32px] font-extrabold text-brand-900">LKR 50,000</span>
+                    </div>
+                    <span class="text-[14px] text-brand-900/60 font-medium">(පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)</span>
                   </div>
-                  
                   @if (proceeding()) {
                     <button disabled class="block w-full text-center bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] shadow-md opacity-80 cursor-wait flex items-center justify-center gap-2 mb-3">
                       <mat-icon class="animate-spin">sync</mat-icon> Proceeding...
@@ -59,10 +61,10 @@ import {RouterLink, Router} from '@angular/router';
                     </div>
                   } @else {
                     <div class="flex flex-col gap-3.5">
-                      <button (click)="enroll(true)" class="block w-full text-center bg-brand-900 hover:bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md">
+                      <button (click)="scrollToOrder()" class="block w-full text-center bg-brand-900 hover:bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md">
                         Reserve Place (LKR 5,000)
                       </button>
-                      <button (click)="enroll(false)" class="block w-full text-center bg-white border-2 border-brand-900 text-brand-900 hover:bg-brand-50 py-3.5 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-sm">
+                      <button (click)="scrollToOrder()" class="block w-full text-center bg-white border-2 border-brand-900 text-brand-900 hover:bg-brand-50 py-3.5 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-sm">
                         Pay in Full (LKR 50,000)
                       </button>
                     </div>
@@ -83,7 +85,7 @@ import {RouterLink, Router} from '@angular/router';
                     <mat-icon>check_circle</mat-icon> Proceed to Checkout
                   </a>
                 } @else {
-                  <button (click)="enroll(false)" class="block w-full text-center bg-brand-900 hover:bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md mb-3">
+                  <button (click)="scrollToOrder()" class="block w-full text-center bg-brand-900 hover:bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md mb-3">
                     Pay in Full (LKR 65,000)
                   </button>
                 }
@@ -683,6 +685,15 @@ export class Mentorship implements OnInit, OnDestroy {
   clearPlan() {
     this.cartService.removeItem('course-' + this.courseId);
     this.cartService.removeItem('course-' + this.courseId + '-reserve');
+  }
+
+  scrollToOrder() {
+    if (typeof window !== 'undefined') {
+      const el = document.getElementById('order');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   }
 
   async enroll(isReserve: boolean) {

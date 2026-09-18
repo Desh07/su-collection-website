@@ -41,9 +41,9 @@ interface DigitalGuide {
         
         <!-- Background Atelier & Tailoring Imagery -->
         <div class="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2000&auto=format&fit=crop" 
+          <img src="/images/hero.png" 
                alt="Swarna Herath Atelier Studio" 
-               class="w-full h-full object-cover object-center scale-105 group-hover:scale-100 transition-transform duration-1000 opacity-60 mix-blend-luminosity" 
+               class="w-full h-full object-cover object-[center_30%] scale-100 group-hover:scale-105 transition-transform duration-1000 opacity-60 mix-blend-luminosity" 
                referrerpolicy="no-referrer">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/65 to-slate-900/35 pointer-events-none"></div>
         </div>
@@ -115,11 +115,11 @@ interface DigitalGuide {
         
         <!-- Controls & Follow Buttons -->
         <div class="flex items-center gap-3 shrink-0">
-          <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[12px] font-medium tracking-wider uppercase bg-slate-900 text-white px-4 py-2 rounded-full hover:bg-slate-800 transition-colors shadow-sm">
+          <a href="https://www.tiktok.com/@swarnaherath527" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[12px] font-medium tracking-wider uppercase bg-slate-900 text-white px-4 py-2 rounded-full hover:bg-slate-800 transition-colors shadow-sm">
             <mat-icon class="text-[16px]">play_circle</mat-icon>
             TikTok
           </a>
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[12px] font-medium tracking-wider uppercase bg-[#1877F2] text-white px-4 py-2 rounded-full hover:bg-[#166fe5] transition-colors shadow-sm">
+          <a href="https://www.facebook.com/people/%E0%B7%83%E0%B7%96-collection/61573462124609/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-[12px] font-medium tracking-wider uppercase bg-[#1877F2] text-white px-4 py-2 rounded-full hover:bg-[#166fe5] transition-colors shadow-sm">
             <mat-icon class="text-[16px]">thumb_up</mat-icon>
             Facebook
           </a>
@@ -332,8 +332,8 @@ interface DigitalGuide {
                       <span class="text-[15px]">{{ item.price.split('(')[0].trim() }}</span>
                     }
                   </div>
-                  @if (item.price.includes('(') && item.id !== '6-month-tailoring-business-mentorship') {
-                    <span class="text-[13px] text-brand-900/70 font-medium">({{ item.price.split('(')[1] }}</span>
+                  @if (item.price.includes('(')) {
+                    <span class="text-[13px] sm:text-[14px] text-brand-900/60 font-medium">({{ item.price.split('(')[1] }}</span>
                   }
                 </div>
                 <p class="body-md text-brand-900/80 mb-6 text-[14px] leading-relaxed" [innerHTML]="item.description | formatText">
@@ -352,7 +352,7 @@ interface DigitalGuide {
                 }
 
                 <div class="mt-auto flex flex-col pt-4 border-t border-brand-200">
-                  <a [routerLink]="['/learn', item.id]" class="btn-primary flex items-center justify-center gap-2 !py-3.5 w-full">
+                  <a [routerLink]="['/learn', item.id]" [state]="{ course: item }" class="btn-primary flex items-center justify-center gap-2 !py-3.5 w-full">
                     <span>{{ item.btnViewText || 'View Details' }}</span>
                     <mat-icon class="text-[18px]">arrow_forward</mat-icon>
                   </a>
@@ -488,24 +488,8 @@ export class Home implements OnInit {
   // Digital Guides & Mentorship Programs
   defaultCourses = [
     {
-      id: 'couture-and-tailoring-business-mentorship',
-      title: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
-      level: 'Mentorship',
-      badge: 'Limited Slots',
-      price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
-      duration: 'මාස 6යි (6 Months) · Direct WhatsApp',
-      description: 'ස්වර්ණා සමඟ පුද්ගලිකව (1-on-1) සිදු කරන විශේෂ මඟපෙන්වීමකි. උසස් මට්ටමේ ඇඳුම් නිර්මාණ (Advanced draping), මනාලියන්ගේ ඇඳුම් මිනුම් සහ ඔබේම ලාභදායී ඇඳුම් ව්යාපාරයක් (Boutique) සාර්ථකව ආරම්භ කරන ආකාරය මෙහිදී ඉගෙනගත හැක.',
-      features: [
-        'Weekly 1-on-1 voice & video reviews',
-        'Direct WhatsApp line to Swarna Herath',
-        'Bridal, frock, & saree jacket masterclasses',
-        'Boutique pricing & fabric sourcing guidance'
-      ],
-      image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      id: 'sri-lankan-saree-jacket-master-blueprint',
-      title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
+      id: '100-day-tailoring-business-workbook',
+      title: 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)',
       level: 'PDF E-Book',
       badge: 'Best Seller',
       price: 'LKR 2,500',
@@ -518,6 +502,22 @@ export class Home implements OnInit {
         'Step-by-step lining & piping tutorial'
       ],
       image: '/images/Workbook.jpeg'
+    },
+    {
+      id: '6-month-tailoring-business-mentorship',
+      title: '100-Day Tailoring Business Building Program',
+      level: 'Mentorship',
+      badge: 'Limited Slots',
+      price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
+      duration: 'මාස 6යි (6 Months) · Direct WhatsApp',
+      description: 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.',
+      features: [
+        'Build a Product or Service',
+        'Create Your Online Business Presence',
+        'Turn Enquiries into Sales & Learn Organic & Paid Growth',
+        'Build Your 90-Day Growth Plan'
+      ],
+      image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
     }
   ];
 
@@ -527,17 +527,17 @@ export class Home implements OnInit {
   defaultVideos: SocialVideo[] = [
     {
       id: 'v1',
-      title: 'How to cut a curved Saree Jacket armhole with zero wrinkles',
+      title: 'Create a Neckline Design in 90 Seconds',
       platform: 'tiktok',
-      url: 'https://www.tiktok.com',
-      thumbnail: 'https://images.unsplash.com/photo-1606132717876-0fefd1beab5b?q=80&w=800&auto=format&fit=crop',
+      url: 'https://vt.tiktok.com/ZSqgwU2JT/',
+      thumbnail: '/social%20media%20card%20images/tiktok_card_1.jpeg',
       views: '345K',
       duration: '0:58',
       author: 'Swarna Herath'
     },
     {
       id: 'v2',
-      title: 'The 3-minute collar drafting hack every home tailor needs',
+      title: 'Create Different Styles Using Basic Patterns',
       platform: 'facebook',
       url: 'https://www.facebook.com/share/v/19e5ddqoup/?mibextid=wwXIfr',
       thumbnail: '/social%20media%20card%20images/Fb_card_1.jpeg',
@@ -547,30 +547,30 @@ export class Home implements OnInit {
     },
     {
       id: 'v3',
-      title: 'Student Transformation: First couture frock stitched in 4 days!',
+      title: 'Dart Manipulation Made Simple',
       platform: 'tiktok',
-      url: 'https://www.tiktok.com',
-      thumbnail: 'https://images.unsplash.com/photo-1584034879669-e74f1d431051?q=80&w=800&auto=format&fit=crop',
+      url: 'https://vt.tiktok.com/ZSqgfd41U/',
+      thumbnail: '/social%20media%20card%20images/tiktok_card_2.jpeg',
       views: '185K',
       duration: '0:45',
       author: 'Swarna Herath'
     },
     {
       id: 'v4',
-      title: 'Invisible zipper secret: No puckering on silk and satin',
+      title: 'How to Join Two Bias Strips in 30 Seconds',
       platform: 'tiktok',
-      url: 'https://www.tiktok.com',
-      thumbnail: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format&fit=crop',
+      url: 'https://www.tiktok.com/@swarnaherath527/video/7569840977985293575?is_from_webapp=1&sender_device=pc&web_id=7686381380838065665',
+      thumbnail: '/social%20media%20card%20images/tiktok_card_3.jpeg',
       views: '142K',
       duration: '0:52',
       author: 'Swarna Herath'
     },
     {
       id: 'v5',
-      title: 'How to draft the perfect princess cut blouse from scratch',
+      title: 'The Easiest Way to Attach Piping',
       platform: 'facebook',
-      url: 'https://www.facebook.com',
-      thumbnail: 'https://images.unsplash.com/photo-1583922606661-0822ed0bd916?q=80&w=800&auto=format&fit=crop',
+      url: 'https://www.facebook.com/share/v/1GU4sRUyKf/',
+      thumbnail: '/social%20media%20card%20images/Fb_card_2.jpeg',
       views: '98K',
       duration: '1:30',
       author: 'Su Collection'
@@ -607,24 +607,46 @@ export class Home implements OnInit {
         setTimeout(doScroll, 150);
       }
     });
-    const q = query(collection(db, 'videos'), orderBy('createdAt', 'desc'));
-    onSnapshot(q, (snapshot) => {
-      if (!snapshot.empty) {
-        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as SocialVideo));
-        this.dbVideos.set(items);
-        this.displayVideos.set(items);
-      } else {
-        this.displayVideos.set(this.defaultVideos);
-      }
-    }, (err) => {
-      console.warn("Using fallback default videos:", err);
-      this.displayVideos.set(this.defaultVideos);
-    });
+    // Use default hardcoded videos
+    this.displayVideos.set(this.defaultVideos);
+    
+    // const q = query(collection(db, 'videos'), orderBy('createdAt', 'desc'));
+    // onSnapshot(q, (snapshot) => {
+    //   if (!snapshot.empty) {
+    //     const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as SocialVideo));
+    //     this.dbVideos.set(items);
+    //     this.displayVideos.set(items);
+    //   } else {
+    //     this.displayVideos.set(this.defaultVideos);
+    //   }
+    // }, (err) => {
+    //   console.warn("Using fallback default videos:", err);
+    //   this.displayVideos.set(this.defaultVideos);
+    // });
 
     const coursesQ = query(collection(db, 'courses'), orderBy('createdAt', 'desc'));
     onSnapshot(coursesQ, (snapshot) => {
       if (!snapshot.empty) {
-        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const items = snapshot.docs.map(doc => {
+          const data = doc.data();
+          if (doc.id === '100-day-tailoring-business-workbook') {
+            data['image'] = '/images/Workbook.jpeg';
+            data['title'] = 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)';
+            data['price'] = 'LKR 2,500';
+          }
+          if (doc.id === '6-month-tailoring-business-mentorship') {
+            data['title'] = '100-Day Tailoring Business Building Program';
+            data['description'] = 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.';
+            data['features'] = [
+              'Build a Product or Service',
+              'Create Your Online Business Presence',
+              'Turn Enquiries into Sales & Learn Organic & Paid Growth',
+              'Build Your 90-Day Growth Plan'
+            ];
+            data['price'] = 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)';
+          }
+          return { id: doc.id, ...data };
+        });
         this.displayCourses.set(items);
       } else {
         this.displayCourses.set(this.defaultCourses);

@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
 import {RouterLink, Router} from '@angular/router';
+import {Location} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {CartService} from './services/cart.service';
 
@@ -9,11 +10,18 @@ import {CartService} from './services/cart.service';
   imports: [RouterLink, MatIconModule],
   template: `
     <main class="min-h-screen pt-[100px] sm:pt-[120px] pb-[64px] px-4 sm:px-6 max-w-[1200px] mx-auto">
+      <div class="mb-6 sm:mb-[32px]">
+        <button (click)="goBack()" class="text-brand-900/60 hover:text-brand-900 transition-colors label-md flex items-center bg-transparent border-none cursor-pointer p-0">
+          <mat-icon class="mr-2 text-[18px]">arrow_back</mat-icon> Back
+        </button>
+      </div>
       <div class="flex items-center justify-between mb-8 sm:mb-[48px]">
         <h1 class="font-serif text-[28px] sm:text-[40px] lg:text-[52px] text-brand-900">Your Cart</h1>
-        <a routerLink="/learn" class="text-brand-900 hover:text-brand-700 label-md flex items-center transition-colors text-[13px] sm:text-[14px]">
-          <span class="hidden sm:inline">Continue Shopping</span><span class="sm:hidden">Shop</span> <mat-icon class="ml-1 sm:ml-2 text-[18px]">arrow_forward</mat-icon>
-        </a>
+        @if (cartService.totalItems() > 0) {
+          <button (click)="cartService.clearCart()" class="text-brand-900/60 hover:text-red-600 transition-colors label-md flex items-center gap-1.5 bg-brand-50 hover:bg-red-50 border border-brand-200 hover:border-red-200 cursor-pointer px-4 py-2 rounded-xl">
+            <mat-icon class="text-[18px]">delete_sweep</mat-icon> Clear Cart
+          </button>
+        }
       </div>
 
       @if (cartService.totalItems() === 0) {
@@ -86,9 +94,17 @@ import {CartService} from './services/cart.service';
 })
 export class Cart implements OnInit {
   cartService = inject(CartService);
+  private location = inject(Location);
   private router = inject(Router);
 
   ngOnInit() {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   checkout() {

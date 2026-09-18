@@ -79,7 +79,7 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                       <span class="body-md font-semibold text-[18px] sm:text-[20px]">{{ course.price.split('(')[0].trim() }}</span>
                     }
                   </div>
-                  @if (course.price.includes('(') && course.id !== '6-month-tailoring-business-mentorship') {
+                  @if (course.price.includes('(')) {
                     <span class="text-[13px] sm:text-[14px] text-brand-900/60 font-medium">({{ course.price.split('(')[1] }}</span>
                   }
                 </div>
@@ -164,24 +164,8 @@ export class Learn implements OnInit {
 
   defaultCourses = [
     {
-      id: '6-month-tailoring-business-mentorship',
-      title: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
-      description: 'ස්වර්ණා සමඟ පුද්ගලිකව (1-on-1) සිදු කරන විශේෂ මඟපෙන්වීමකි. උසස් මට්ටමේ ඇඳුම් නිර්මාණ (Advanced draping), මනාලියන්ගේ ඇඳුම් මිනුම් සහ ඔබේම ලාභදායී ඇඳුම් ව්යාපාරයක් (Boutique) සාර්ථකව ආරම්භ කරන ආකාරය මෙහිදී ඉගෙනගත හැක.',
-      level: 'Mentorship',
-      price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
-      duration: 'මාස 6යි (6 Months)',
-      badge: 'Limited Slots',
-      features: [
-        'Weekly 1-on-1 voice & video reviews',
-        'Direct WhatsApp line to Swarna Herath',
-        'Bridal, frock, & saree jacket masterclasses',
-        'Boutique pricing & fabric sourcing guidance'
-      ],
-      image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
-    },
-    {
       id: '100-day-tailoring-business-workbook',
-      title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
+      title: 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)',
       description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
       level: 'PDF E-Book',
       price: 'LKR 2,500',
@@ -194,6 +178,22 @@ export class Learn implements OnInit {
         'Step-by-step lining & piping tutorial'
       ],
       image: '/images/Workbook.jpeg'
+    },
+    {
+      id: '6-month-tailoring-business-mentorship',
+      title: '100-Day Tailoring Business Building Program',
+      description: 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.',
+      level: 'Mentorship',
+      price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
+      duration: 'මාස 6යි (6 Months)',
+      badge: 'Limited Slots',
+      features: [
+        'Build a Product or Service',
+        'Create Your Online Business Presence',
+        'Turn Enquiries into Sales & Learn Organic & Paid Growth',
+        'Build Your 90-Day Growth Plan'
+      ],
+      image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
     }
   ];
 
@@ -233,7 +233,26 @@ export class Learn implements OnInit {
     const q = query(collection(db, 'courses'), orderBy('createdAt', 'desc'));
     onSnapshot(q, (snapshot) => {
       if (!snapshot.empty) {
-        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const items = snapshot.docs.map(doc => {
+          const data = doc.data();
+          if (doc.id === '100-day-tailoring-business-workbook') {
+            data['image'] = '/images/Workbook.jpeg';
+            data['title'] = 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)';
+            data['price'] = 'LKR 2,500';
+          }
+          if (doc.id === '6-month-tailoring-business-mentorship') {
+            data['title'] = '100-Day Tailoring Business Building Program';
+            data['description'] = 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.';
+            data['features'] = [
+              'Build a Product or Service',
+              'Create Your Online Business Presence',
+              'Turn Enquiries into Sales & Learn Organic & Paid Growth',
+              'Build Your 90-Day Growth Plan'
+            ];
+            data['price'] = 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)';
+          }
+          return { id: doc.id, ...data };
+        });
         this.dbCourses.set(items);
         this.displayCourses.set(items);
       } else {

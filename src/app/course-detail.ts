@@ -221,22 +221,22 @@ export class CourseDetail implements OnInit {
 
   defaultCourses = [
     {
-      id: 'couture-and-tailoring-business-mentorship',
-      title: 'මාස 6ක මැහුම් සහ ව්යාපාරික මඟපෙන්වීම (Mentorship)',
-      description: 'ස්වර්ණා සමඟ පුද්ගලිකව (1-on-1) සිදු කරන විශේෂ මඟපෙන්වීමකි. උසස් මට්ටමේ ඇඳුම් නිර්මාණ (Advanced draping), මනාලියන්ගේ ඇඳුම් මිනුම් සහ ඔබේම ලාභදායී ඇඳුම් ව්යාපාරයක් (Boutique) සාර්ථකව ආරම්භ කරන ආකාරය මෙහිදී ඉගෙනගත හැක.',
+      id: '100-day-tailoring-business-workbook',
+      title: 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)',
+      description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
+      level: 'PDF E-Book',
+      price: 'LKR 2,500',
+      duration: '48 Pages',
+      image: '/images/Workbook.jpeg'
+    },
+    {
+      id: '6-month-tailoring-business-mentorship',
+      title: '100-Day Tailoring Business Building Program',
+      description: 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.',
       level: 'Mentorship',
       price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
       duration: 'මාස 6යි (6 Months)',
       image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
-    },
-    {
-      id: 'sri-lankan-saree-jacket-master-blueprint',
-      title: 'Sri Lankan Saree Jacket Master Blueprint (PDF)',
-      description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
-      level: 'PDF E-Book',
-      price: 'Rs. 2,500',
-      duration: '48 Pages',
-      image: '/images/Workbook.jpeg'
     }
   ];
 
