@@ -298,11 +298,7 @@ interface DigitalGuide {
                 <img [src]="item.image" [alt]="item.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerpolicy="no-referrer">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 
-                <div class="absolute top-4 left-4 flex gap-2">
-                  <span class="bg-brand-900 text-white text-[11px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full shadow-sm">
-                    {{ item.level }}
-                  </span>
-                </div>
+
                 @if (item.badge) {
                   <span class="absolute top-4 right-4 bg-brand-900/90 text-white px-3 py-1 text-[11px] font-semibold tracking-widest uppercase rounded-full shadow-md z-10 backdrop-blur-sm">
                     {{ item.badge }}

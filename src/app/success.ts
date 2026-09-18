@@ -25,8 +25,12 @@ import {CartService} from './services/cart.service';
           <mat-icon class="text-[44px] w-[44px] h-[44px]">check_circle</mat-icon>
         </div>
         <h1 class="font-serif text-[36px] sm:text-[48px] text-brand-900 mb-3 leading-tight">Order Placed Successfully!</h1>
-        <p class="body-md text-brand-900/70 text-[16px] sm:text-[18px]">
-          Thank you for choosing Su Collection. Your order reference is ready below. Please complete your bank transfer and send your receipt screenshot to our official WhatsApp to receive your guides.
+        <p class="body-md text-brand-900/80 text-[15px] sm:text-[16px] mb-2 leading-relaxed">
+          කරුණාකර <strong>Bank Transfer</strong> එක සම්පූර්ණ කරලා, Payment එකට අදාල <strong>Receipt</strong> එකේ
+          <strong>PDF/Screenshot</strong> එක අපේ <strong>Official WhatsApp Number</strong> එකට <strong>Send</strong> කරන්න.
+        </p>
+        <p class="body-md text-brand-900/80 text-[15px] sm:text-[16px] leading-relaxed">
+          Payment එක තහවුරු කළ පසු, ඔයාට අදාල <strong>Product/Service</strong> ලබාගන්න පුළුවන්.
         </p>
       </div>
 
@@ -94,9 +98,9 @@ import {CartService} from './services/cart.service';
 
             <!-- Optional: Enter Transaction Reference -->
             <div class="bg-white p-5 rounded-2xl border border-brand-100">
-              <h4 class="font-medium text-brand-900 text-[14px] mb-1">Have your transfer reference number handy? <span class="text-brand-900/50 font-normal">(Optional)</span></h4>
-              <p class="text-[12px] text-brand-900/60 mb-3">
-                Entering your bank app reference (FriMi, Flash, online banking transaction ID, or slip number) attaches it directly to your order in our database.
+              <h4 class="font-medium text-brand-900 text-[14px] mb-2">Have your transfer reference number handy? <span class="text-brand-900/60 font-normal">(Optional)</span></h4>
+              <p class="text-[13px] sm:text-[14px] text-brand-900/80 mb-4 leading-relaxed">
+                ඔයාගේ <strong>Bank App</strong> එකේ <strong>Reference</strong> එක (FriMi, Flash, Online Banking Transaction ID හෝ Slip Number) මෙතන ඇතුළත් කරන්න. (අනිවාර්ය නොවේ)
               </p>
               <div class="flex flex-col sm:flex-row gap-3">
                 <input 
@@ -119,17 +123,20 @@ import {CartService} from './services/cart.service';
 
           <!-- Primary WhatsApp Action Box or Next Steps -->
           @if (!whatsAppOpened()) {
-            <div class="bg-emerald-50/80 border-2 border-emerald-500/40 rounded-3xl p-6 sm:p-8 animate-fade-in">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                <div class="max-w-xl">
-                  <div class="flex items-center gap-2 text-emerald-800 font-semibold text-[14px] uppercase tracking-wider mb-2">
-                    <mat-icon class="text-[20px]">chat</mat-icon> Step 1: Open WhatsApp
+            <div class="bg-brand-50/40 border-2 border-brand-100 rounded-3xl p-6 sm:p-8 animate-fade-in">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div class="max-w-2xl">
+                  <div class="text-brand-900/80 text-[14px] mb-2 font-medium">
+                    Step 1: Open WhatsApp
                   </div>
-                  <h3 class="font-serif text-[22px] sm:text-[26px] text-emerald-950 mb-2">
+                  <h3 class="font-serif font-bold text-[24px] sm:text-[28px] text-brand-900 mb-4">
                     Send Your Order Slip to Swarna
                   </h3>
-                  <p class="text-[14px] text-emerald-900/80 leading-relaxed">
-                    Click the button below to open a direct WhatsApp chat with Swarna pre-filled with your order details. Simply attach your bank deposit slip or mobile transfer screenshot in the chat!
+                  <p class="text-[14px] sm:text-[15px] text-brand-900/80 leading-relaxed mb-4">
+                    "<strong>OPEN WHATSAPP</strong>" button එක Click කරන්න, ඔයා කලින් Fill කරපු ඔයාගේ Details සහ ඔයාගේ Order එකේ Details ස්වර්ණා මහත්මියගේ WhatsApp Chat එකේ Type වෙලා ඔයාට Open වෙයි, ඊට පස්සේ App එකේ <strong>Send Button එක Click</strong> කරල ඒ Message එක Send කරන්න.
+                  </p>
+                  <p class="text-[14px] sm:text-[15px] text-brand-900/80 leading-relaxed">
+                    Payment එක Complete කළාට පස්සේ, <strong>Bank Deposit Slip එකේ Photo එකක් හෝ Mobile Transfer එකේ Screenshot/PDF එකක්</strong> මේ Chat එකටම Attach කරලා Send කරන්න.
                   </p>
                 </div>
 
@@ -182,7 +189,7 @@ import {CartService} from './services/cart.service';
                         <img [src]="item.image" [alt]="item.name" class="w-14 h-14 rounded-2xl object-cover border border-slate-100 shrink-0" referrerpolicy="no-referrer">
                       }
                       <div class="min-w-0">
-                        <h4 class="font-medium text-[15px] text-brand-900 truncate">{{ item.name }}</h4>
+                        <h4 class="font-medium text-[15px] text-brand-900">{{ item.name }}</h4>
                         <span class="text-[12px] text-brand-900/60">Quantity: {{ item.quantity }} × LKR {{ item.price?.toLocaleString() }}</span>
                       </div>
                     </div>

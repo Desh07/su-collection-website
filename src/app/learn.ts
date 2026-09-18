@@ -51,9 +51,6 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
               <!-- Image Side -->
               <div class="w-full lg:w-1/2 rounded-[24px] sm:rounded-[32px] overflow-hidden relative shadow-xl aspect-[4/3] z-10 group">
                 <img [src]="course.image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" [alt]="course.title" referrerpolicy="no-referrer">
-                <div class="absolute top-4 left-4 glass-panel text-brand-900 px-4 py-2 rounded-full shadow-sm label-md font-semibold text-[12px] sm:text-[14px]">
-                  {{ course.level }}
-                </div>
               </div>
               
               <!-- Text Side -->
@@ -106,7 +103,7 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                       <mat-icon class="text-[18px] animate-spin">sync</mat-icon>
                       <span>Proceeding...</span>
                     </button>
-                  } @else if (cartService.hasItem('course-' + course.id)) {
+                  } @else if (cartService.hasItem('course-' + course.id) || (course.id === '6-month-tailoring-business-mentorship' && cartService.hasItem('course-' + course.id + '-reserve'))) {
                     <a routerLink="/checkout" class="btn-primary !bg-emerald-600 hover:!bg-emerald-700 flex items-center justify-center gap-2 !px-8 !py-3.5">
                       <mat-icon class="text-[18px]">check_circle</mat-icon>
                       <span>Proceed to Checkout</span>
@@ -246,6 +243,11 @@ export class Learn implements OnInit {
   }
 
   enrollCourse(course: any) {
+    if (course.id === '6-month-tailoring-business-mentorship') {
+      this.router.navigate(['/learn', course.id], { fragment: 'order' });
+      return;
+    }
+
     this.proceedingId.set(course.id);
     const numericPrice = typeof course.price === 'number'
       ? course.price
@@ -260,7 +262,9 @@ export class Learn implements OnInit {
     
     // Slight delay so the user sees the "Proceeding..." state before navigating
     setTimeout(() => {
-      this.router.navigate(['/checkout']);
+      this.router.navigate(['/checkout']).then(() => {
+        this.proceedingId.set(null);
+      });
     }, 400);
   }
 

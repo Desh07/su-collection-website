@@ -214,7 +214,7 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
                       <span class="absolute -top-1.5 -right-1.5 bg-brand-900 text-white text-[11px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{{ item.quantity }}</span>
                     </div>
                     <div class="flex-1 min-w-0">
-                      <h4 class="font-medium text-[14px] text-brand-900 truncate leading-snug">{{ item.name }}</h4>
+                      <h4 class="font-medium text-[14px] text-brand-900 leading-snug">{{ item.name }}</h4>
                       <span class="text-[12px] text-brand-900/60">LKR {{ item.price.toLocaleString() }} × {{ item.quantity }}</span>
                     </div>
                     <div class="font-medium text-[14px] text-brand-900 shrink-0">
