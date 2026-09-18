@@ -1914,7 +1914,7 @@ export class Admin implements OnInit {
         level: 'PDF E-Book',
         price: 'LKR 2,500',
         duration: '48 Pages',
-        image: 'https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=800&auto=format&fit=crop',
+        image: '/images/Workbook.jpeg',
         badge: 'Best Seller',
         features: [
           'Precise cup dart manipulation formulas',

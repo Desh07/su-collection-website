@@ -193,7 +193,7 @@ export class Learn implements OnInit {
         'Printable standard Sri Lankan size charts',
         'Step-by-step lining & piping tutorial'
       ],
-      image: 'https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=800&auto=format&fit=crop'
+      image: '/images/Workbook.jpeg'
     }
   ];
 
