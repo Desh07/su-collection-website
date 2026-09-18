@@ -56,6 +56,7 @@ import { FormatTextPipe } from './pipes/format-text.pipe';
                 </span>
               }
             </button>
+            <!-- Temporarily hidden content editor tabs
             <button (click)="activeTab.set('videos')" [class.border-brand-900]="activeTab() === 'videos'" [class.text-brand-900]="activeTab() === 'videos'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
               Social Reel (TikTok & FB)
             </button>
@@ -74,6 +75,7 @@ import { FormatTextPipe } from './pipes/format-text.pipe';
             <button (click)="activeTab.set('dedicatedCourses')" [class.border-brand-900]="activeTab() === 'dedicatedCourses'" [class.text-brand-900]="activeTab() === 'dedicatedCourses'" class="px-4 sm:px-6 py-2 sm:py-3 border-b-2 border-transparent text-brand-900/60 hover:text-brand-900 label-md text-[13px] sm:text-[14px] transition-colors">
               Dedicated Courses
             </button>
+            -->
           </div>
 
           <!-- Tab Content: Order Management System (OMS) -->

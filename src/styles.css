@@ -3,8 +3,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Inter', 'Noto Sans Sinhala', sans-serif;
-  --font-serif: 'Lora', 'Noto Sans Sinhala', serif;
+  --font-sans: Inter, "Noto Sans Sinhala", sans-serif;
+  --font-serif: Lora, "Noto Sans Sinhala", serif;
   
   --color-brand-50: #FFF5F7;
   --color-brand-100: #FFE4E8;

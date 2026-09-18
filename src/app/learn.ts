@@ -59,7 +59,6 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
               <!-- Text Side -->
               <div class="w-full lg:w-1/2 relative z-10">
                 <div class="flex items-center gap-3 text-brand-600 mb-3 font-medium">
-                  <span class="px-3 py-1 bg-brand-50 text-brand-900 text-[11px] font-semibold uppercase tracking-wider rounded-lg">{{ course.level }}</span>
                   <div class="flex items-center gap-1.5 label-md text-[13px]">
                     <mat-icon class="text-[16px]">schedule</mat-icon>
                     <span>{{ course.duration }}</span>
@@ -72,9 +71,18 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                 <div class="mb-4 sm:mb-6 flex flex-wrap items-center gap-3">
                   <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-2 rounded-full shadow-sm w-fit">
                     <mat-icon class="text-[20px]">local_offer</mat-icon>
-                    <span class="body-md font-semibold text-[18px] sm:text-[20px]">{{ course.price.split('(')[0].trim() }}</span>
+                    @if (course.id === '6-month-tailoring-business-mentorship') {
+                      @if (isOfferValid()) {
+                        <span class="text-brand-900/40 line-through mr-1 font-normal text-[14px] sm:text-[16px]">LKR 65,000</span>
+                        <span class="text-[18px] sm:text-[22px] font-extrabold text-brand-900">LKR 50,000</span>
+                      } @else {
+                        <span class="text-[18px] sm:text-[22px] font-extrabold text-brand-900">LKR 65,000</span>
+                      }
+                    } @else {
+                      <span class="body-md font-semibold text-[18px] sm:text-[20px]">{{ course.price.split('(')[0].trim() }}</span>
+                    }
                   </div>
-                  @if (course.price.includes('(')) {
+                  @if (course.price.includes('(') && course.id !== '6-month-tailoring-business-mentorship') {
                     <span class="text-[13px] sm:text-[14px] text-brand-900/60 font-medium">({{ course.price.split('(')[1] }}</span>
                   }
                 </div>
@@ -150,6 +158,12 @@ export class Learn implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   c = this.contentService.content;
+
+  deadline = new Date(2026, 8, 30, 23, 59, 59).getTime();
+  
+  isOfferValid() {
+    return Date.now() < this.deadline;
+  }
 
   defaultCourses = [
     {

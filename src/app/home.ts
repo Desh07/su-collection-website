@@ -325,9 +325,18 @@ interface DigitalGuide {
                 <div class="mb-4 flex flex-wrap items-center gap-2">
                   <div class="flex items-center gap-1.5 text-emerald-700 font-semibold bg-emerald-50 px-3 py-1 rounded-md border border-emerald-100">
                     <mat-icon class="text-[18px]">local_offer</mat-icon>
-                    <span class="text-[15px]">{{ item.price.split('(')[0].trim() }}</span>
+                    @if (item.id === '6-month-tailoring-business-mentorship') {
+                      @if (isOfferValid()) {
+                        <span class="text-brand-900/40 line-through mr-1 font-normal text-[13px]">LKR 65,000</span>
+                        <span class="text-[16px] sm:text-[18px] font-extrabold text-brand-900">LKR 50,000</span>
+                      } @else {
+                        <span class="text-[16px] sm:text-[18px] font-extrabold text-brand-900">LKR 65,000</span>
+                      }
+                    } @else {
+                      <span class="text-[15px]">{{ item.price.split('(')[0].trim() }}</span>
+                    }
                   </div>
-                  @if (item.price.includes('(')) {
+                  @if (item.price.includes('(') && item.id !== '6-month-tailoring-business-mentorship') {
                     <span class="text-[13px] text-brand-900/70 font-medium">({{ item.price.split('(')[1] }}</span>
                   }
                 </div>
@@ -346,12 +355,11 @@ interface DigitalGuide {
                   </ul>
                 }
 
-                <!-- Action Button -->
                 <div class="mt-auto flex flex-col pt-4 border-t border-brand-200">
-                  <button type="button" (click)="viewDetails(item.id)" class="btn-primary flex items-center justify-center gap-2 !py-3.5 w-full">
+                  <a [routerLink]="['/learn', item.id]" class="btn-primary flex items-center justify-center gap-2 !py-3.5 w-full">
                     <span>{{ item.btnViewText || 'View Details' }}</span>
                     <mat-icon class="text-[18px]">arrow_forward</mat-icon>
-                  </button>
+                  </a>
                 </div>
 
               </div>
@@ -469,6 +477,13 @@ export class Home implements OnInit {
   cartService = inject(CartService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+
+  deadline = new Date(2026, 8, 30, 23, 59, 59).getTime();
+  
+  isOfferValid() {
+    return Date.now() < this.deadline;
+  }
+
   c = this.contentService.content;
 
   reelContainer = viewChild<ElementRef<HTMLDivElement>>('reelContainer');
@@ -747,6 +762,6 @@ export class Home implements OnInit {
   }
 
   viewDetails(courseId: string) {
-    this.router.navigate(['/learn'], { fragment: courseId });
+    this.router.navigate(['/learn', courseId]);
   }
 }

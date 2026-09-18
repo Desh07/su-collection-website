@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, OnDestroy, signal, computed, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 import {doc, getDoc} from 'firebase/firestore';
 import {db} from '../lib/firebase';
 import {Title, Meta} from '@angular/platform-browser';
@@ -12,7 +13,7 @@ import {RouterLink, Router} from '@angular/router';
   selector: 'app-mentorship',
   imports: [MatIconModule],
   template: `
-    <div class="bg-white min-h-screen pb-20 pt-8 lg:pt-12 noto-sinhala-page">
+    <div class="bg-white min-h-screen pb-20 pt-8 lg:pt-12">
       <!-- Top Banner -->
       <div class="bg-brand-900 text-white text-center py-2.5 text-[12px] sm:text-[13px] font-bold tracking-widest uppercase">
         දින 100ක Guided Business Building Programme
@@ -23,172 +24,218 @@ import {RouterLink, Router} from '@angular/router';
         <!-- Hero Section -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-8 lg:py-14">
           
-          <!-- Image Placeholder -->
-          <div class="min-h-[350px] lg:min-h-[540px] bg-brand-50 rounded-[24px] sm:rounded-[32px] flex items-center justify-center text-brand-900/40 text-center border border-brand-100 shadow-sm relative overflow-hidden">
-            <div class="border border-dashed border-brand-200 p-8 rounded-2xl relative z-10 bg-white/50 backdrop-blur-sm">
-              <mat-icon class="text-[48px] mb-4 text-brand-300">image</mat-icon>
-              <div class="font-medium text-brand-900">PROGRAMME HERO IMAGE</div>
-              <small class="text-brand-900/60 mt-2 block">Replace with a strong tailoring/business image</small>
+          <!-- Left Column (Image & Price) -->
+          <div class="flex flex-col gap-8 lg:gap-10">
+            <!-- Image Placeholder -->
+            <div class="min-h-[350px] lg:min-h-[440px] bg-brand-50 rounded-[24px] sm:rounded-[32px] flex items-center justify-center text-brand-900/40 text-center border border-brand-100 shadow-sm relative overflow-hidden">
+              <div class="border border-dashed border-brand-200 p-8 rounded-2xl relative z-10 bg-white/50 backdrop-blur-sm">
+                <mat-icon class="text-[48px] mb-4 text-brand-300">image</mat-icon>
+                <div class="font-medium text-brand-900">PROGRAMME HERO IMAGE</div>
+                <small class="text-brand-900/60 mt-2 block">Replace with a strong tailoring/business image</small>
+              </div>
+            </div>
+
+            <!-- Price and Buttons -->
+            <div>
+              @if (isOfferValid()) {
+                <div class="flex flex-col">
+                  <div class="flex items-baseline gap-3 mb-6 border-b border-brand-200 pb-4">
+                    <span class="line-through text-brand-900/50 text-[18px] font-medium">LKR 65,000</span>
+                    <span class="text-[26px] sm:text-[32px] font-extrabold text-brand-900">LKR 50,000</span>
+                  </div>
+                  
+                  @if (proceeding()) {
+                    <button disabled class="block w-full text-center bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] shadow-md opacity-80 cursor-wait flex items-center justify-center gap-2 mb-3">
+                      <mat-icon class="animate-spin">sync</mat-icon> Proceeding...
+                    </button>
+                  } @else if (cartService.hasItem('course-' + courseId) || cartService.hasItem('course-' + courseId + '-reserve')) {
+                    <a routerLink="/checkout" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-xl font-bold text-[15px] transition-colors shadow-md flex items-center justify-center gap-2 mb-3">
+                      <mat-icon>check_circle</mat-icon> Proceed to Checkout
+                    </a>
+                  } @else {
+                    <div class="flex flex-col gap-3.5">
+                      <button (click)="enroll(true)" class="block w-full text-center bg-brand-900 hover:bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md">
+                        Reserve Place (LKR 5,000)
+                      </button>
+                      <button (click)="enroll(false)" class="block w-full text-center bg-white border-2 border-brand-900 text-brand-900 hover:bg-brand-50 py-3.5 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-sm">
+                        Pay in Full (LKR 50,000)
+                      </button>
+                    </div>
+                  }
+                  <p class="text-brand-900/60 text-[12px] text-center mt-5 font-medium">Total reservation fee: LKR 55,000</p>
+                </div>
+              } @else {
+                <div class="border-b border-brand-200 pb-4 mb-6 flex items-baseline gap-3">
+                  <span class="text-[28px] sm:text-[32px] font-extrabold text-brand-900">LKR 65,000</span>
+                </div>
+                
+                @if (proceeding()) {
+                  <button disabled class="block w-full text-center bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] shadow-md opacity-80 cursor-wait flex items-center justify-center gap-2 mb-3">
+                    <mat-icon class="animate-spin">sync</mat-icon> Proceeding...
+                  </button>
+                } @else if (cartService.hasItem('course-' + courseId)) {
+                  <a routerLink="/checkout" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md flex items-center justify-center gap-2 mb-3">
+                    <mat-icon>check_circle</mat-icon> Proceed to Checkout
+                  </a>
+                } @else {
+                  <button (click)="enroll(false)" class="block w-full text-center bg-brand-900 hover:bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md mb-3">
+                    Pay in Full (LKR 65,000)
+                  </button>
+                }
+              }
             </div>
           </div>
 
-          <!-- Hero Content -->
-          <div>
-            <span class="inline-block bg-brand-100 text-brand-900 rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest mb-6">100-Day Mentorship</span>
+          <!-- Right Column (Text & Countdown) -->
+          <div class="flex flex-col h-full lg:pl-4">
+            <span class="inline-block bg-brand-100 text-brand-900 rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest mb-6 self-start">100-Day Mentorship</span>
             <h1 class="font-serif text-[36px] sm:text-[44px] lg:text-[48px] leading-[1.1] tracking-tight text-brand-900 mb-5">Tailoring Business Growth Mentorship</h1>
-            <p class="text-[18px] sm:text-[20px] text-brand-900/90 font-medium mb-6 leading-snug">ඔයාට tailoring skill එක තියෙනවා. දැන් ඒ skill එකෙන් ඇත්තටම business එකක් හදමු.</p>
+            <p class="text-[18px] sm:text-[20px] text-brand-900/90 font-medium mb-6 leading-snug">You already have a skill. Now build something real with it.</p>
             <p class="text-[15px] sm:text-[16px] text-brand-900/70 mb-8 leading-relaxed">
-              මහන වැඩේ දන්න එක විතරක් නෙවෙයි. ඒ skill එකෙන් income එකක් ගන්න පුළුවන් business එකක් හදන්නේ කොහොමද කියලා, දින 100ක් අපිත් එක්ක step by step build කරන programme එකක්.
+              මැහුම් වැඩ කරන්න පුළුවන් වුණාට, ඒකෙන් හොඳ ආදායමක් හදාගන්නේ කොහොමද? තමන්ගේම මැහුම් ව්යාපාරයක් පටන්ගන්නේ කොහෙන්ද? කියලා තාම හිත හිත ඉන්නවා නම්, දැන් ඒ ගැන හිතන එක විතරක් නෙවෙයි — වැඩේ පටන්ගන්න කාලේ හරි. දින 100ක් පුරා Step-By-Step මඟපෙන්වීමක් එක්ක, ඔයාගේ මැහුම් හැකියාව ව්යාපාරයක් බවට පත්කරගන්න අවශ්ය දේ එකින් එක ඉගෙනගෙන ක්රියාවට නංවන්න ඔයාට මේ Business-Building Programme එකෙන් පුලුවන්. 
             </p>
             
-            <div class="border-y border-brand-200 py-6 my-8 flex items-baseline gap-3">
-              <span class="line-through text-brand-900/50 text-[18px] font-medium">LKR 65,000</span>
-              <span class="text-[28px] sm:text-[32px] font-extrabold text-brand-900">LKR 50,000</span>
-            </div>
-            
-            <div class="bg-brand-50 border-l-4 border-brand-800 p-4 text-[13px] sm:text-[14px] text-brand-900/80 mb-8 rounded-r-lg">
-              <strong>Launch Offer:</strong> ඔයාගේ place එක <strong>LKR 5,000</strong>කින් reserve කරන්න. Total programme fee එක <strong>LKR 55,000</strong>යි. මේ LKR 5,000 එක total fee එකේම කොටසක්.
-            </div>
-            
-            @if (proceeding()) {
-              <button disabled class="block w-full text-center bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] shadow-md opacity-80 cursor-wait flex items-center justify-center gap-2">
-                <mat-icon class="animate-spin">sync</mat-icon> Proceeding...
-              </button>
-            } @else if (cartService.hasItem('course-' + courseId)) {
-              <a routerLink="/checkout" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md flex items-center justify-center gap-2">
-                <mat-icon>check_circle</mat-icon> Proceed to Checkout
-              </a>
-            } @else {
-              <button (click)="enroll()" class="block w-full text-center bg-brand-900 hover:bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] sm:text-[16px] transition-colors shadow-md">
-                LKR 5,000කින් Place එක Reserve කරන්න
-              </button>
+            @if (isOfferValid()) {
+              <!-- Countdown & Info -->
+              <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 sm:p-8 flex flex-col shadow-sm mt-auto">
+                <div class="text-[12px] font-bold uppercase tracking-wider text-brand-900/80 mb-5">Launch offer ends in</div>
+                <div class="flex items-center gap-2 sm:gap-3 mb-6">
+                  <div class="flex flex-col items-center bg-white border border-brand-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg min-w-[50px] sm:min-w-[60px] shadow-sm"><span class="text-[20px] sm:text-[24px] font-extrabold text-brand-900">{{ timeRemaining().days }}</span><span class="text-[10px] uppercase font-bold text-brand-900/60">Days</span></div>
+                  <div class="flex flex-col items-center bg-white border border-brand-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg min-w-[50px] sm:min-w-[60px] shadow-sm"><span class="text-[20px] sm:text-[24px] font-extrabold text-brand-900">{{ timeRemaining().hours }}</span><span class="text-[10px] uppercase font-bold text-brand-900/60">Hrs</span></div>
+                  <div class="flex flex-col items-center bg-white border border-brand-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg min-w-[50px] sm:min-w-[60px] shadow-sm"><span class="text-[20px] sm:text-[24px] font-extrabold text-brand-900">{{ timeRemaining().minutes }}</span><span class="text-[10px] uppercase font-bold text-brand-900/60">Mins</span></div>
+                  <div class="flex flex-col items-center bg-white border border-brand-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg min-w-[50px] sm:min-w-[60px] shadow-sm"><span class="text-[20px] sm:text-[24px] font-extrabold text-brand-900">{{ timeRemaining().seconds }}</span><span class="text-[10px] uppercase font-bold text-brand-900/60">Secs</span></div>
+                </div>
+                <p class="text-[14px] sm:text-[15px] text-brand-900/80 leading-relaxed">
+                  දැන්ම <strong>LKR 5,000</strong>ක් ගෙවලා ඔයාගේ place එක වෙන්කරගන්න. ඉතිරි <strong>LKR 50,000</strong> පසුව ගෙවන්න.
+                </p>
+              </div>
             }
-            <p class="text-brand-900/60 text-[12px] text-center mt-4 font-medium">Full payment: LKR 50,000</p>
           </div>
         </div>
 
         <!-- Section: You Don't Need More Information -->
         <section class="py-16 sm:py-20 border-t border-brand-100 mt-8">
-          <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">තව Course එකක් ඕන නෑ. ඔයාට ඕනේ දැන් මොනවා කරන්නද කියලා දැනගන්න එක.</h2>
+          <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">You Don't Need More Information. You Need a Way Forward.</h2>
           <p class="text-brand-900/70 text-[16px] sm:text-[18px] max-w-[720px] mb-12 leading-relaxed">
-            ඔයා අවුරුදු ගාණක් මහන වැඩේ කරන කෙනෙක් වෙන්න පුළුවන්. එහෙම නැත්නම් දැන් තමයි seriously පටන් ගත්තේ. Family එකට, යාළුවන්ට ඇඳුම් මහලා දීලා,
-            <br><br><strong>“මට මේකෙන් ඇත්තටම business එකක් හදන්න පුළුවන්ද?”</strong><br><br>
-            කියලා ඔයාටත් හිතෙන්න ඇති. ප්‍රශ්නේ dream එක නැති එක නෙවෙයි. ඊළඟට මොකක් කරන්නද කියලා clear නැති එක. ඒකයි අපි මේ දින 100 පුරා guide කරන්නේ.
+            සමහරවිට ඔයා අවුරුදු ගාණක් තිස්සේ මැහුම් කරන කෙනෙක් වෙන්න පුළුවන්. එහෙම නැත්නම් මේ වැඩේ ඉගෙනගෙන තාම වැඩි කාලයක් නැතුව ඇති. ගෙදර අයට, යාළුවන්ට ඇඳුම් මහලා දීලා, <strong>“මට මේකෙන් ඇත්තටම Business එකක් පටන්ගන්න පුළුවන්ද?”</strong> කියලා ඔයාත් හිතලා ඇති.<br><br>
+            හැබැයි හීනයක් තියෙන එක විතරක් මදි. <strong>ඊළඟට කරන්න ඕනේ මොකක්ද කියලා දැනගන්න ඕනේ.</strong> ඒ වගේම, ඒ ගමන දැනටමත් ගිය කෙනෙක්ගෙන් හරි මඟපෙන්වීමක් ලැබෙන එකත් ගොඩක් වටිනවා.<br><br>
+            ඒකයි <strong>The UVA VEC</strong> එක්ක එකතු වෙලා මේ දින 100ක Programme එක අපි හදලා තියෙන්නේ.<br>
+            මේ දින 100 ඇතුළත ඔයාගේ මැහුම් Skill එක නිකන් Skill එකක් විදිහට තියෙන්නෙ නැතුව, <strong>ආදායමක් හදාගන්න පුළුවන් Business එකක්</strong> බවට ගොඩනගන්න අපි ඔයා එක්ක වැඩ කරනවා.
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="border border-brand-200 p-6 sm:p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
-              <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">SKILL එකෙන්</div>
-              <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">“මට මහන්න පුළුවන්. ඒත් මම ඇත්තටම මොනවාද sell කරන්නේ?”</h3>
-              <p class="text-[14px] text-brand-900/70 leading-relaxed">ඔයාගේ skill එකට ගැළපෙන product/service එකක් තෝරගෙන, කාටද sell කරන්නේ, කීයටද sell කරන්නේ කියලා clear කරගන්න.</p>
+              <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">SKILL එකෙන් → විකුණන්න පුළුවන් දෙයක් දක්වා</div>
+              <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">“I know how to sew. But what can I actually sell?”</h3>
+              <p class="text-[14px] text-brand-900/70 leading-relaxed">මැහුම් කරන්න පුළුවන් කියන එකෙන් එහාට ගිහින්, කාටද විකුණන්නේ, මොනවද විකුණන්නේ, කීයටද විකුණන්නේ කියන දේවල් පැහැදිලි කරගන්න. ඔයාට ගැළපෙන Product එකක් හෝ Service එකක් හදාගන්න.</p>
             </div>
             <div class="border border-brand-200 p-6 sm:p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
-              <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">කවුරුත් දන්නේ නෑ කියන තැනින්</div>
-              <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">“මම හොඳට හදනවා. ඒත් මාව දන්න කෙනෙක් නෑ.”</h3>
-              <p class="text-[14px] text-brand-900/70 leading-relaxed">Facebook, TikTok සහ WhatsApp Business එක එකට connect කරලා, interested customer කෙනෙක්ට ඔයාව හොයාගෙන message කරන්න ලේසි system එකක් හදගන්න.</p>
+              <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">කවුරුත් නොදන්න තැනින් → ඔයාව හොයාගෙන එන තැනට</div>
+              <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">“I make good things, but nobody knows I'm here.”</h3>
+              <p class="text-[14px] text-brand-900/70 leading-relaxed">ඔයා කරන වැඩ ටික Online (Facebook / Instagram / TikTok) වලින් නිවැරදි අයට පේන්න පටන්ගන්න Simple Online Presence එකක් හදාගන්න. Interested වෙන කෙනෙක්ට WhatsApp හරහා ඔයාත් එක්ක පහසුවෙන් Connect වෙන්න පුළුවන් විදිහට Business එක Set කරගන්න.</p>
             </div>
             <div class="border border-brand-200 p-6 sm:p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
-              <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">අනේ මොකද කරන්නේ කියන තැනින්</div>
-              <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">“අය අහනවා. බලනවා. ඒත් order එකක් දාන්නේ නෑ.”</h3>
-              <p class="text-[14px] text-brand-900/70 leading-relaxed">Content එකක් දැක්ක තැනින් enquiry එකකට, enquiry එකෙන් conversation එකකට, එතනින් order එකකට යන clear sales flow එකක් හදගන්න.</p>
+              <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">බලාගෙන ඉන්න තැනින් → Orders ගන්න තැනට</div>
+              <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">“People ask. They look. But they don't buy.”</h3>
+              <p class="text-[14px] text-brand-900/70 leading-relaxed">ඔයාගේ වැඩ දැක්ක තැන ඉඳන් Enquiry → Conversation → Order → Follow-Up දක්වා ගෙනියන්න පුළුවන් Simple System එකක් හදාගන්න.</p>
             </div>
           </div>
 
           <div class="bg-brand-900 text-white p-8 sm:p-10 rounded-2xl sm:rounded-[32px] mt-12 shadow-xl">
-            <h3 class="text-[22px] sm:text-[26px] font-bold mb-4 font-serif">මේ Programme එක හැමෝටම නෙවෙයි.</h3>
+            <h3 class="text-[22px] sm:text-[26px] font-bold mb-4 font-serif">This Programme Is Not for Everyone.</h3>
             <p class="text-white/80 text-[15px] sm:text-[16px] mb-6 leading-relaxed">
-              තවත් course එකක් බලලා certificate එකක් අරගෙන නවතින්න හිතාගෙන ඉන්න අය අපිට ඕන නෑ. අපිට ඕනේ ඇත්තටම build කරන්න ලෑස්ති අය. ඉගෙනගෙන, ඒක තමන්ගේ business එකට apply කරන්න ලෑස්ති අය.
+              මේ Programme එක තවත් Course එකක් බලලා Certificate එකක් අරගෙන නවතින්න හදපු එකක් නෙවෙයි. <strong>ඇත්තටම තමන්ගේ Skill එකෙන් දෙයක් ගොඩනගන්න ලෑස්ති අය වෙනුවෙන් හදපු දින 100ක වැඩපිළිවෙළක්.</strong> 
             </p>
-            <ul class="space-y-3 text-white/90 text-[14px] sm:text-[15px] list-disc list-inside marker:text-brand-400 mb-8">
-              <li>වැඩේ කරන්න වෙන්නේ ඔයාට.</li>
-              <li>තීරණ ගන්න වෙන්නේ ඔයාට.</li>
-              <li>Product සහ content හදන්න වෙන්නේ ඔයාට.</li>
-              <li>Customers එක්ක කතා කරන්න වෙන්නේ ඔයාට.</li>
-              <li>Test කරන්න, වැරදි වෙන්න, ඒවා හදාගන්න වෙන්නේ ඔයාට.</li>
-              <li>දින 100 පුරා මේකට commit වෙලා ඉන්න වෙන්නේ ඔයාට.</li>
+            <ul class="space-y-3 text-white/90 text-[14px] sm:text-[15px] list-disc list-inside marker:text-brand-400 mb-8 font-bold">
+              <li>මහන්සි වෙලා වැඩ කරන්න වෙනවා.</li>
+              <li>තීරණ ගන්න වෙනවා.</li>
+              <li>ඔයාගේ Products සහ Content හදාගන්න වෙනවා.</li>
+              <li>Customers ල එක්ක කතා කරන්න වෙනවා.</li>
+              <li>තමන්ගෙ උපරිමයෙන් Try කරන්න, වැරදි වෙන්න පුලුවන්, ඒවායෙන් ඉගෙනගෙන ආයෙත් Improve වෙන්න.</li>
+              <li>දින 100 පුරාම මේකට Commit වෙලා ඉන්න වෙනවා.</li>
             </ul>
-            <p class="font-bold text-brand-200 text-[15px] sm:text-[16px]">ඔයා වෙනුවෙන් business එක හදලා දෙන්න කෙනෙක් හොයනවා නම්, මේ programme එක ඒක නෙවෙයි.</p>
+            <p class="text-brand-200 text-[15px] sm:text-[16px]">Business එක ඔයා වෙනුවෙන් අපි හදලා දෙන්නෙ නැහැ. අපි ඔයාට මඟ පෙන්වනවා, දැනුම දෙනවා, Support කරනවා — <strong>හැබැයි ඒ හීනය Business එකක් බවට පත්කරන්නේ ඔයාමයි.</strong></p>
           </div>
         </section>
 
         <!-- Section: 100 Days Roadmap -->
         <section class="py-16 sm:py-20 border-t border-brand-100">
-          <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">හැමදාම “පස්සේ කරමු” කියලා දාගෙන ඉන්න Business එකේ වැඩ ටික — දින 100කින් Build කරමු.</h2>
+          <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">100 Days to Build the Foundations You Keep Putting Off</h2>
           <p class="text-brand-900/70 text-[16px] sm:text-[18px] max-w-[720px] mb-12 leading-relaxed">
-            පටන් ගන්න කලින් හැම දෙයක්ම දැනගෙන ඉන්න ඕන නෑ. මුල ඉඳන් එක එක business problem එක solve කරගෙන අපි ඔයාව guide කරනවා.
+            Business එක පටන්ගන්න කලින් හැමදේම දැනගෙන ඉන්න ඕනේ නැහැ. අපි මුල ඉඳන්ම ඔයා එක්ක යනවා. ඔක්කොම දේවල් එකවර කරන්නෙ නැතුව, එක Business Problem එකක් ගානේ විසඳගෙන ඉස්සරහට යමු.
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-5 border border-brand-200 rounded-2xl overflow-hidden bg-white shadow-sm">
             <!-- Phase 1 -->
             <div class="p-6 border-b md:border-b-0 md:border-r border-brand-200 bg-brand-50/50 hover:bg-brand-50 transition-colors">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-3 uppercase">Days 1–15</div>
-              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">මොනවාද Sell කරන්නේ කියලා guess කරන එක නවත්වමු</h3>
-              <p class="text-[13px] text-brand-900/70">Sell කරන්න පුළුවන් practical offer එකක් තෝරගෙන, ඒක කාටද කියලා clear කරගමු.</p>
+              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">Stop Guessing What to Sell</h3>
+              <p class="text-[13px] text-brand-900/70">ඔයාට කරන්න පුළුවන් Skill එකෙන්, විකුණන්න පුළුවන් Practical Offer එකක් හදාගන්න. ඒක කාටද කියලාත් පැහැදිලි කරගන්න.</p>
             </div>
             <!-- Phase 2 -->
             <div class="p-6 border-b md:border-b-0 md:border-r border-brand-200 hover:bg-brand-50 transition-colors">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-3 uppercase">Days 16–35</div>
-              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">මිනිස්සු ගන්න කැමති දෙයක් හදමු</h3>
-              <p class="text-[13px] text-brand-900/70">Product එක develop කරලා, costing/pricing හදලා, clear offer එකක් කරගමු.</p>
+              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">Build Something People Can Buy</h3>
+              <p class="text-[13px] text-brand-900/70">ඔයාගේ Product / Service එක හරියට Develop කරලා, Price එක තීරණය කරලා, Customer කෙනෙක්ට තේරෙන විදිහට Offer එක සකස් කරගන්න.</p>
             </div>
             <!-- Phase 3 -->
             <div class="p-6 border-b md:border-b-0 md:border-r border-brand-200 bg-brand-50/50 hover:bg-brand-50 transition-colors">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-3 uppercase">Days 36–55</div>
-              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">Customersලාට ඔයාව හොයාගන්න පාරක් හදමු</h3>
-              <p class="text-[13px] text-brand-900/70">Facebook, TikTok සහ WhatsApp Business එක එකට connect කරගමු.</p>
+              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">Give Customers a Way to Find You</h3>
+              <p class="text-[13px] text-brand-900/70">Facebook, TikTok සහ WhatsApp Business එක Connect කරලා, ඔයාගේ Business එක Online වලින් පේන්න පටන්ගන්න විදිහට Online Presence එක හදාගන්න.</p>
             </div>
             <!-- Phase 4 -->
             <div class="p-6 border-b md:border-b-0 md:border-r border-brand-200 hover:bg-brand-50 transition-colors">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-3 uppercase">Days 56–80</div>
-              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">Views ටික Enquiries වලට හරවමු</h3>
-              <p class="text-[13px] text-brand-900/70">Content සහ WhatsApp use කරලා enquiry → sale path එක හදමු.</p>
+              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">Turn Attention Into Enquiries</h3>
+              <p class="text-[13px] text-brand-900/70">Content සහ WhatsApp Use කරලා, කෙනෙක් ඔයාගේ වැඩක් දැක්ක තැන ඉඳන් Enquiry එකක් දාන තැනට, එතනින් Order එකක් ගන්න තැනට යන Simple Sales Path එකක් හදාගන්න.</p>
             </div>
             <!-- Phase 5 -->
             <div class="p-6 hover:bg-brand-50 transition-colors bg-brand-50/50">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-3 uppercase">Days 81–100</div>
-              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">මොන දේද Grow කරන්න ඕන කියලා දැනගමු</h3>
-              <p class="text-[13px] text-brand-900/70">Paid ads test කරලා, results බලලා, ඊළඟ දින 90ට plan එකක් හදමු.</p>
+              <h3 class="text-[16px] font-bold text-brand-900 mb-2 leading-snug">Know What to Scale</h3>
+              <p class="text-[13px] text-brand-900/70">Paid Ads වගේ Methods Test කරලා, මොන දේ වැඩ කරනවද කියලා බලන්න. ඊළඟ දින 90 තුළ Business එක තවත් Grow කරගන්න ඔයාගේ Next Plan එක හදාගන්න.</p>
             </div>
           </div>
         </section>
 
         <!-- Section: What You Get -->
         <section class="py-16 sm:py-20 border-t border-brand-100">
-          <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">ඊළඟ දින 100ට ඔයාට ලැබෙන්නේ මොනවාද?</h2>
+          <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">What You Get for the Next 100 Days</h2>
           <p class="text-brand-900/70 text-[16px] sm:text-[18px] max-w-[720px] mb-12 leading-relaxed">
-            මේක lessons ටිකක් විතරක් නෙවෙයි. ඔයාට තියෙන්නේ follow කරන්න පුළුවන් path එකක්, practical tools, mentor guidance සහ progress check කරන checkpoints.
+            මේක නිකන් Lessons ටිකක් බලලා ඉවර වෙන Program එකක් නෙවෙයි. <strong>ඔයාට කරන්න ඕනේ දේ, භාවිතා කරන්න ඕනේ Tools, අපෙන් ලැබෙන Guidance සහ අතරමඟ Checkpoints</strong> එක්ක, Business එක එකින් එක ගොඩනගාගෙන යන්න පුළුවන් විදිහට මේ දින 100 අපි හදලා තියෙනවා.
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0">
             <!-- Left Column -->
             <div class="flex flex-col">
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
-                <strong class="text-brand-900 text-[15px]">දින 100ක Guided Mentorship</strong>
-                <span class="text-brand-900/60 text-[13px]">Product එකේ ඉඳන් business growth එක දක්වා step-by-step journey එක.</span>
+                <strong class="text-brand-900 text-[15px]">100 Days of Guided Mentorship</strong>
+                <span class="text-brand-900/60 text-[13px]">Product එකක් හදාගන්න තැන ඉඳන් Business එක Grow කරන තැන දක්වා, <strong>Step-By-Step</strong> අපි එක්ක යන ගමනක්.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
-                <strong class="text-brand-900 text-[15px]">Live Sessions 20ක්</strong>
-                <span class="text-brand-900/60 text-[13px]">Training, demonstrations, implementation clinics සහ reviews.</span>
+                <strong class="text-brand-900 text-[15px]">20 Live Sessions</strong>
+                <span class="text-brand-900/60 text-[13px]">Training, Live Demonstrations, ඔයා කරන වැඩ Check කරගන්න <strong>Implementation Clinics සහ Reviews</strong>.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
-                <strong class="text-brand-900 text-[15px]">Business Evaluations 4ක්</strong>
-                <span class="text-brand-900/60 text-[13px]">Product & Offer, Digital Business, Organic Sales සහ Growth Plan.</span>
+                <strong class="text-brand-900 text-[15px]">4 Business Evaluations</strong>
+                <span class="text-brand-900/60 text-[13px]"><strong>Product & Offer → Digital Business → Organic Sales → Growth Plan</strong> කියන ප්රධාන අදියර 4කදී ඔයාගේ Business එක බලලා, ඊළඟට කරන්න ඕනේ දේ පැහැදිලි කරගන්න පුලුවන්.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Technical Tailoring Guidance</strong>
-                <span class="text-brand-900/60 text-[13px]">Su Collection එකෙන් product development සහ tailoring side එකේ guidance.</span>
+                <span class="text-brand-900/60 text-[13px]"><strong>Su Collection වෙතින් Product Development සහ මැහුම් කටයුතු සම්බන්ධ Technical Guidance</strong> ඔයාට ලබා දෙනවා.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Business Mentorship</strong>
-                <span class="text-brand-900/60 text-[13px]">Customer, offer, pricing, positioning සහ business building ගැන guidance.</span>
+                <span class="text-brand-900/60 text-[13px]">Customers, Offers, Pricing, Positioning සහ Business එක ගොඩනගන විදිහ ගැන <strong>ප්රායෝගික Guidance</strong> එකක් ජාත්යන්තරව පිළිගත් ආයතනයක් වන <strong>THE UVA VEC</strong> හරහා ඔයාට ලබා දෙනවා.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">WhatsApp Business Training</strong>
-                <span class="text-brand-900/60 text-[13px]">Customer enquiry එකේ ඉඳන් sale එක දක්වා practical flow එකක් හදගන්න.</span>
+                <span class="text-brand-900/60 text-[13px]">Customer කෙනෙක් Enquiry කරන තැන ඉඳන් Sales එකක් දක්වා ගෙනියන්න පුළුවන් <strong>Practical WhatsApp Business Flow</strong> එකක් හදාගන්න ඔයාට මේ හරහා අවස්ථාව උදා වෙනවා.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Facebook & TikTok Training</strong>
-                <span class="text-brand-900/60 text-[13px]">Online presence එක හදලා content හරහා customersලා attract කරගන්න.</span>
+                <span class="text-brand-900/60 text-[13px]">ඔයාගේ Online Presence එක හදාගෙන, <strong>Content හරහා නිවැරදි Customers ලා ඔයා ළඟට ගෙන්නගන්න</strong> ඉගෙනගන්න පුලුවන්.</span>
               </div>
             </div>
 
@@ -196,31 +243,31 @@ import {RouterLink, Router} from '@angular/router';
             <div class="flex flex-col">
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Organic Sales System</strong>
-                <span class="text-brand-900/60 text-[13px]">Content සහ attention එක enquiry සහ sales වලට හරවන්නේ කොහොමද කියලා build කරගන්න.</span>
+                <span class="text-brand-900/60 text-[13px]">Content බලන කෙනෙක් <strong>Enquiry එකක් දාන තැනට, එතනින් Sale එකක් ගන්න තැනට</strong> ගෙනියන ක්රමය හදාගන්න පුලුවන්.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Facebook & TikTok Ads</strong>
-                <span class="text-brand-900/60 text-[13px]">Paid ads run කරන basic structure, testing සහ results measure කරන හැටි.</span>
+                <span class="text-brand-900/60 text-[13px]">Paid Ads පටන්ගන්න විදිහ, <strong>Test කරන්න, Results බලන්න</strong> සහ මොන වගේ Ads ද තමන්ට වැඩ කරන්නෙ කියල <strong>තේරුම්ගන්න</strong> අවශ්ය Basics ඉගෙනගන්න පුලුවන්.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Business Growth Workbook</strong>
-                <span class="text-brand-900/60 text-[13px]">දින 100 පුරාම use කරන එකම integrated workbook එක.</span>
+                <span class="text-brand-900/60 text-[13px]">දින 100 පුරාම භාවිතා කරන <strong>එකම Business Workbook එකක්</strong> — ඉගෙනගන්න දේවල් සහ කරන වැඩ එක තැනක තියාගන්න ඔයාට පුලුවන්.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">100-Day Action Checklist</strong>
-                <span class="text-brand-900/60 text-[13px]">Stage එකෙන් stage එකට කරන්න ඕන වැඩ clear කරලා දෙන checklist එක.</span>
+                <span class="text-brand-900/60 text-[13px]">දිනෙන් දින <strong>කරන්න ඕනේ වැඩ පැහැදිලිව Track කරගෙන ඉස්සරහට යන්න</strong> Action Checklist එකක් ඔයාට ලැබෙනවා.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Practical Templates & Tools</strong>
-                <span class="text-brand-900/60 text-[13px]">Worksheets, checklists, planners සහ sales frameworks.</span>
+                <span class="text-brand-900/60 text-[13px]">Worksheets, Checklists, Planners සහ Sales Frameworks වගේ <strong>වැඩේටම භාවිතා කරන්න පුළුවන් Practical Templates & Tools</strong> අපි ඔයාට ලබා දෙනවා.</span>
               </div>
               <div class="py-4 border-b border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Programme Community</strong>
-                <span class="text-brand-900/60 text-[13px]">Questions අහන්න, progress share කරන්න සහ support ගන්න structured community එක.</span>
+                <span class="text-brand-900/60 text-[13px]">ප්රශ්න අහන්න, තමන් කරන වැඩ Share කරගන්න, <strong>අතරමඟ Support එකක් ගන්න</strong> Structured Community එකක් ඔයත් එක්ක ඉන්නවා.</span>
               </div>
               <div class="py-4 border-b md:border-none border-brand-200 flex flex-col gap-1">
                 <strong class="text-brand-900 text-[15px]">Session Recordings</strong>
-                <span class="text-brand-900/60 text-[13px]">Miss වුණ session එකක් නැවත බලන්න recordings.</span>
+                <span class="text-brand-900/60 text-[13px]">Live Sessions <strong>Miss වුණොත් බය වෙන්න දෙයක් නෑ</strong>, පස්සේ ආයෙත් බලලා <strong>Revision කරගන්නත්</strong> Programme Recordings Access එක අපි ඔයාට ලබා දෙනවා.</span>
               </div>
             </div>
           </div>
@@ -233,40 +280,47 @@ import {RouterLink, Router} from '@angular/router';
             <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 rounded-full blur-[80px] translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
             
             <div class="relative z-10">
-              <h2 class="font-serif text-[28px] sm:text-[36px] text-white tracking-tight mb-2">මේ Mentorship එක වැඩ කරන්නේ මෙහෙමයි</h2>
-              <p class="text-white/80 text-[16px] mb-12">අපි guide කරනවා. Business එක build කරන්නේ ඔයා.</p>
+              <h2 class="font-serif text-[28px] sm:text-[36px] text-white tracking-tight mb-2">How the Mentorship Works</h2>
+              <p class="text-white/80 text-[16px] mb-12">ඔයාගේ හීනයට අපි මඟ පෙන්වන්නම්. ඒ හීනය Business විදියට ගොඩනගන්නේ ඔයාමයි.</p>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 mb-12">
                 <div class="border-t border-brand-800/50 pt-5">
-                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">01 · ඉගෙනගමු</strong>
-                  <p class="text-white/70 text-[13px] leading-relaxed">මොනවා කරන්නද, කොහොමද කරන්නෙ කියලා තේරුම් ගමු.</p>
+                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">01 · LEARN</strong>
+                  <p class="text-white/70 text-[13px] leading-relaxed">Business එක ගොඩනගන්න <strong>මොනවද කරන්න ඕනේ, ඒක කරන්නෙ කොහොමද</strong> කියලා තේරුම්ගන්න.</p>
                 </div>
                 <div class="border-t border-brand-800/50 pt-5">
-                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">02 · Build කරමු</strong>
-                  <p class="text-white/70 text-[13px] leading-relaxed">ඒක ඔයාගේ business එකට apply කරමු.</p>
+                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">02 · BUILD</strong>
+                  <p class="text-white/70 text-[13px] leading-relaxed">ඉගෙනගත්ත දේ <strong>ඔයාගේම Business එකට Apply කරලා</strong>, ඇත්තටම වැඩ කරන්න පටන්ගන්න.</p>
                 </div>
                 <div class="border-t border-brand-800/50 pt-5">
-                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">03 · Submit කරමු</strong>
-                  <p class="text-white/70 text-[13px] leading-relaxed">වැදගත් milestones review එකට submit කරමු.</p>
+                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">03 · SUBMIT</strong>
+                  <p class="text-white/70 text-[13px] leading-relaxed">වැදගත් Milestones ටික අපිට <strong>Submit කරලා Review කරගන්න</strong>.</p>
                 </div>
                 <div class="border-t border-brand-800/50 pt-5">
-                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">04 · Improve කරමු</strong>
-                  <p class="text-white/70 text-[13px] leading-relaxed">ලැබෙන feedback අනුව වැඩේ හදාගමු.</p>
+                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">04 · IMPROVE</strong>
+                  <p class="text-white/70 text-[13px] leading-relaxed">ලැබෙන Feedback අනුව, <strong>ඔයාගේ වැඩේ තවත් හොඳ කරගන්න</strong>. අවශ්ය තැන් වෙනස් කරලා ආයෙත් Try කරන්න.</p>
                 </div>
                 <div class="border-t border-brand-800/50 pt-5">
-                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">05 · Grow කරමු</strong>
-                  <p class="text-white/70 text-[13px] leading-relaxed">Test කරලා, numbers බලලා, ඊළඟ move එක plan කරමු.</p>
+                  <strong class="text-brand-200 tracking-wider text-[13px] block mb-2 uppercase">05 · GROW</strong>
+                  <p class="text-white/70 text-[13px] leading-relaxed">මොන දේ වැඩ කරනවද Test කරලා, Results බලලා, ඊළඟට <strong>Business එක Grow කරන්න ඕනේ කොහොමද කියලා Plan කරගන්න</strong>.</p>
                 </div>
               </div>
+
+              <p class="text-white/80 text-[14px] sm:text-[15px] border-t border-white/10 pt-8 max-w-[800px] leading-relaxed">
+                <strong>අපි දැනුම සහ Guidance එක දෙනවා. ඔයා ඒ දේවල් ඔයාට Apply කර ගන්නවා. ඒ දෙක එකතු වුණාම තමයි Business එකක් හරි විදියට ගොඩනැගෙන්නේ.</strong>
+              </p>
             </div>
           </div>
         </section>
 
         <!-- Section: What Changes -->
         <section class="py-16 sm:py-20 border-t border-brand-100">
-          <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">දින 100 ඉවර වෙද්දී ඔයාට මොන වෙනසක් වෙයිද?</h2>
+          <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">What Changes for You Over These 100 Days?</h2>
+          <p class="text-brand-900/70 text-[16px] sm:text-[18px] max-w-[720px] mb-4 leading-relaxed">
+            ඔයාට දැනටමත් මැහුම් Skill එක තියෙන්න පුළුවන්. හැබැයි අමාරුම කොටස තමයි <strong>ඒ Skill එකෙන් මිනිස්සු ඇත්තටම ගන්න කැමති දෙයක් හදාගන්න එක, ඒ අයට ඔයාව හොයාගන්න සලස්වන එක, සහ කෙනෙක්ගෙ Interest එක ඇත්තටම Order එකක් බවට පත්කරගන්න එක.</strong>
+          </p>
           <p class="text-brand-900/70 text-[16px] sm:text-[18px] max-w-[720px] mb-12 leading-relaxed">
-            Tailoring skill එක ඔයාට දැනටමත් තියෙන්න පුළුවන්. අමාරුම දේ ඒ skill එකෙන් මිනිස්සු ගන්න කැමති දෙයක් හදන එක, ඒ මිනිස්සුන්ට ඔයාව හොයාගන්න සලස්වන එක, ඒ interest එක actual orders වලට හරවන එක. අපි මේ programme එක හදලා තියෙන්නේ ඒ ප්‍රශ්න ටික solve කරන්න.
+            මේ Programme එක හදලා තියෙන්නේ ඒ වැඩ ටික එකින් එක හදාගන්නයි.
           </p>
 
           <div class="max-w-[820px] divide-y divide-brand-200">
@@ -279,7 +333,7 @@ import {RouterLink, Router} from '@angular/router';
                 </span>
               </summary>
               <p class="text-brand-900/70 text-[14px] mt-4 leading-relaxed pr-8">
-                ඔයාගේ tailoring skill එකට ගැළපෙන practical product/service එකක් තෝරගෙන, ඒක කාටද, ඇයි එයාලා ගන්නේ කියලා clear කරගෙන, business එක පටන් ගන්න direction එක හදගන්න අපි guide කරනවා.
+                ඔයාගේ Tailoring Skill එකට ගැළපෙන Practical Product/Service එකක් තෝරගෙන, ඒක කාටද, ඇයි එයාලා ගන්නේ කියලා Clear කරගෙන, Business එක පටන් ගන්න Direction එක හදගන්න අපි Guide කරනවා.
               </p>
             </details>
 
@@ -292,7 +346,7 @@ import {RouterLink, Router} from '@angular/router';
                 </span>
               </summary>
               <p class="text-brand-900/70 text-[14px] mt-4 leading-relaxed pr-8">
-                Product/service එක develop කරලා, feedback අරගෙන improve කරලා, costing සහ pricing හදාගෙන, customer කෙනෙක්ට තේරෙන්නත් ගන්න ලේසි වෙන්නත් offer එක shape කරගන්න.
+                Product/Service එක Develop කරලා, Feedback අරගෙන Improve කරලා, Costing සහ Pricing හදාගෙන, Customer කෙනෙක්ට තේරෙන්නත් ගන්න ලේසි වෙන්නත් Offer එක Shape කරගන්න.
               </p>
             </details>
 
@@ -305,7 +359,7 @@ import {RouterLink, Router} from '@angular/router';
                 </span>
               </summary>
               <p class="text-brand-900/70 text-[14px] mt-4 leading-relaxed pr-8">
-                Social media එකේ post දාන එක විතරක් කරන්නේ නැතුව, customer journey එකක් හදමු. කෙනෙක් ඔයාව දකිනවා → offer එක තේරුම් ගන්නවා → WhatsApp එකෙන් contact කරනවා → order එකකට යනවා.
+                Social Media එකේ Post දාන එක විතරක් කරන්නේ නැතුව, Customer Journey එකක් හදමු. කෙනෙක් ඔයාව දකිනවා → Offer එක තේරුම් ගන්නවා → WhatsApp එකෙන් Contact කරනවා → Order එකකට යනවා.
               </p>
             </details>
 
@@ -318,7 +372,7 @@ import {RouterLink, Router} from '@angular/router';
                 </span>
               </summary>
               <p class="text-brand-900/70 text-[14px] mt-4 leading-relaxed pr-8">
-                Enquiry එක ආවම reply කරන්නේ කොහොමද, offer එක present කරන්නේ කොහොමද, common questions/objections handle කරන්නේ කොහොමද, sale එක close කරන්නේ සහ follow-up කරන්නේ කොහොමද කියලා practical system එකක් හදගන්න.
+                Enquiry එක ආවම Reply කරන්නේ කොහොමද, Offer එක Present කරන්නේ කොහොමද, Common Questions/Objections Handle කරන්නේ කොහොමද, Sale එක Close කරන්නේ සහ Follow-Up කරන්නේ කොහොමද කියලා Practical System එකක් හදගන්න.
               </p>
             </details>
 
@@ -331,7 +385,7 @@ import {RouterLink, Router} from '@angular/router';
                 </span>
               </summary>
               <p class="text-brand-900/70 text-[14px] mt-4 leading-relaxed pr-8">
-                හැමදාම “අද මොනවා දාන්නද?” කියලා blank වෙන්න ඕන නැති වෙන්න, ඔයාගේ products, customers සහ sales goals වලට ගැළපෙන repeatable content system එකක් සහ 30-day content plan එකක් හදගන්න.
+                හැමදාම “අද මොනවා දාන්නද?” කියලා Blank වෙන්න ඕන නැති වෙන්න, ඔයාගේ Products, Customers සහ Sales Goals වලට ගැළපෙන Repeatable Content System එකක් සහ 30-Day Content Plan එකක් හදගන්න.
               </p>
             </details>
 
@@ -344,7 +398,7 @@ import {RouterLink, Router} from '@angular/router';
                 </span>
               </summary>
               <p class="text-brand-900/70 text-[14px] mt-4 leading-relaxed pr-8">
-                Facebook සහ TikTok content, clear CTA සහ WhatsApp Business use කරලා, interested customer කෙනෙක්ට ඔයා වෙත එන්න ලේසි organic customer-acquisition flow එකක් හදගන්න.
+                Facebook සහ TikTok Content, Clear CTA සහ WhatsApp Business Use කරලා, Interested Customer කෙනෙක්ට ඔයා වෙත එන්න ලේසි Organic Customer-Acquisition Flow එකක් හදගන්න.
               </p>
             </details>
 
@@ -357,7 +411,7 @@ import {RouterLink, Router} from '@angular/router';
                 </span>
               </summary>
               <p class="text-brand-900/70 text-[14px] mt-4 leading-relaxed pr-8">
-                Ads වලට budget දාන්න කලින් campaign එක structure කරන්නේ කොහොමද, audience එක තෝරන්නේ කොහොමද, creative එක හදන්නේ කොහොමද, ad එක sales process එකට connect කරන්නේ කොහොමද කියලා ඉගෙනගන්නවා. Results වල numbers කියන්නේ මොනවාද කියලත් බලමු.
+                Ads වලට Budget දාන්න කලින් Campaign එක Structure කරන්නේ කොහොමද, Audience එක තෝරන්නේ කොහොමද, Creative එක හදන්නේ කොහොමද, Ad එක Sales Process එකට Connect කරන්නේ කොහොමද කියලා ඉගෙනගන්නවා. Results වල Numbers කියන්නේ මොනවාද කියලත් බලමු.
               </p>
             </details>
 
@@ -370,7 +424,7 @@ import {RouterLink, Router} from '@angular/router';
                 </span>
               </summary>
               <p class="text-brand-900/70 text-[14px] mt-4 leading-relaxed pr-8">
-                Programme එක ඉවර වෙද්දී මොන දේවල් work වෙනවද, මොනවා improve කරන්න ඕනද, ඊළඟට focus කරන්න ඕන මොනවද කියලා clear picture එකක් තියෙයි. ඉන් පස්සේ යන්න 90-day growth plan එකකුත් තියෙයි.
+                Programme එක ඉවර වෙද්දී මොන දේවල් Work වෙනවද, මොනවා Improve කරන්න ඕනද, ඊළඟට Focus කරන්න ඕන මොනවද කියලා Clear Picture එකක් තියෙයි. ඉන් පස්සේ යන්න 90-Day Growth Plan එකකුත් තියෙයි.
               </p>
             </details>
           </div>
@@ -384,17 +438,17 @@ import {RouterLink, Router} from '@angular/router';
             <div class="border border-brand-200 p-6 sm:p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">01 · Product</div>
               <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">Product & Offer Evaluation</h3>
-              <p class="text-[14px] text-brand-900/70 leading-relaxed">Product එක, customer, costing, pricing සහ offer එක review කරමු.</p>
+              <p class="text-[14px] text-brand-900/70 leading-relaxed">Product එක, Customer, Costing, Pricing සහ Offer එක Review කරමු.</p>
             </div>
             <div class="border border-brand-200 p-6 sm:p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">02 · Digital</div>
               <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">Digital Business Review</h3>
-              <p class="text-[14px] text-brand-900/70 leading-relaxed">Facebook, TikTok සහ WhatsApp Business setup එක review කරමු.</p>
+              <p class="text-[14px] text-brand-900/70 leading-relaxed">Facebook, TikTok සහ WhatsApp Business Setup එක Review කරමු.</p>
             </div>
             <div class="border border-brand-200 p-6 sm:p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">03 · Sales</div>
               <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">Organic Sales Review</h3>
-              <p class="text-[14px] text-brand-900/70 leading-relaxed">Content, enquiry flow, WhatsApp sales process සහ follow-up review කරමු.</p>
+              <p class="text-[14px] text-brand-900/70 leading-relaxed">Content, Enquiry Flow, WhatsApp Sales Process සහ Follow-Up Review කරමු.</p>
             </div>
           </div>
           
@@ -402,7 +456,7 @@ import {RouterLink, Router} from '@angular/router';
             <div class="border border-brand-200 p-6 sm:p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-white to-brand-50">
               <div class="text-[11px] text-brand-700 font-extrabold tracking-widest mb-4 uppercase">04 · Growth</div>
               <h3 class="text-[18px] font-bold text-brand-900 mb-3 leading-snug">Final Growth Plan Review</h3>
-              <p class="text-[14px] text-brand-900/70 leading-relaxed">ඔයාගේ progress එක සහ ඊළඟ දින 90ට business plan එක review කරමු.</p>
+              <p class="text-[14px] text-brand-900/70 leading-relaxed">ඔයාගේ Progress එක සහ ඊළඟ දින 90ට Business Plan එක Review කරමු.</p>
             </div>
           </div>
         </section>
@@ -472,10 +526,10 @@ import {RouterLink, Router} from '@angular/router';
               We could make this cheaper. But when someone puts nothing at stake, it becomes very easy to postpone the work, miss the sessions and let a good opportunity disappear.
             </p>
             <p class="text-brand-200 text-[15px] sm:text-[16px] font-bold mb-4 leading-relaxed">
-              ඔයා ගෙවන මුදල success එකේ guarantee එකක් නෙවෙයි. ඒක ඔයාටම දෙන commitment එකක් — show up වෙලා වැඩේ කරන්න.
+              ඔයා ගෙවන මුදල Success එකේ Guarantee එකක් නෙවෙයි. ඒක ඔයාටම දෙන Commitment එකක් — Show Up වෙලා වැඩේ කරන්න.
             </p>
             <p class="text-white/80 text-[15px] sm:text-[16px] leading-relaxed">
-              ඔයා tailoring skill එකෙන් ඇත්තටම දෙයක් build කරන්න serious නම්, මුල ඉඳන් ඒ journey එකේ guide කරන්න අපි කැමතියි.
+              ඔයා Tailoring Skill එකෙන් ඇත්තටම දෙයක් Build කරන්න Serious නම්, මුල ඉඳන් ඒ Journey එකේ Guide කරන්න අපි කැමතියි.
             </p>
           </div>
         </section>
@@ -485,7 +539,7 @@ import {RouterLink, Router} from '@angular/router';
           <h2 class="font-serif text-[28px] text-brand-900 tracking-tight mb-4">එක දෙයක් මතක තියාගන්න.</h2>
           <p class="text-[18px] text-brand-900 font-bold mb-4">Knowledge, frameworks, tools, guidance සහ feedback අපි දෙනවා. Build කරන්නේ ඔයා.</p>
           <p class="text-[14px] text-brand-900/60 leading-relaxed">
-            මේ programme එකට done-for-you website development, social media management, content production, individual ad management, unlimited private consultations හෝ guaranteed sales/income ඇතුළත් නෑ.
+            මේ Programme එකට Done-For-You Website Development, Social Media Management, Content Production, Individual Ad Management, Unlimited Private Consultations හෝ Guaranteed Sales/Income ඇතුළත් නෑ.
           </p>
         </section>
 
@@ -500,20 +554,33 @@ import {RouterLink, Router} from '@angular/router';
             <button disabled class="inline-flex items-center justify-center gap-2 bg-brand-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] shadow-lg shadow-brand-900/20 mb-6 opacity-80 cursor-wait">
               <mat-icon class="animate-spin">sync</mat-icon> Proceeding...
             </button>
-          } @else if (cartService.hasItem('course-' + courseId)) {
+          } @else if (cartService.hasItem('course-' + courseId) || cartService.hasItem('course-' + courseId + '-reserve')) {
             <a routerLink="/checkout" class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-emerald-900/20 mb-6">
               <mat-icon>check_circle</mat-icon> Proceed to Checkout
             </a>
           } @else {
-            <button (click)="enroll()" class="inline-block bg-brand-900 hover:bg-brand-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-brand-900/20 mb-6">
-              මම ලෑස්තියි — LKR 5,000කින් Place එක Reserve කරන්න
-            </button>
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+              @if (isOfferValid()) {
+                <button (click)="enroll(true)" class="inline-block bg-brand-900 hover:bg-brand-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-brand-900/20">
+                  මම ලෑස්තියි — LKR 5,000කින් Place එක Reserve කරන්න
+                </button>
+                <button (click)="enroll(false)" class="inline-block bg-white border-2 border-brand-900 text-brand-900 hover:bg-brand-50 px-8 sm:px-12 py-3.5 sm:py-4 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-sm">
+                  Pay in Full (LKR 50,000)
+                </button>
+              } @else {
+                <button (click)="enroll(false)" class="inline-block bg-brand-900 hover:bg-brand-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-brand-900/20">
+                  මම ලෑස්තියි — Pay in Full (LKR 65,000)
+                </button>
+              }
+            </div>
           }
           
-          <p class="text-[13px] text-brand-900/60 font-medium mb-8">Total launch programme fee: LKR 55,000 · Full payment: LKR 50,000</p>
+          @if (isOfferValid()) {
+            <p class="text-[13px] text-brand-900/60 font-medium mb-8">Total reservation programme fee: LKR 55,000 · Full payment: LKR 50,000</p>
+          }
           
           <p class="text-[12px] text-brand-900/50 max-w-xl mx-auto leading-relaxed border-t border-brand-200/60 pt-6">
-            මේ programme එකට ඔයාගේ active participation එක අත්‍යවශ්‍යයි. අපි guide කරනවා. Build කරන්නේ ඔයා. Results ඔයාගේ effort, implementation, market එක සහ business decisions මත වෙනස් වෙනවා.
+            මේ Programme එකට ඔයාගේ Active Participation එක අත්‍යවශ්‍යයි. අපි Guide කරනවා. Build කරන්නේ ඔයා. Results ඔයාගේ Effort, Implementation, Market එක සහ Business Decisions මත වෙනස් වෙනවා.
           </p>
         </div>
 
@@ -521,21 +588,39 @@ import {RouterLink, Router} from '@angular/router';
     </div>
   `
 })
-export class Mentorship implements OnInit {
+export class Mentorship implements OnInit, OnDestroy {
   contentService = inject(ContentService);
   cartService = inject(CartService);
   private router = inject(Router);
   private title = inject(Title);
   private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
 
   courseId = '6-month-tailoring-business-mentorship';
   proceeding = signal(false);
 
-  async enroll() {
+  deadline = new Date(2026, 8, 30, 23, 59, 59).getTime();
+  now = signal(Date.now());
+  isOfferValid = computed(() => this.now() < this.deadline);
+
+  timeRemaining = computed(() => {
+    const diff = this.deadline - this.now();
+    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / 1000 / 60) % 60),
+      seconds: Math.floor((diff / 1000) % 60)
+    };
+  });
+
+  private timerInterval: any;
+
+  async enroll(isReserve: boolean) {
     this.proceeding.set(true);
     
     let courseName = 'Tailoring Business Growth Mentorship';
-    let coursePrice = 45000;
+    let coursePrice = isReserve ? 5000 : (this.isOfferValid() ? 50000 : 65000);
     
     try {
       const docRef = doc(db, 'courses', this.courseId);
@@ -543,19 +628,17 @@ export class Mentorship implements OnInit {
       if (docSnap.exists()) {
         const data = docSnap.data();
         courseName = data['title'] || courseName;
-        if (data['price']) {
-          const numericPrice = typeof data['price'] === 'number'
-            ? data['price']
-            : parseInt(String(data['price']).replace(/\D/g, ''), 10) || coursePrice;
-          coursePrice = numericPrice;
-        }
       }
     } catch (e) {
       console.error('Failed to fetch course data for cart', e);
     }
 
+    if (isReserve) {
+      courseName += ' (Seat Reservation)';
+    }
+
     this.cartService.addItem({
-      id: 'course-' + this.courseId,
+      id: 'course-' + this.courseId + (isReserve ? '-reserve' : ''),
       name: courseName,
       price: coursePrice,
       image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop',
@@ -571,5 +654,16 @@ export class Mentorship implements OnInit {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
     }
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.now.set(Date.now());
+      this.timerInterval = setInterval(() => {
+        this.now.set(Date.now());
+      }, 1000);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.timerInterval) clearInterval(this.timerInterval);
   }
 }
