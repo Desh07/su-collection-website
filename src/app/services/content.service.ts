@@ -116,6 +116,12 @@ export interface WebsiteContent {
     bullet3Desc: string;
     bullet4Title: string;
     bullet4Desc: string;
+    bullet5Title?: string;
+    bullet5Desc?: string;
+    bullet6Title?: string;
+    bullet6Desc?: string;
+    bullet7Title?: string;
+    bullet7Desc?: string;
     bottomDescExtra: string;
     bottomTitle1: string;
     bottomDesc1: string;
@@ -175,7 +181,7 @@ export const defaultContent: WebsiteContent = {
     bento3Title: "Curated Tailoring Tools",
     bento3Desc: "The exact Japanese shears, rotary cutters, and presser feet Swarna uses every single day in her studio.",
     bento3Btn: "Browse Tools",
-    testimonialQuote: "\"I wasted months watching random YouTube tutorials. In just 3 weeks with Swarna's guide, I cut my first perfect princess-line frock without a single crease in the armhole!\"",
+    testimonialQuote: `"මාස ගාණක් තිස්සේ YouTube එකේ එක එක Tutorials බල බල හිටියත්, මට හරියටම ඕනේ දේ ඉගෙනගන්න බැරි වුණා. ස්වර්ණා මිස්ගේ <strong>Guidance එකත් එක්ක සති 3ක් යද්දි, Armhole එකේ එක රැල්ලක්වත් නැතුව මගේ පළවෙනි Princess-Line Frock එක හරියටම Cut කරගන්න මට පුළුවන් වුණා!</strong>"`,
     ctaTitle: "Ready to Create Your Own Fashion?",
     ctaDesc: "Whether you want to stitch your own wardrobe, get personal mentorship, or order custom tailoring, we are here on WhatsApp.",
     ctaBtn1: "View Mentorship & Guides",
@@ -229,27 +235,7 @@ Design එකක් දැක්කාම ඒක හැදිලා තියෙ
 
 ඒ ගමන තවත් ඉස්සරහට අරගෙන යන්න තමයි <strong>Su Collection, The UVA VEC එක්ක එකතු වෙන්නේ.</strong> Su Collection එකෙන් ලැබෙන මැහුම් සහ Product Development අත්දැකීමත්, <strong>The UVA VEC වෙතින් ලැබෙන Business, Digital සහ Technology පැත්තේ මඟපෙන්වීමත්</strong> එකට එකතු කරලා, ඔයාගේ Skill එක වර්තමානයට ගැළපෙන <strong>Business එකක් විදිහට ගොඩනගාගන්න අවශ්‍ය Support එක ලබාදෙනවා.</strong>
 
-<strong>මැහුම් කියන්නේ Skill එකක් විතරක් නෙවෙයි. හරියට ගොඩනගාගත්තොත්, ඒකෙන් ඔයාගේම අනාගතයක් හදාගන්න පුළුවන්.</strong>
-
-<hr class="border-t border-brand-200/60 my-10 w-2/3">
-
-For over <strong>30 years</strong>, Swarna Herath has dedicated her journey to the art of tailoring. What began with a simple passion for sewing has grown into <strong>Su Collection</strong> — a trusted learning community that has helped thousands learn how to create beautiful, well-fitted garments with confidence.
-
-<strong>“One of the biggest mistakes people make is thinking that knowing how to follow a pattern means knowing how to sew.”</strong>
-
-For Swarna, tailoring goes much deeper than that.
-
-It is about looking at a design and understanding <strong>how the garment is constructed</strong>, creating the right pattern, cutting it accurately, shaping it correctly, and ultimately making it <strong>fit beautifully on the person wearing it.</strong>
-
-<strong>That is the skill we teach at Su Collection.</strong>
-
-Today, more than <strong>150,000 people</strong> are connected with Su Collection across social media. But Swarna’s vision goes beyond simply teaching people how to sew.
-
-The goal is to help people who may have started sewing as a hobby develop their skills further, <strong>create an income from what they know, find customers, build their own brand online, and eventually turn their tailoring skills into a real business.</strong>
-
-To take that journey even further, <strong>Su Collection has joined forces with The UVA VEC.</strong> By bringing together Su Collection’s practical tailoring and product development experience with <strong>The UVA VEC’s expertise in business, digital transformation and technology</strong>, the aim is to give aspiring entrepreneurs the guidance and support they need to turn their skills into a <strong>modern, sustainable business.</strong>
-
-<strong>Tailoring doesn’t have to remain just a skill. With the right knowledge, guidance and action, it can become something you build your future around.</strong>`
+<strong>මැහුම් කියන්නේ Skill එකක් විතරක් නෙවෙයි. හරියට ගොඩනගාගත්තොත්, ඒකෙන් ඔයාගේම අනාගතයක් හදාගන්න පුළුවන්.</strong>`
   },
   contact: {
     heroTitle: "Contact Us",
@@ -261,7 +247,7 @@ To take that journey even further, <strong>Su Collection has joined forces with 
   },
   dedicatedCourses: {
     '6-month-tailoring-business-mentorship': {
-      pill: "06 MONTHS COMPLETE PROGRAM",
+      pill: "100 DAYS COMPLETE PROGRAM",
       subtitle: "100-Day Tailoring Business Building Program",
       title: "Personal 1-on-1 Mentorship with Swarna",
       price: "රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)",
@@ -283,24 +269,30 @@ To take that journey even further, <strong>Su Collection has joined forces with 
       bottomDescExtra: ""
     },
     '100-day-tailoring-business-workbook': {
-      pill: "48 Pages | PDF E-Book |",
-      subtitle: "From Housewife to Entrepreneur",
+      pill: "28 Pages | PDF E-Book |",
+      subtitle: "Become a Successful Tailoring Entrepreneur in 100 Days",
       title: "100-Day Tailoring Business Workbook (PDF)",
       price: "LKR 2,500",
-      mainDesc: "ඔයාගේ මැහුම් skill එක business එකක් බවට පත්කරගන්න.",
-      subDesc: "මැහුම් කටයුතු දන්නවා — ඒත් ඒ skill එකෙන් ආදායමක් හදාගන්නේ කොහොමද කියලා තාම clear නැද්ද?\nමේ 48-page PDF Workbook එක ඔයාගේ මැහුම් හැකියාව Online මැහුම් ව්යාපාරයක් බවට පත්කරගන්න පියවරෙන් පියවර guide කරන practical resource එකක්.",
+      mainDesc: "ඔයාගේ මැහුම් Skill එක Business එකක් බවට පත්කරගන්න දින 100ක Practical Roadmap එකක්.",
+      subDesc: "මැහුම් කටයුතු කරන්න ඔයා දන්නවා — ඒත් මොනවද විකුණන්නේ, **Price එක හදාගන්නේ කොහොමද, Customers ලා හොයාගන්නේ කොහොමද, Orders ගන්නේ කොහොමද** කියලා තාම clear නැද්ද?\n\nමේ **100-Day Tailoring Business Workbook** එක හදලා තියෙන්නේ ඒ හැමදේම එකවර කරන්න ගිහින් අතරමං නොවී, **දින 100ක් පුරා එකින් එක වැඩ කරගෙන ඔයාගේම මැහුම් Business එකක් ගොඩනගාගන්න** ඔයාට Guide කරන්න.\n\nProduct එක තෝරගන්න තැන ඉඳන් **Costing & Pricing, WhatsApp Business, Facebook, TikTok, Content Creation, Customer Orders, Delivery, Launch සහ Business Growth** දක්වා — අද කරන්න ඕනේ මොකක්ද කියලා Step-by-Step follow කරන්න පුළුවන් Practical Guide එකක් මේ Workbook එක ඇතුළේ තියෙනවා.",
       bulletTitle: "Workbook එකෙන් ඔයාට:",
-      bullet1Title: "Turn Your Tailoring Skills into a Business",
-      bullet1Desc: "ඔයාගේ මැහුම් හැකියාව ආදායමක් ලැබෙන ව්යාපාරයක් බවට පත්කරගන්න පියවරෙන් පියවර ඉගෙනගන්න.",
-      bullet2Title: "Follow a 100-Day Action Plan",
-      bullet2Desc: "දින 100ක පැහැදිලි ක්රියාකාරී සැලැස්මක් එක්ක, දවසින් දවස ඔයාගේ business එක ඉදිරියට ගෙනියන්න.",
-      bullet3Title: "Build Your Online Presence",
-      bullet3Desc: "Social Media හරහා ඔයාගේ වැඩ පෙන්වලා, අලුත් customers ලා හඳුනාගෙන Online presence එකක් ගොඩනගාගන්න.",
-      bullet4Title: "Take Action with Practical Checklists",
-      bullet4Desc: "කරන්න ඕනේ දේවල් එකින් එක track කරගෙන, ඔයාගේ ideas plans වලට විතරක් සීමා නොකර ඇත්තටම ක්රියාවට නංවන්න.",
-      bottomDescExtra: "දින 100ක clear action plan එකක් එක්ක, අද ඉඳන් කරන්න ඕනේ මොනවාද කියලා step-by-step follow කරන්න පුළුවන්.",
+      bullet1Title: "Decide What to Sell & Build Your Product",
+      bullet1Desc: "ඔයාගේ මැහුම් Skill එකට ගැළපෙන Products තෝරගෙන, රෙදි සහ Materials තෝරාගැනීම, Size Chart එක හදාගැනීම, Sample එකක් මහලා Fit එක Check කිරීම සහ **Costing & Pricing දක්වා Product එක විකුණන්න** Ready කරගන්න.",
+      bullet2Title: "Build Your Online Business Presence",
+      bullet2Desc: "**WhatsApp Business** setup කරගෙන Product Catalog එක හදාගන්න. ඒ එක්ක **Facebook සහ TikTok හරහා Customers ලාට ඔයාගේ Business එක හොයාගන්න පුළුවන්** Online Presence එකක් ගොඩනගාගන්න.",
+      bullet3Title: "Create Content & Start Finding Customers",
+      bullet3Desc: "Product Photos, Reels / TikToks, Behind-the-Scenes Content සහ Captions හදාගෙන, **Call-to-Actions සහ WhatsApp use කරලා ඔයාගේ Products ගැන** Interested Customers ලා Business එකට ගෙන එන්න.",
+      bullet4Title: "Set Up Orders, Delivery & Customer Experience",
+      bullet4Desc: "Order එකක් ආවම Customer Details සහ Order Details හරියට Manage කරගන්න, Courier Partner කෙනෙක් තෝරගන්න, Packaging සකස් කරගන්න සහ Order එක Customer ට Deliver කරන Process එක හදාගන්න.",
+      bullet5Title: "Prepare & Launch Your Collection",
+      bullet5Desc: "Products Batch එකක් සූදානම් කරගෙන, Pre-Launch Content හරහා Interest එකක් හදාගෙන, **Official Launch එක කරන්න සහ Orders Dispatch කරන තැන දක්වා** එකින් එක වැඩ කරගෙන යන්න.",
+      bullet6Title: "Collect Reviews & Keep Growing",
+      bullet6Desc: "Customers ලාගෙන් Reviews සහ Feedback එකතු කරගෙන **Social Proof හදාගන්න. ලැබුණු Results බලලා මොනවද වැඩ කරන්නේ කියලා** හඳුනාගෙන, **Next Collection / Next Batch එක තවත් හොඳට** Plan කරගන්න.",
+      bullet7Title: "Follow Your 100-Day Checklist",
+      bullet7Desc: "හැම අදියරකටම තියෙන **Practical Checklists සහ Tasks එකින් එක Complete කරගෙන**, “Business එකක් පටන්ගන්න ඕනේ” කියලා හිත හිත ඉන්නේ නැතුව දවසින් දවස වැඩේ කරගෙන යන්න.",
+      bottomDescExtra: "දින 100 අවසානයේදී නිකන් Business Idea එකක් විතරක් තියාගෙන ඉන්න එක නෙවෙයි — **Product එකක්, ඒකට Price එකක්, Online Presence එකක්, Content Plan එකක්, Order & Delivery Process එකක් සහ ඊළඟට Business එක Grow කරගෙන යන්න පැහැදිලි Direction එකක් හදාගන්නයි** මේ Workbook එක ඔයාට Guide කරන්නේ.",
       bottomTitle1: "මේක කාටද?",
-      bottomDesc1: "ගෙදර ඉඳන් මැහුම් කටයුතු කරන අයට, tailoring skill එකෙන් income එකක් හදාගන්න කැමති අයට, Online වල තමන්ගේ brand එකක් ගොඩනගන්න හිතන අයට සහ තමන්ගේම Home Fashion Business එකක් ආරම්භ කරන්න බලාපොරොත්තු වෙන අයට.",
+      bottomDesc1: "ගෙදර ඉඳන් මැහුම් කටයුතු කරන, **“මේ Skill එකෙන් මටත් ආදායමක් හදාගන්න පුළුවන්ද?”** කියලා හිතන අයට.\n\nමැහුම් Skill එක තියෙනවා, හැබැයි **Business එක පටන්ගන්නේ කොහෙන්ද කියලා තේරෙන්නේ නැති අයට**, Online වල තමන්ගේම **Brand එකක් ගොඩනගන්න කැමති අයට සහ තමන්ගේම Home Fashion Business එකක් පියවරෙන් පියවර ගොඩනගාගන්න බලාපොරොත්තු වෙන** අයට.",
       bottomTitle2: "",
       bottomDesc2: ""
     }
@@ -350,8 +342,18 @@ export class ContentService {
           
           // Force use of hardcoded about us content (overrides stale database content)
           delete (data as any).about;
+          if ((data as any).home) {
+            delete (data as any).home.testimonialQuote;
+          }
 
-          this.content.set(this.mergeDeep(defaultContent, data));
+          const merged = this.mergeDeep(defaultContent, data);
+          // Force override the entire workbook dedicated course entry with local hardcoded copy.
+          // Firebase has stale content that would win over defaults via mergeDeep.
+          const workbookKey = '100-day-tailoring-business-workbook';
+          if (merged.dedicatedCourses) {
+            merged.dedicatedCourses[workbookKey] = { ...defaultContent.dedicatedCourses[workbookKey] };
+          }
+          this.content.set(merged);
         } else {
           this.content.set(defaultContent);
         }

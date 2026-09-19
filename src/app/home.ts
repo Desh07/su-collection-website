@@ -305,7 +305,7 @@ interface DigitalGuide {
                   </span>
                 }
 
-                <div class="absolute bottom-4 left-4 flex items-center text-white">
+                <div class="absolute bottom-4 left-4 flex items-center text-white z-10">
                   <span class="text-[13px] font-medium flex items-center gap-1.5 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full">
                     <mat-icon class="text-[15px] text-brand-300">schedule</mat-icon>
                     {{ item.duration }}
@@ -376,7 +376,7 @@ interface DigitalGuide {
           <div class="gradient-shell h-full">
             <a routerLink="/about" class="gradient-shell-inner p-6 sm:p-10 lg:p-14 flex flex-col justify-end min-h-[300px] sm:min-h-[380px] lg:min-h-[460px] relative overflow-hidden group hover:shadow-[0_25px_50px_-12px_rgba(248,58,100,0.15)] transition-shadow">
               <div class="absolute inset-0 z-0">
-                 <img src="https://images.unsplash.com/photo-1584034879669-e74f1d431051?q=80&w=2000&auto=format&fit=crop" alt="Swarna teaching" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-70 mix-blend-multiply" referrerpolicy="no-referrer">
+                 <img src="/images/landing_meet%20_swarna.png" alt="Swarna teaching" class="w-full h-full object-cover object-[center_30%] scale-110 group-hover:scale-[1.15] transition-transform duration-1000 opacity-100" referrerpolicy="no-referrer">
               </div>
               <div class="relative z-10 max-w-lg bg-white/80 p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] backdrop-blur-md border border-white/60 shadow-lg">
                 <h3 class="font-serif text-[26px] sm:text-[36px] text-brand-900 mb-2 sm:mb-3 leading-tight" [innerHTML]="c().home.meetTitle | formatText"></h3>
@@ -489,17 +489,18 @@ export class Home implements OnInit {
   defaultCourses = [
     {
       id: '100-day-tailoring-business-workbook',
-      title: 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)',
-      level: 'PDF E-Book',
-      badge: 'Best Seller',
+      title: 'Become a Successful Tailoring Entrepreneur in 100 Days',
+      level: 'PDF E-BOOK',
+      badge: '',
       price: 'LKR 2,500',
-      duration: '48 Pages · Instant Download',
-      description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
+      duration: '28 PAGES',
+      description: 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.',
       features: [
-        'Precise cup dart manipulation formulas',
-        'Deep back neck stabilization secrets',
-        'Printable standard Sri Lankan size charts',
-        'Step-by-step lining & piping tutorial'
+        'Build Your Product & Set Your Price',
+        'Build Your Online Business Presence',
+        'Create Content & Find Customers',
+        'Set Up Orders & Delivery',
+        'Launch & Grow Your Business'
       ],
       image: '/images/Workbook.jpeg'
     },
@@ -509,7 +510,7 @@ export class Home implements OnInit {
       level: 'Mentorship',
       badge: 'Limited Slots',
       price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
-      duration: 'මාස 6යි (6 Months) · Direct WhatsApp',
+      duration: 'දින 100යි (100 Days)',
       description: 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.',
       features: [
         'Build a Product or Service',
@@ -517,7 +518,7 @@ export class Home implements OnInit {
         'Turn Enquiries into Sales & Learn Organic & Paid Growth',
         'Build Your 90-Day Growth Plan'
       ],
-      image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
+      image: '/images/product_Mentorship.png'
     }
   ];
 
@@ -631,11 +632,24 @@ export class Home implements OnInit {
           const data = doc.data();
           if (doc.id === '100-day-tailoring-business-workbook') {
             data['image'] = '/images/Workbook.jpeg';
-            data['title'] = 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)';
+            data['title'] = 'Become a Successful Tailoring Entrepreneur in 100 Days';
+            data['subtitle'] = '100-Day Tailoring Business Workbook (PDF)';
             data['price'] = 'LKR 2,500';
+            data['duration'] = '28 PAGES';
+            data['level'] = 'PDF E-BOOK';
+            data['badge'] = '';
+            data['description'] = 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.';
+            data['features'] = [
+              'Build Your Product & Set Your Price',
+              'Build Your Online Business Presence',
+              'Create Content & Find Customers',
+              'Set Up Orders & Delivery',
+              'Launch & Grow Your Business'
+            ];
           }
           if (doc.id === '6-month-tailoring-business-mentorship') {
             data['title'] = '100-Day Tailoring Business Building Program';
+            data['duration'] = 'දින 100යි (100 Days)';
             data['description'] = 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.';
             data['features'] = [
               'Build a Product or Service',
@@ -644,6 +658,7 @@ export class Home implements OnInit {
               'Build Your 90-Day Growth Plan'
             ];
             data['price'] = 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)';
+            data['image'] = '/images/product_Mentorship.png';
           }
           return { id: doc.id, ...data };
         });

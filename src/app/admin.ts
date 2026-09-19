@@ -1889,18 +1889,20 @@ export class Admin implements OnInit {
     const defaults = [
       {
         id: '100-day-tailoring-business-workbook',
-        title: 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)',
-        description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
-        level: 'PDF E-Book',
+        title: 'Become a Successful Tailoring Entrepreneur in 100 Days',
+        subtitle: '100-Day Tailoring Business Workbook (PDF)',
+        description: 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.',
+        level: 'PDF E-BOOK',
         price: 'LKR 2,500',
-        duration: '48 Pages',
+        duration: '28 PAGES',
         image: '/images/Workbook.jpeg',
-        badge: 'Best Seller',
+        badge: '',
         features: [
-          'Precise cup dart manipulation formulas',
-          'Deep back neck stabilization secrets',
-          'Printable standard Sri Lankan size charts',
-          'Step-by-step lining & piping tutorial'
+          'Build Your Product & Set Your Price',
+          'Build Your Online Business Presence',
+          'Create Content & Find Customers',
+          'Set Up Orders & Delivery',
+          'Launch & Grow Your Business'
         ],
         btnJoinText: 'Get E-Book Now',
         btnViewText: 'විස්තර බලන්න',
@@ -1913,7 +1915,7 @@ export class Admin implements OnInit {
         description: 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.',
         level: 'Mentorship',
         price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
-        duration: 'මාස 6යි (6 Months)',
+        duration: 'දින 100යි (100 Days)',
         image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop',
         badge: 'Limited Slots',
         features: [

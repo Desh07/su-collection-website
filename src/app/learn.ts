@@ -17,11 +17,11 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
       <div class="relative w-full rounded-[28px] sm:rounded-[48px] overflow-hidden p-8 sm:p-16 border border-white/20 shadow-2xl text-white bg-slate-950 group min-h-[240px] flex items-center justify-center">
         <!-- Background Editorial Fashion Tailoring Image -->
         <div class="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=2000&auto=format&fit=crop" 
-               alt="" 
-               class="w-full h-full object-cover opacity-45 mix-blend-luminosity group-hover:scale-105 transition-transform duration-1000" 
+          <img src="/images/Product_Service.png" 
+               alt="Our Services and Products" 
+               class="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-transform duration-1000" 
                referrerpolicy="no-referrer">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/50"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/20 to-transparent pointer-events-none"></div>
         </div>
 
         <div class="relative z-10 max-w-4xl mx-auto">
@@ -55,16 +55,16 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
               
               <!-- Text Side -->
               <div class="w-full lg:w-1/2 relative z-10">
-                <div class="flex items-center gap-3 text-brand-600 mb-3 font-medium">
-                  <div class="flex items-center gap-1.5 label-md text-[13px]">
-                    <mat-icon class="text-[16px]">schedule</mat-icon>
-                    <span>{{ course.duration }}</span>
-                  </div>
-                  @if (course.badge) {
-                    <span class="bg-brand-900 text-white px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full shadow-sm ml-auto sm:ml-0">{{ course.badge }}</span>
+                <div class="flex items-center gap-4 sm:gap-6 text-brand-900 mb-3">
+                  <span class="text-[13px] sm:text-[14px] font-bold uppercase tracking-wider text-brand-900">{{ course.duration }}</span>
+                  @if (course.badge || course.level) {
+                    <span class="text-[13px] sm:text-[14px] font-bold uppercase tracking-wider text-brand-900">{{ course.badge || course.level }}</span>
                   }
                 </div>
-                <h2 class="font-serif text-[26px] sm:text-[36px] lg:text-[44px] text-brand-900 mb-3 sm:mb-4 leading-tight tracking-tight">{{ course.title }}</h2>
+                <h2 class="text-[26px] sm:text-[34px] lg:text-[40px] font-bold text-brand-900 mb-2 sm:mb-3 leading-[1.2] tracking-tight font-sans">{{ course.title }}</h2>
+                @if (course.subtitle) {
+                  <div class="text-[17px] sm:text-[19px] font-bold text-brand-900 mb-3 sm:mb-4">{{ course.subtitle }}</div>
+                }
                 <div class="mb-4 sm:mb-6 flex flex-wrap items-center gap-3">
                   <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-2 rounded-full shadow-sm w-fit">
                     <mat-icon class="text-[20px]">local_offer</mat-icon>
@@ -76,21 +76,21 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                         <span class="text-[18px] sm:text-[22px] font-extrabold text-brand-900">LKR 65,000</span>
                       }
                     } @else {
-                      <span class="body-md font-semibold text-[18px] sm:text-[20px]">{{ course.price.split('(')[0].trim() }}</span>
+                      <span class="body-md font-bold text-[18px] sm:text-[20px]">{{ course.price.split('(')[0].trim() }}</span>
                     }
                   </div>
                   @if (course.price.includes('(')) {
                     <span class="text-[13px] sm:text-[14px] text-brand-900/60 font-medium">({{ course.price.split('(')[1] }}</span>
                   }
                 </div>
-                <p class="body-md text-[14px] sm:text-[16px] text-brand-900/80 mb-6 leading-relaxed" [innerHTML]="course.description | formatText">
+                <p class="body-md text-[14px] sm:text-[16px] text-brand-900/90 mb-6 leading-relaxed font-['Noto_Sans_Sinhala']" [innerHTML]="course.description | formatText">
                 </p>
                 @if (course.features && course.features.length) {
-                  <ul class="flex flex-col gap-3 mb-10 text-[14px] text-brand-900/90 font-medium">
+                  <ul class="flex flex-col gap-3 mb-10 text-[14px] sm:text-[15px] font-bold text-brand-900">
                     @for (feat of course.features; track feat) {
                       <li class="flex items-start gap-2.5">
-                        <mat-icon class="text-emerald-600 text-[18px] shrink-0">check_circle</mat-icon>
-                        <span class="leading-snug" [innerHTML]="feat | formatText"></span>
+                        <span class="text-brand-900 font-bold text-[16px] leading-none shrink-0 mt-0.5">✓</span>
+                        <span class="leading-snug font-bold text-brand-900" [innerHTML]="feat | formatText"></span>
                       </li>
                     }
                   </ul>
@@ -110,8 +110,8 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                     </a>
                   } @else {
                     <button (click)="enrollCourse(course)" class="btn-primary flex items-center justify-center gap-2 !px-8 !py-3.5">
-                      <mat-icon class="text-[18px]">{{ course.level === 'PDF E-Book' ? 'book' : 'school' }}</mat-icon>
-                      <span>{{ course.btnJoinText || (course.level === 'PDF E-Book' ? 'Get E-Book' : 'Join Now') }}</span>
+                      <mat-icon class="text-[18px]">{{ (course.level === 'PDF E-Book' || course.level === 'PDF E-BOOK') ? 'book' : 'school' }}</mat-icon>
+                      <span>{{ course.btnJoinText || ((course.level === 'PDF E-Book' || course.level === 'PDF E-BOOK') ? 'Get E-Book' : 'Join Now') }}</span>
                     </button>
                   }
                   <a [routerLink]="['/learn', course.id]" [state]="{ course: course }" class="btn-primary !bg-brand-800 hover:!bg-brand-900 flex items-center justify-center gap-2 !px-8 !py-3.5">
@@ -165,17 +165,19 @@ export class Learn implements OnInit {
   defaultCourses = [
     {
       id: '100-day-tailoring-business-workbook',
-      title: 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)',
-      description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
-      level: 'PDF E-Book',
+      title: 'Become a Successful Tailoring Entrepreneur in 100 Days',
+      subtitle: '100-Day Tailoring Business Workbook (PDF)',
+      description: 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.',
+      level: 'PDF E-BOOK',
       price: 'LKR 2,500',
-      duration: '48 Pages',
-      badge: 'Best Seller',
+      duration: '28 PAGES',
+      badge: '',
       features: [
-        'Precise cup dart manipulation formulas',
-        'Deep back neck stabilization secrets',
-        'Printable standard Sri Lankan size charts',
-        'Step-by-step lining & piping tutorial'
+        'Build Your Product & Set Your Price',
+        'Build Your Online Business Presence',
+        'Create Content & Find Customers',
+        'Set Up Orders & Delivery',
+        'Launch & Grow Your Business'
       ],
       image: '/images/Workbook.jpeg'
     },
@@ -185,7 +187,7 @@ export class Learn implements OnInit {
       description: 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.',
       level: 'Mentorship',
       price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
-      duration: 'මාස 6යි (6 Months)',
+      duration: 'දින 100යි (100 Days)',
       badge: 'Limited Slots',
       features: [
         'Build a Product or Service',
@@ -193,7 +195,7 @@ export class Learn implements OnInit {
         'Turn Enquiries into Sales & Learn Organic & Paid Growth',
         'Build Your 90-Day Growth Plan'
       ],
-      image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
+      image: '/images/product_Mentorship.png'
     }
   ];
 
@@ -237,11 +239,24 @@ export class Learn implements OnInit {
           const data = doc.data();
           if (doc.id === '100-day-tailoring-business-workbook') {
             data['image'] = '/images/Workbook.jpeg';
-            data['title'] = 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)';
+            data['title'] = 'Become a Successful Tailoring Entrepreneur in 100 Days';
+            data['subtitle'] = '100-Day Tailoring Business Workbook (PDF)';
             data['price'] = 'LKR 2,500';
+            data['duration'] = '28 PAGES';
+            data['level'] = 'PDF E-BOOK';
+            data['badge'] = '';
+            data['description'] = 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.';
+            data['features'] = [
+              'Build Your Product & Set Your Price',
+              'Build Your Online Business Presence',
+              'Create Content & Find Customers',
+              'Set Up Orders & Delivery',
+              'Launch & Grow Your Business'
+            ];
           }
           if (doc.id === '6-month-tailoring-business-mentorship') {
             data['title'] = '100-Day Tailoring Business Building Program';
+            data['duration'] = 'දින 100යි (100 Days)';
             data['description'] = 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.';
             data['features'] = [
               'Build a Product or Service',
@@ -250,6 +265,7 @@ export class Learn implements OnInit {
               'Build Your 90-Day Growth Plan'
             ];
             data['price'] = 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)';
+            data['image'] = '/images/product_Mentorship.png';
           }
           return { id: doc.id, ...data };
         });
@@ -274,7 +290,7 @@ export class Learn implements OnInit {
 
     this.cartService.addItem({
       id: 'course-' + course.id,
-      name: course.title,
+      name: course.id === '100-day-tailoring-business-workbook' ? '100-Day Tailoring Business Workbook (PDF)' : course.title,
       price: numericPrice,
       image: course.image
     });

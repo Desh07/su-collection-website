@@ -14,8 +14,8 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
   imports: [RouterLink, MatIconModule, FormatTextPipe],
   template: `
     <main class="min-h-screen pt-[120px] pb-[64px] px-6 max-w-[1200px] mx-auto">
-      <button (click)="goBack()" class="inline-flex items-center text-brand-900/60 hover:text-brand-900 mb-[40px] transition-colors label-md bg-transparent outline-none">
-        <mat-icon class="mr-2 text-[18px]">arrow_back</mat-icon> Back to Courses
+      <button (click)="goBack()" class="inline-flex items-center text-brand-900/60 hover:text-brand-900 mb-[40px] transition-colors label-md bg-transparent outline-none cursor-pointer border-none p-0">
+        <mat-icon class="mr-2 text-[18px]">arrow_back</mat-icon> Back
       </button>
 
       @if (loading()) {
@@ -25,7 +25,7 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
       } @else if (course()) {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-[48px] lg:gap-[64px]">
           <!-- Image -->
-          <div class="rounded-[32px] overflow-hidden bg-slate-50 shadow-sm border border-brand-100 aspect-[4/3] relative">
+          <div class="rounded-[32px] overflow-hidden bg-slate-50 shadow-sm border border-brand-100 aspect-[4/3] relative" [class.md:mt-10]="!!c().dedicatedCourses[course()?.id]?.mainDesc">
             <!-- Common Image Section -->
             <img [src]="course()?.image" [alt]="course()?.title" class="w-full h-full object-cover" referrerpolicy="no-referrer">
             @if (!c().dedicatedCourses[course()?.id]?.mainDesc) {
@@ -71,8 +71,8 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                   <span class="text-[14px] sm:text-[15px] text-brand-900/60 font-medium">({{ dedicatedData.price.split('(')[1] }}</span>
                 }
               </div>
-              <p class="body-md font-semibold text-brand-900 leading-[1.8] mb-[16px] text-[16px] lg:text-[18px]" [innerHTML]="dedicatedData.mainDesc | formatText"></p>
-              <p class="body-md text-brand-900/80 leading-[1.8] mb-[32px] text-[15px] whitespace-pre-wrap" [innerHTML]="dedicatedData.subDesc | formatText"></p>
+              <p class="body-md font-semibold text-brand-900 leading-[1.8] mb-[16px] text-[16px] lg:text-[18px] font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.mainDesc | formatText"></p>
+              <p class="body-md text-brand-900/80 leading-[1.8] mb-[32px] text-[15px] whitespace-pre-wrap font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.subDesc | formatText"></p>
             }
 
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3" [class.mb-[48px]]="!c().dedicatedCourses[course()?.id]?.mainDesc">
@@ -134,34 +134,61 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                   <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
                   <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet1Title }}</h3>
                 </div>
-                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5" [innerHTML]="dedicatedData.bullet1Desc | formatText"></p>
+                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5 font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bullet1Desc | formatText"></p>
               </div>
               <div class="flex flex-col gap-2">
                 <div class="flex items-center gap-2">
                   <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
                   <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet2Title }}</h3>
                 </div>
-                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5" [innerHTML]="dedicatedData.bullet2Desc | formatText"></p>
+                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5 font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bullet2Desc | formatText"></p>
               </div>
               <div class="flex flex-col gap-2">
                 <div class="flex items-center gap-2">
                   <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
                   <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet3Title }}</h3>
                 </div>
-                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5" [innerHTML]="dedicatedData.bullet3Desc | formatText"></p>
+                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5 font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bullet3Desc | formatText"></p>
               </div>
               <div class="flex flex-col gap-2">
                 <div class="flex items-center gap-2">
                   <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
                   <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet4Title }}</h3>
                 </div>
-                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5" [innerHTML]="dedicatedData.bullet4Desc | formatText"></p>
+                <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5 font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bullet4Desc | formatText"></p>
               </div>
+              @if (dedicatedData.bullet5Title) {
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
+                    <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet5Title }}</h3>
+                  </div>
+                  <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5 font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bullet5Desc | formatText"></p>
+                </div>
+              }
+              @if (dedicatedData.bullet6Title) {
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
+                    <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet6Title }}</h3>
+                  </div>
+                  <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5 font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bullet6Desc | formatText"></p>
+                </div>
+              }
+              @if (dedicatedData.bullet7Title) {
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 rounded-full bg-brand-900"></div>
+                    <h3 class="font-semibold text-brand-900 text-[18px]">{{ dedicatedData.bullet7Title }}</h3>
+                  </div>
+                  <p class="text-brand-900/80 leading-relaxed text-[15px] pl-3.5 font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bullet7Desc | formatText"></p>
+                </div>
+              }
             </div>
 
             <div class="border-t border-brand-100 pt-12 space-y-12">
               @if (dedicatedData.bottomDescExtra) {
-                <p class="text-[15px] font-medium text-brand-900 leading-relaxed mb-8 bg-brand-50 p-4 rounded-xl border border-brand-100" [innerHTML]="dedicatedData.bottomDescExtra | formatText"></p>
+                <p class="text-[15px] font-medium text-brand-900 leading-relaxed mb-8 bg-brand-50 p-4 rounded-xl border border-brand-100 font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bottomDescExtra | formatText"></p>
               }
               
               @if (dedicatedData.bottomTitle1 || dedicatedData.bottomDesc1) {
@@ -170,7 +197,7 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                     <h3 class="font-serif text-[24px] text-brand-900 mb-4">{{ dedicatedData.bottomTitle1 }}</h3>
                   }
                   @if (dedicatedData.bottomDesc1) {
-                    <p class="text-brand-900/80 leading-relaxed text-[15px]" [innerHTML]="dedicatedData.bottomDesc1 | formatText"></p>
+                    <p class="text-brand-900/80 leading-relaxed text-[15px] whitespace-pre-wrap font-['Noto_Sans_Sinhala']" [innerHTML]="dedicatedData.bottomDesc1 | formatText"></p>
                   }
                 </div>
               }
@@ -219,14 +246,16 @@ export class CourseDetail implements OnInit {
     }
   }
 
+
   defaultCourses = [
     {
       id: '100-day-tailoring-business-workbook',
-      title: 'From Housewife to Entrepreneur: 100-Day Tailoring Business Workbook (PDF)',
-      description: 'The definitive guide to cutting, curved dart drafting, and fitting traditional and modern saree jackets without puckering or loose necklines.',
-      level: 'PDF E-Book',
+      title: 'Become a Successful Tailoring Entrepreneur in 100 Days',
+      subtitle: '100-Day Tailoring Business Workbook (PDF)',
+      description: 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.',
+      level: 'PDF E-BOOK',
       price: 'LKR 2,500',
-      duration: '48 Pages',
+      duration: '28 PAGES',
       image: '/images/Workbook.jpeg'
     },
     {
@@ -235,7 +264,7 @@ export class CourseDetail implements OnInit {
       description: 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.',
       level: 'Mentorship',
       price: 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)',
-      duration: 'මාස 6යි (6 Months)',
+      duration: 'දින 100යි (100 Days)',
       image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop'
     }
   ];
@@ -259,7 +288,23 @@ export class CourseDetail implements OnInit {
       const docRef = doc(db, 'courses', id);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        this.course.set({ id: docSnap.id, ...docSnap.data() });
+        const data = docSnap.data();
+        if (docSnap.id === '100-day-tailoring-business-workbook') {
+          data['title'] = 'Become a Successful Tailoring Entrepreneur in 100 Days';
+          data['subtitle'] = '100-Day Tailoring Business Workbook (PDF)';
+          data['price'] = 'LKR 2,500';
+          data['image'] = '/images/Workbook.jpeg';
+          data['duration'] = '28 PAGES';
+          data['level'] = 'PDF E-BOOK';
+        }
+        if (docSnap.id === '6-month-tailoring-business-mentorship') {
+          data['title'] = '100-Day Tailoring Business Building Program';
+          data['duration'] = 'දින 100යි (100 Days)';
+          data['description'] = 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.';
+          data['price'] = 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)';
+          data['image'] = '/images/product_Mentorship.png';
+        }
+        this.course.set({ id: docSnap.id, ...data });
       } else {
         const mockCourse = this.defaultCourses.find(c => c.id === id);
         if (mockCourse) {
