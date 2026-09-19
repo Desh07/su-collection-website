@@ -44,6 +44,8 @@ interface DigitalGuide {
           <img src="/images/hero.png" 
                alt="Swarna Herath Atelier Studio" 
                class="w-full h-full object-cover object-[center_30%] scale-100 group-hover:scale-105 transition-transform duration-1000 opacity-60 mix-blend-luminosity" 
+               fetchpriority="high"
+               decoding="async"
                referrerpolicy="no-referrer">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/65 to-slate-900/35 pointer-events-none"></div>
         </div>
@@ -154,7 +156,7 @@ interface DigitalGuide {
               <div class="relative aspect-[9/16] rounded-[28px] overflow-hidden bg-slate-900 shadow-md group-hover:shadow-2xl group-hover:-translate-y-1 transition-all duration-300 border border-white/20 pointer-events-none">
                 
                 <!-- Video Poster Thumbnail -->
-                <img [src]="video.thumbnail" [alt]="video.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-85" referrerpolicy="no-referrer">
+                <img [src]="video.thumbnail" [alt]="video.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-85" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-slate-950/40"></div>
 
                 <!-- Top Badges: Platform & Views -->
@@ -295,7 +297,7 @@ interface DigitalGuide {
               
               <!-- Image Banner with Badge -->
               <div class="relative h-56 rounded-[24px] overflow-hidden mb-6 shrink-0 shadow-md">
-                <img [src]="item.image" [alt]="item.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerpolicy="no-referrer">
+                <img [src]="item.image" [alt]="item.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 
 
@@ -376,7 +378,7 @@ interface DigitalGuide {
           <div class="gradient-shell h-full">
             <a routerLink="/about" class="gradient-shell-inner p-6 sm:p-10 lg:p-14 flex flex-col justify-end min-h-[300px] sm:min-h-[380px] lg:min-h-[460px] relative overflow-hidden group hover:shadow-[0_25px_50px_-12px_rgba(248,58,100,0.15)] transition-shadow">
               <div class="absolute inset-0 z-0">
-                 <img src="/images/landing_meet%20_swarna.png" alt="Swarna teaching" class="w-full h-full object-cover object-[center_30%] scale-110 group-hover:scale-[1.15] transition-transform duration-1000 opacity-100" referrerpolicy="no-referrer">
+                 <img src="/images/landing_meet_swarna.png" alt="Swarna teaching" class="w-full h-full object-cover object-[center_30%] scale-110 group-hover:scale-[1.15] transition-transform duration-1000 opacity-100" loading="lazy" decoding="async" referrerpolicy="no-referrer">
               </div>
               <div class="relative z-10 max-w-lg bg-white/80 p-5 sm:p-8 rounded-[24px] sm:rounded-[32px] backdrop-blur-md border border-white/60 shadow-lg">
                 <h3 class="font-serif text-[26px] sm:text-[36px] text-brand-900 mb-2 sm:mb-3 leading-tight" [innerHTML]="c().home.meetTitle | formatText"></h3>
@@ -424,7 +426,7 @@ interface DigitalGuide {
       <div class="gradient-shell">
         <div class="gradient-shell-inner p-8 sm:p-12 md:p-20 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[280px] sm:min-h-[360px] bg-white/60">
           <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1583922606661-0822ed0bd916?q=80&w=1600&auto=format&fit=crop" alt="Couture Atelier Fabric" class="w-full h-full object-cover opacity-20 mix-blend-multiply scale-105" referrerpolicy="no-referrer">
+            <img src="https://images.unsplash.com/photo-1583922606661-0822ed0bd916?q=75&w=1200&auto=format&fit=crop" alt="Couture Atelier Fabric" class="w-full h-full object-cover opacity-20 mix-blend-multiply scale-105" loading="lazy" decoding="async" referrerpolicy="no-referrer">
             <div class="absolute inset-0 bg-gradient-to-b from-brand-50/90 via-white/80 to-brand-100/90"></div>
           </div>
 
@@ -531,7 +533,7 @@ export class Home implements OnInit {
       title: 'Create a Neckline Design in 90 Seconds',
       platform: 'tiktok',
       url: 'https://vt.tiktok.com/ZSqgwU2JT/',
-      thumbnail: '/social%20media%20card%20images/tiktok_card_1.jpeg',
+      thumbnail: '/social-media-card-images/tiktok_card_1.jpeg',
       views: '345K',
       duration: '0:58',
       author: 'Swarna Herath'
@@ -541,7 +543,7 @@ export class Home implements OnInit {
       title: 'Create Different Styles Using Basic Patterns',
       platform: 'facebook',
       url: 'https://www.facebook.com/share/v/19e5ddqoup/?mibextid=wwXIfr',
-      thumbnail: '/social%20media%20card%20images/Fb_card_1.jpeg',
+      thumbnail: '/social-media-card-images/Fb_card_1.jpeg',
       views: '210K',
       duration: '1:15',
       author: 'Su Collection'
@@ -551,7 +553,7 @@ export class Home implements OnInit {
       title: 'Dart Manipulation Made Simple',
       platform: 'tiktok',
       url: 'https://vt.tiktok.com/ZSqgfd41U/',
-      thumbnail: '/social%20media%20card%20images/tiktok_card_2.jpeg',
+      thumbnail: '/social-media-card-images/tiktok_card_2.jpeg',
       views: '185K',
       duration: '0:45',
       author: 'Swarna Herath'
@@ -561,7 +563,7 @@ export class Home implements OnInit {
       title: 'How to Join Two Bias Strips in 30 Seconds',
       platform: 'tiktok',
       url: 'https://www.tiktok.com/@swarnaherath527/video/7569840977985293575?is_from_webapp=1&sender_device=pc&web_id=7686381380838065665',
-      thumbnail: '/social%20media%20card%20images/tiktok_card_3.jpeg',
+      thumbnail: '/social-media-card-images/tiktok_card_3.jpeg',
       views: '142K',
       duration: '0:52',
       author: 'Swarna Herath'
@@ -571,7 +573,7 @@ export class Home implements OnInit {
       title: 'The Easiest Way to Attach Piping',
       platform: 'facebook',
       url: 'https://www.facebook.com/share/v/1GU4sRUyKf/',
-      thumbnail: '/social%20media%20card%20images/Fb_card_2.jpeg',
+      thumbnail: '/social-media-card-images/Fb_card_2.jpeg',
       views: '98K',
       duration: '1:30',
       author: 'Su Collection'

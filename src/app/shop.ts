@@ -16,9 +16,11 @@ import {inject} from '@angular/core';
       <div class="relative w-full rounded-[36px] sm:rounded-[48px] overflow-hidden p-10 sm:p-16 border border-white/20 shadow-2xl text-white bg-slate-950 group">
         <!-- Background Editorial Fashion Tailoring Image -->
         <div class="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1606132717876-0fefd1beab5b?q=80&w=2000&auto=format&fit=crop" 
+          <img src="https://images.unsplash.com/photo-1606132717876-0fefd1beab5b?q=75&w=1200&auto=format&fit=crop" 
                alt="Tailoring Shears & Tools" 
                class="w-full h-full object-cover opacity-45 mix-blend-luminosity group-hover:scale-105 transition-transform duration-1000" 
+               fetchpriority="high"
+               decoding="async"
                referrerpolicy="no-referrer">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/50"></div>
         </div>
@@ -50,7 +52,7 @@ import {inject} from '@angular/core';
           <a [routerLink]="['/shop', product.id]" class="group cursor-pointer block">
             <div class="gradient-shell mb-[24px]">
               <div class="gradient-shell-inner !bg-white/40 aspect-square overflow-hidden relative group-hover:shadow-[0_25px_50px_-12px_rgba(248,58,100,0.15)] transition-shadow duration-500 rounded-[39px]">
-                <img [src]="product.image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 mix-blend-multiply opacity-90" [alt]="product.name" referrerpolicy="no-referrer">
+                <img [src]="product.image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 mix-blend-multiply opacity-90" [alt]="product.name" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                 
                 <!-- Add to cart overlay -->
                 <div class="absolute inset-x-[24px] bottom-[24px] translate-y-[24px] opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
@@ -101,7 +103,7 @@ export class Shop implements OnInit {
       name: 'Beginner Essential Toolpack',
       category: 'Toolpacks',
       price: 4500,
-      image: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=800&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=75&w=500&auto=format&fit=crop',
       description: 'The perfect starter kit containing measuring tape, essential pins, snips, and needles.'
     },
     {
@@ -109,7 +111,7 @@ export class Shop implements OnInit {
       name: 'Precision Invisible Zipper Foot',
       category: 'Machine Feet',
       price: 1200,
-      image: 'https://images.unsplash.com/photo-1598466185850-2f16246fcd20?q=80&w=800&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1598466185850-2f16246fcd20?q=75&w=500&auto=format&fit=crop',
       description: 'Get perfectly hidden zippers every time with this professional grade machine foot.'
     },
     {
@@ -117,7 +119,7 @@ export class Shop implements OnInit {
       name: 'Premium Rose Gold Shears',
       category: 'Accessories',
       price: 3800,
-      image: 'https://images.unsplash.com/photo-1606132717876-0fefd1beab5b?q=80&w=800&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1606132717876-0fefd1beab5b?q=75&w=500&auto=format&fit=crop',
       description: 'Ultra-sharp, comfortable tailoring shears built for lifetime use.'
     },
     {
@@ -125,7 +127,7 @@ export class Shop implements OnInit {
       name: 'Professional Rolled Hem Set',
       category: 'Machine Feet',
       price: 2500,
-      image: 'https://images.unsplash.com/photo-1629198725916-d93540ce80ad?q=80&w=800&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1629198725916-d93540ce80ad?q=75&w=500&auto=format&fit=crop',
       description: 'Create flawless rolled hems on sheer fabrics without frustration.'
     },
     {
@@ -133,7 +135,7 @@ export class Shop implements OnInit {
       name: 'French Curve Measuring Ruler',
       category: 'Accessories',
       price: 1800,
-      image: 'https://images.unsplash.com/photo-1584034879669-e74f1d431051?q=80&w=800&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1584034879669-e74f1d431051?q=75&w=500&auto=format&fit=crop',
       description: 'Essential pattern making ruler for perfect necklines and armholes.'
     },
     {
@@ -141,7 +143,7 @@ export class Shop implements OnInit {
       name: 'Advanced Master Toolpack',
       category: 'Toolpacks',
       price: 9500,
-      image: 'https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=80&w=800&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1620799139502-2cce8c227e77?q=75&w=500&auto=format&fit=crop',
       description: 'The ultimate professional bundle for starting your own tailoring business.'
     }
   ];

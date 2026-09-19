@@ -16,9 +16,11 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
       <div class="relative w-full rounded-[36px] sm:rounded-[48px] overflow-hidden p-10 sm:p-16 border border-white/20 shadow-2xl text-white bg-slate-950 group">
         <!-- Background Editorial Fashion Tailoring Image -->
         <div class="absolute inset-0 z-0">
-          <img src="https://images.unsplash.com/photo-1598466185850-2f16246fcd20?q=80&w=2000&auto=format&fit=crop" 
+          <img src="https://images.unsplash.com/photo-1598466185850-2f16246fcd20?q=75&w=1200&auto=format&fit=crop" 
                alt="Custom Made Dresses" 
                class="w-full h-full object-cover opacity-45 mix-blend-luminosity group-hover:scale-105 transition-transform duration-1000" 
+               fetchpriority="high"
+               decoding="async"
                referrerpolicy="no-referrer">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/50"></div>
         </div>
@@ -106,7 +108,7 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
             <div class="gradient-shell-inner p-[48px] lg:p-[64px] relative overflow-hidden">
               <!-- Background Image -->
               <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1000&auto=format&fit=crop" alt="Tailoring Atelier" class="w-full h-full object-cover opacity-35 mix-blend-luminosity scale-105" referrerpolicy="no-referrer">
+                <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=75&w=800&auto=format&fit=crop" alt="Tailoring Atelier" class="w-full h-full object-cover opacity-35 mix-blend-luminosity scale-105" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/90 to-slate-950/80"></div>
               </div>
 
@@ -146,8 +148,8 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                 <h3 class="font-serif text-[24px] text-brand-900">Recent Work</h3>
               </div>
               <div class="grid grid-cols-2 gap-[16px]">
-                 <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=600&auto=format&fit=crop" class="w-full aspect-[4/5] object-cover rounded-[24px]" alt="Dress" referrerpolicy="no-referrer">
-                 <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?q=80&w=600&auto=format&fit=crop" class="w-full aspect-[4/5] object-cover rounded-[24px]" alt="Dress" referrerpolicy="no-referrer">
+                 <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=75&w=500&auto=format&fit=crop" class="w-full aspect-[4/5] object-cover rounded-[24px]" alt="Dress" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                 <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?q=75&w=500&auto=format&fit=crop" class="w-full aspect-[4/5] object-cover rounded-[24px]" alt="Dress" loading="lazy" decoding="async" referrerpolicy="no-referrer">
               </div>
             </div>
           </div>

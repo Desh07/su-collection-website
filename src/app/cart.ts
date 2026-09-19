@@ -39,7 +39,7 @@ import {CartService} from './services/cart.service';
           <div class="lg:col-span-2 flex flex-col gap-4 sm:gap-[24px]">
             @for (item of cartService.items(); track item.id) {
               <div class="flex items-center gap-4 sm:gap-[24px] bg-white p-4 sm:p-[24px] rounded-[20px] sm:rounded-[24px] border border-brand-100 shadow-sm">
-                <img [src]="item.image" [alt]="item.name" class="w-20 h-20 sm:w-[120px] sm:h-[120px] object-cover rounded-[12px] sm:rounded-[16px] shrink-0" referrerpolicy="no-referrer">
+                <img [src]="item.image" [alt]="item.name" class="w-20 h-20 sm:w-[120px] sm:h-[120px] object-cover rounded-[12px] sm:rounded-[16px] shrink-0" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                 
                 <div class="flex-1 min-w-0">
                   <h3 class="font-serif text-[17px] sm:text-[22px] text-brand-900 mb-1 sm:mb-[8px] leading-snug">{{ item.name }}</h3>

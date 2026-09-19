@@ -6,7 +6,7 @@ import {Title, Meta} from '@angular/platform-browser';
 import {MatIconModule} from '@angular/material/icon';
 import {ContentService} from './services/content.service';
 import {CartService} from './services/cart.service';
-import {RouterLink, Router} from '@angular/router';
+import {RouterLink, Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,18 +21,18 @@ import {RouterLink, Router} from '@angular/router';
 
       <main class="max-w-[1120px] mx-auto px-5 sm:px-8 mt-12 sm:mt-16">
         
+        <a routerLink="/learn" class="inline-flex items-center text-brand-900/60 hover:text-brand-900 transition-colors label-md bg-transparent outline-none cursor-pointer border-none p-0 mb-4 sm:mb-8">
+          <mat-icon class="mr-2 text-[18px]">arrow_back</mat-icon> Back
+        </a>
+
         <!-- Hero Section -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-8 lg:py-14">
           
           <!-- Left Column (Image & Price) -->
           <div class="flex flex-col gap-8 lg:gap-10">
-            <!-- Image Placeholder -->
-            <div class="min-h-[350px] lg:min-h-[440px] bg-brand-50 rounded-[24px] sm:rounded-[32px] flex items-center justify-center text-brand-900/40 text-center border border-brand-100 shadow-sm relative overflow-hidden">
-              <div class="border border-dashed border-brand-200 p-8 rounded-2xl relative z-10 bg-white/50 backdrop-blur-sm">
-                <mat-icon class="text-[48px] mb-4 text-brand-300">image</mat-icon>
-                <div class="font-medium text-brand-900">PROGRAMME HERO IMAGE</div>
-                <small class="text-brand-900/60 mt-2 block">Replace with a strong tailoring/business image</small>
-              </div>
+            <!-- Hero Image -->
+            <div class="rounded-[24px] sm:rounded-[32px] flex items-center justify-center border border-brand-100 shadow-md relative overflow-hidden aspect-square w-full">
+              <img src="/images/mentorship_square.png" alt="100-Day Mentorship Program" class="w-full h-full object-cover" loading="lazy" decoding="async" referrerpolicy="no-referrer">
             </div>
 
             <!-- Price and Buttons -->
@@ -658,6 +658,7 @@ export class Mentorship implements OnInit, OnDestroy {
   contentService = inject(ContentService);
   cartService = inject(CartService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
@@ -688,11 +689,12 @@ export class Mentorship implements OnInit, OnDestroy {
   }
 
   scrollToOrder() {
-    if (typeof window !== 'undefined') {
-      const el = document.getElementById('order');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+    if (typeof window === 'undefined') return;
+    const el = document.getElementById('order');
+    if (el) {
+      const navbarHeight = 90;
+      const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   }
 
@@ -707,6 +709,9 @@ export class Mentorship implements OnInit, OnDestroy {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
+        if (this.courseId === '6-month-tailoring-business-mentorship') {
+          data['title'] = '100-Day Tailoring Business Building Program';
+        }
         courseName = data['title'] || courseName;
       }
     } catch (e) {
@@ -721,7 +726,7 @@ export class Mentorship implements OnInit, OnDestroy {
       id: 'course-' + this.courseId + (isReserve ? '-reserve' : ''),
       name: courseName,
       price: coursePrice,
-      image: 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop',
+      image: this.courseId === '6-month-tailoring-business-mentorship' ? '/images/product_Mentorship.png' : 'https://images.unsplash.com/photo-1551893665-f843f600794e?q=80&w=800&auto=format&fit=crop',
       quantity: 1
     });
     
@@ -743,6 +748,14 @@ export class Mentorship implements OnInit, OnDestroy {
         this.now.set(Date.now());
       }, 1000);
     }
+
+    // Handle #order fragment from router (e.g. when Join Now is clicked from /learn)
+    this.route.fragment.subscribe(fragment => {
+      if (fragment === 'order') {
+        // Wait for the view to render before scrolling
+        setTimeout(() => this.scrollToOrder(), 300);
+      }
+    });
   }
 
   ngOnDestroy() {

@@ -23,7 +23,7 @@ import {CartService} from './services/cart.service';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-[48px] lg:gap-[64px]">
           <!-- Image -->
           <div class="rounded-[32px] overflow-hidden bg-white shadow-sm border border-brand-100 aspect-square">
-            <img [src]="product()?.image" [alt]="product()?.name" class="w-full h-full object-cover" referrerpolicy="no-referrer">
+            <img [src]="product()?.image" [alt]="product()?.name" class="w-full h-full object-cover" loading="lazy" decoding="async" referrerpolicy="no-referrer">
           </div>
 
           <!-- Details -->

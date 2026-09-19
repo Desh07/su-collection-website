@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, signal, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal, OnInit, effect} from '@angular/core';
 import {RouterLink, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
@@ -211,7 +211,7 @@ function phoneValidator(control: AbstractControl): ValidationErrors | null {
                 @for (item of cartService.items(); track item.id) {
                   <div class="flex items-center gap-3.5 py-2 border-b border-brand-50 last:border-0">
                     <div class="relative shrink-0">
-                      <img [src]="item.image" [alt]="item.name" class="w-14 h-14 object-cover rounded-2xl border border-brand-100" referrerpolicy="no-referrer">
+                      <img [src]="item.image" [alt]="item.name" class="w-14 h-14 object-cover rounded-2xl border border-brand-100" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                       <span class="absolute -top-1.5 -right-1.5 bg-brand-900 text-white text-[11px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{{ item.quantity }}</span>
                     </div>
                     <div class="flex-1 min-w-0">
@@ -262,6 +262,15 @@ export class Checkout implements OnInit {
   copied = signal(false);
   errorMessage = signal('');
   existingOrderId: string | null = null;
+
+  constructor() {
+    // Reactively redirect away if cart becomes empty (e.g. user cleared cart then hit Back)
+    effect(() => {
+      if (this.cartService.items().length === 0) {
+        this.router.navigate(['/learn'], { replaceUrl: true });
+      }
+    });
+  }
 
   bankName = () => this.contentService.content().app.bankName || 'Commercial Bank of Ceylon';
   accountName = () => this.contentService.content().app.accountName || 'Su Collection (Swarna Herath)';

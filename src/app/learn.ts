@@ -20,6 +20,8 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
           <img src="/images/Product_Service.png" 
                alt="Our Services and Products" 
                class="w-full h-full object-cover opacity-100 group-hover:scale-105 transition-transform duration-1000" 
+               fetchpriority="high"
+               decoding="async"
                referrerpolicy="no-referrer">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/20 to-transparent pointer-events-none"></div>
         </div>
@@ -44,13 +46,13 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
               
               <!-- Background Image -->
               <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1584034879669-e74f1d431051?q=80&w=1600&auto=format&fit=crop" alt="Background" class="w-full h-full object-cover opacity-20 mix-blend-multiply scale-105" referrerpolicy="no-referrer">
+                <img src="https://images.unsplash.com/photo-1584034879669-e74f1d431051?q=75&w=1200&auto=format&fit=crop" alt="Background" class="w-full h-full object-cover opacity-20 mix-blend-multiply scale-105" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                 <div class="absolute inset-0 bg-gradient-to-r from-brand-50/95 via-white/90 to-brand-100/90"></div>
               </div>
 
               <!-- Image Side -->
               <div class="w-full lg:w-1/2 rounded-[24px] sm:rounded-[32px] overflow-hidden relative shadow-xl aspect-[4/3] z-10 group">
-                <img [src]="course.image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" [alt]="course.title" referrerpolicy="no-referrer">
+                <img [src]="course.image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" [alt]="course.title" loading="lazy" decoding="async" referrerpolicy="no-referrer">
               </div>
               
               <!-- Text Side -->

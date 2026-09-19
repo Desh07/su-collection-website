@@ -163,13 +163,14 @@ import {CartService} from './services/cart.service';
                 <h3 class="font-serif text-[24px] sm:text-[28px] text-brand-950 mb-3">
                   Awesome! We're checking your slip.
                 </h3>
-                <p class="text-[15px] text-brand-900/80 leading-relaxed mb-6">
-                  If you successfully sent your bank slip to Swarna on WhatsApp, she will review it shortly. Once your payment is verified, your order status will be updated automatically!
-                </p>
+                <div class="text-[15px] text-brand-900/80 leading-relaxed mb-6 flex flex-col gap-3 font-['Noto_Sans_Sinhala']">
+                  <p>ඔයා Bank Slip එක <strong>Swarna මහත්මියට WhatsApp හරහා</strong> එවලා තියෙනවා නම්, ඒක අපි ඉක්මනින් Check කරලා Payment එක Confirm කරන්නම්.</p>
+                  <p>Payment එක Verify වුණාම, ඔයාගේ <strong>Order Status එක Automatically Update වෙයි.</strong></p>
+                </div>
                 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <a routerLink="/learn" class="no-print btn-primary !py-3.5 flex items-center gap-2 w-full sm:w-auto justify-center">
-                    <mat-icon class="text-[20px]">shopping_bag</mat-icon> Continue Shopping
+                  <a routerLink="/learn" class="no-print btn-primary !py-3.5 flex items-center gap-2 w-full sm:w-auto justify-center uppercase tracking-widest text-[13px]">
+                    CONTINUE SHOPPING
                   </a>
                 </div>
               </div>

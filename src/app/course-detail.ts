@@ -27,7 +27,7 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
           <!-- Image -->
           <div class="rounded-[32px] overflow-hidden bg-slate-50 shadow-sm border border-brand-100 aspect-[4/3] relative" [class.md:mt-10]="!!c().dedicatedCourses[course()?.id]?.mainDesc">
             <!-- Common Image Section -->
-            <img [src]="course()?.image" [alt]="course()?.title" class="w-full h-full object-cover" referrerpolicy="no-referrer">
+            <img [src]="course()?.image" [alt]="course()?.title" class="w-full h-full object-cover" loading="lazy" decoding="async" referrerpolicy="no-referrer">
             @if (!c().dedicatedCourses[course()?.id]?.mainDesc) {
               <div class="absolute top-4 left-4 glass-panel text-brand-900 px-4 py-2 rounded-full shadow-sm label-md font-semibold text-[12px] sm:text-[14px]">
                 {{ course()?.level }}
