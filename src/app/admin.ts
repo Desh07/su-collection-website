@@ -1893,7 +1893,7 @@ export class Admin implements OnInit {
         subtitle: '100-Day Tailoring Business Workbook (PDF)',
         description: 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.',
         level: 'PDF E-BOOK',
-        price: 'LKR 2,500',
+        price: 'LKR 690',
         duration: '28 PAGES',
         image: '/images/Workbook.jpeg',
         badge: '',

@@ -272,7 +272,7 @@ Design එකක් දැක්කාම ඒක හැදිලා තියෙ
       pill: "28 Pages | PDF E-Book |",
       subtitle: "Become a Successful Tailoring Entrepreneur in 100 Days",
       title: "100-Day Tailoring Business Workbook (PDF)",
-      price: "LKR 2,500",
+      price: "LKR 690",
       mainDesc: "ඔයාගේ මැහුම් Skill එක Business එකක් බවට පත්කරගන්න දින 100ක Practical Roadmap එකක්.",
       subDesc: "මැහුම් කටයුතු කරන්න ඔයා දන්නවා — ඒත් මොනවද විකුණන්නේ, **Price එක හදාගන්නේ කොහොමද, Customers ලා හොයාගන්නේ කොහොමද, Orders ගන්නේ කොහොමද** කියලා තාම clear නැද්ද?\n\nමේ **100-Day Tailoring Business Workbook** එක හදලා තියෙන්නේ ඒ හැමදේම එකවර කරන්න ගිහින් අතරමං නොවී, **දින 100ක් පුරා එකින් එක වැඩ කරගෙන ඔයාගේම මැහුම් Business එකක් ගොඩනගාගන්න** ඔයාට Guide කරන්න.\n\nProduct එක තෝරගන්න තැන ඉඳන් **Costing & Pricing, WhatsApp Business, Facebook, TikTok, Content Creation, Customer Orders, Delivery, Launch සහ Business Growth** දක්වා — අද කරන්න ඕනේ මොකක්ද කියලා Step-by-Step follow කරන්න පුළුවන් Practical Guide එකක් මේ Workbook එක ඇතුළේ තියෙනවා.",
       bulletTitle: "Workbook එකෙන් ඔයාට:",

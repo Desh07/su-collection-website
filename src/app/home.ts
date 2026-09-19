@@ -85,8 +85,8 @@ interface DigitalGuide {
 
           <!-- Right Supporting Narrative & High-Intent Action Buttons -->
           <div class="w-full lg:w-5/12 flex flex-col items-start gap-4 sm:gap-6 pb-2 lg:pl-6">
-            <p class="body-md text-white/95 text-[14px] sm:text-[16px] lg:text-[17px] leading-[1.7] font-light max-w-lg" [innerHTML]="c().home.heroDesc | formatText"></p>
-            <p class="body-md text-white/80 text-[13px] sm:text-[15px] lg:text-[16px] leading-[1.7] font-light max-w-lg mb-2" [innerHTML]="c().home.heroDesc2 | formatText"></p>
+            <p class="body-md text-white/95 text-[14px] sm:text-[16px] lg:text-[17px] leading-[1.7] font-light max-w-lg font-['Noto_Sans_Sinhala']" [innerHTML]="c().home.heroDesc | formatText"></p>
+            <p class="body-md text-white/80 text-[13px] sm:text-[15px] lg:text-[16px] leading-[1.7] font-light max-w-lg mb-2 font-['Noto_Sans_Sinhala']" [innerHTML]="c().home.heroDesc2 | formatText"></p>
 
             <div class="flex flex-col items-stretch sm:items-start gap-3 w-full">
               <button type="button" (click)="scrollToOfferings()" class="bg-white text-slate-950 hover:bg-brand-50 transition-all rounded-full px-6 py-3.5 label-md font-semibold tracking-wider uppercase text-[11px] sm:text-[12px] shadow-lg flex items-center justify-center gap-2">
@@ -326,10 +326,13 @@ interface DigitalGuide {
                     @if (item.id === '6-month-tailoring-business-mentorship') {
                       @if (isOfferValid()) {
                         <span class="text-brand-900/40 line-through mr-1 font-normal text-[13px]">LKR 65,000</span>
-                        <span class="text-[16px] sm:text-[18px] font-extrabold text-brand-900">LKR 50,000</span>
+                        <span class="text-[16px] sm:text-[18px] font-extrabold text-brand-900">LKR 55,000</span>
                       } @else {
                         <span class="text-[16px] sm:text-[18px] font-extrabold text-brand-900">LKR 65,000</span>
                       }
+                    } @else if (item.id === '100-day-tailoring-business-workbook') {
+                      <span class="text-brand-900/40 line-through mr-1 font-normal text-[13px]">LKR 990</span>
+                      <span class="text-[16px] sm:text-[18px] font-extrabold text-brand-900">LKR 690</span>
                     } @else {
                       <span class="text-[15px]">{{ item.price.split('(')[0].trim() }}</span>
                     }
@@ -338,7 +341,7 @@ interface DigitalGuide {
                     <span class="text-[13px] sm:text-[14px] text-brand-900/60 font-medium">({{ item.price.split('(')[1] }}</span>
                   }
                 </div>
-                <p class="body-md text-brand-900/80 mb-6 text-[14px] leading-relaxed" [innerHTML]="item.description | formatText">
+                <p class="body-md text-brand-900/80 mb-6 text-[14px] leading-relaxed font-['Noto_Sans_Sinhala']" [innerHTML]="item.description | formatText">
                 </p>
 
                 <!-- Features Checklist -->
@@ -347,7 +350,7 @@ interface DigitalGuide {
                     @for (feat of item.features; track feat) {
                       <li class="flex items-start gap-2">
                         <mat-icon class="text-[16px] text-brand-600 shrink-0 mt-0.5">check_circle</mat-icon>
-                        <span class="leading-relaxed" [innerHTML]="feat | formatText"></span>
+                        <span class="leading-relaxed font-bold text-brand-900 font-['Noto_Sans_Sinhala']" [innerHTML]="feat | formatText"></span>
                       </li>
                     }
                   </ul>
@@ -493,8 +496,8 @@ export class Home implements OnInit {
       id: '100-day-tailoring-business-workbook',
       title: 'Become a Successful Tailoring Entrepreneur in 100 Days',
       level: 'PDF E-BOOK',
-      badge: '',
-      price: 'LKR 2,500',
+      badge: 'Best Seller',
+      price: 'LKR 690',
       duration: '28 PAGES',
       description: 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.',
       features: [
@@ -632,11 +635,22 @@ export class Home implements OnInit {
       if (!snapshot.empty) {
         const items = snapshot.docs.map(doc => {
           const data = doc.data();
-          if (doc.id === '100-day-tailoring-business-workbook') {
+          let id = doc.id;
+          
+          if (id === 'sri-lankan-saree-jacket-master-blueprint' || 
+              (typeof data['title'] === 'string' && data['title'].includes('Tailoring Entrepreneur')) ||
+              (typeof data['subtitle'] === 'string' && data['subtitle'].includes('Workbook'))) {
+            id = '100-day-tailoring-business-workbook';
+          }
+          if (id === 'mentorship' || id === 'couture-and-tailoring-business-mentorship') {
+            id = '6-month-tailoring-business-mentorship';
+          }
+
+          if (id === '100-day-tailoring-business-workbook') {
             data['image'] = '/images/Workbook.jpeg';
             data['title'] = 'Become a Successful Tailoring Entrepreneur in 100 Days';
             data['subtitle'] = '100-Day Tailoring Business Workbook (PDF)';
-            data['price'] = 'LKR 2,500';
+            data['price'] = 'LKR 690';
             data['duration'] = '28 PAGES';
             data['level'] = 'PDF E-BOOK';
             data['badge'] = '';
@@ -649,7 +663,7 @@ export class Home implements OnInit {
               'Launch & Grow Your Business'
             ];
           }
-          if (doc.id === '6-month-tailoring-business-mentorship') {
+          if (id === '6-month-tailoring-business-mentorship') {
             data['title'] = '100-Day Tailoring Business Building Program';
             data['duration'] = 'දින 100යි (100 Days)';
             data['description'] = 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.';
@@ -662,7 +676,7 @@ export class Home implements OnInit {
             data['price'] = 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)';
             data['image'] = '/images/product_Mentorship.png';
           }
-          return { id: doc.id, ...data };
+          return { ...data, id };
         });
         this.displayCourses.set(items);
       } else {

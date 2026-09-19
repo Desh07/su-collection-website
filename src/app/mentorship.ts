@@ -42,9 +42,9 @@ import {RouterLink, Router, ActivatedRoute} from '@angular/router';
                   <div class="flex flex-col gap-1 mb-6 border-b border-brand-200 pb-4">
                     <div class="flex items-baseline gap-3">
                       <span class="line-through text-brand-900/50 text-[18px] font-medium">LKR 65,000</span>
-                      <span class="text-[26px] sm:text-[32px] font-extrabold text-brand-900">LKR 50,000</span>
+                      <span class="text-[26px] sm:text-[32px] font-extrabold text-brand-900">LKR 55,000</span>
                     </div>
-                    <span class="text-[14px] text-brand-900/60 font-medium">(පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)</span>
+                    <span class="text-[14px] text-brand-900/60 font-medium font-['Noto_Sans_Sinhala']">(පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)</span>
                   </div>
                   @if (proceeding()) {
                     <button disabled class="block w-full text-center bg-brand-800 text-white py-4 rounded-xl font-bold text-[15px] shadow-md opacity-80 cursor-wait flex items-center justify-center gap-2 mb-3">
@@ -98,7 +98,7 @@ import {RouterLink, Router, ActivatedRoute} from '@angular/router';
             <span class="inline-block bg-brand-100 text-brand-900 rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest mb-6 self-start">100-Day Mentorship</span>
             <h1 class="font-serif text-[36px] sm:text-[44px] lg:text-[48px] leading-[1.1] tracking-tight text-brand-900 mb-5">Tailoring Business Growth Mentorship</h1>
             <p class="text-[18px] sm:text-[20px] text-brand-900/90 font-medium mb-6 leading-snug">You already have a skill. Now build something real with it.</p>
-            <p class="text-[15px] sm:text-[16px] text-brand-900/70 mb-8 leading-relaxed">
+            <p class="text-[15px] sm:text-[16px] text-brand-900/70 mb-8 leading-relaxed font-['Noto_Sans_Sinhala']">
               මැහුම් වැඩ කරන්න පුළුවන් වුණාට, ඒකෙන් හොඳ ආදායමක් හදාගන්නේ කොහොමද? තමන්ගේම මැහුම් ව්යාපාරයක් පටන්ගන්නේ කොහෙන්ද? කියලා තාම හිත හිත ඉන්නවා නම්, දැන් ඒ ගැන හිතන එක විතරක් නෙවෙයි — වැඩේ පටන්ගන්න කාලේ හරි. දින 100ක් පුරා Step-By-Step මඟපෙන්වීමක් එක්ක, ඔයාගේ මැහුම් හැකියාව ව්යාපාරයක් බවට පත්කරගන්න අවශ්ය දේ එකින් එක ඉගෙනගෙන ක්රියාවට නංවන්න ඔයාට මේ Business-Building Programme එකෙන් පුලුවන්. 
             </p>
             
@@ -112,7 +112,7 @@ import {RouterLink, Router, ActivatedRoute} from '@angular/router';
                   <div class="flex flex-col items-center bg-white border border-brand-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg min-w-[50px] sm:min-w-[60px] shadow-sm"><span class="text-[20px] sm:text-[24px] font-extrabold text-brand-900">{{ timeRemaining().minutes }}</span><span class="text-[10px] uppercase font-bold text-brand-900/60">Mins</span></div>
                   <div class="flex flex-col items-center bg-white border border-brand-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg min-w-[50px] sm:min-w-[60px] shadow-sm"><span class="text-[20px] sm:text-[24px] font-extrabold text-brand-900">{{ timeRemaining().seconds }}</span><span class="text-[10px] uppercase font-bold text-brand-900/60">Secs</span></div>
                 </div>
-                <p class="text-[14px] sm:text-[15px] text-brand-900/80 leading-relaxed">
+                <p class="text-[14px] sm:text-[15px] text-brand-900/80 leading-relaxed font-['Noto_Sans_Sinhala']">
                   දැන්ම <strong>LKR 5,000</strong>ක් ගෙවලා ඔයාගේ place එක වෙන්කරගන්න. ඉතිරි <strong>LKR 50,000</strong> පසුව ගෙවන්න.
                 </p>
               </div>
@@ -123,7 +123,7 @@ import {RouterLink, Router, ActivatedRoute} from '@angular/router';
         <!-- Section: You Don't Need More Information -->
         <section class="py-16 sm:py-20 border-t border-brand-100 mt-8 text-center">
           <h2 class="font-serif text-[28px] sm:text-[36px] text-brand-900 tracking-tight mb-4">You Don't Need More Information. You Need a Way Forward.</h2>
-          <p class="text-brand-900/70 text-[16px] sm:text-[18px] max-w-[720px] mx-auto mb-12 leading-relaxed">
+          <p class="text-brand-900/70 text-[16px] sm:text-[18px] max-w-[720px] mx-auto mb-12 leading-relaxed font-['Noto_Sans_Sinhala']">
             සමහරවිට ඔයා අවුරුදු ගාණක් තිස්සේ මැහුම් කරන කෙනෙක් වෙන්න පුළුවන්. එහෙම නැත්නම් මේ වැඩේ ඉගෙනගෙන තාම වැඩි කාලයක් නැතුව ඇති. ගෙදර අයට, යාළුවන්ට ඇඳුම් මහලා දීලා, <strong>“මට මේකෙන් ඇත්තටම Business එකක් පටන්ගන්න පුළුවන්ද?”</strong> කියලා ඔයාත් හිතලා ඇති.<br><br>
             හැබැයි හීනයක් තියෙන එක විතරක් මදි. <strong>ඊළඟට කරන්න ඕනේ මොකක්ද කියලා දැනගන්න ඕනේ.</strong> ඒ වගේම, ඒ ගමන දැනටමත් ගිය කෙනෙක්ගෙන් හරි මඟපෙන්වීමක් ලැබෙන එකත් ගොඩක් වටිනවා.<br><br>
             ඒකයි <strong>The UVA VEC</strong> එක්ක එකතු වෙලා මේ දින 100ක Programme එක අපි හදලා තියෙන්නේ.<br>
@@ -624,7 +624,7 @@ import {RouterLink, Router, ActivatedRoute} from '@angular/router';
                   Pay in Full (LKR 50,000)
                 </button>
               } @else {
-                <button (click)="enroll(false)" class="inline-block bg-brand-900 hover:bg-brand-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-brand-900/20">
+                <button (click)="enroll(false)" class="inline-block bg-brand-900 hover:bg-brand-800 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-xl font-bold text-[16px] sm:text-[18px] transition-colors shadow-lg shadow-brand-900/20 font-['Noto_Sans_Sinhala']">
                   මම ලෑස්තියි — Pay in Full (LKR 65,000)
                 </button>
               }
@@ -632,19 +632,19 @@ import {RouterLink, Router, ActivatedRoute} from '@angular/router';
           }
           
           @if (isOfferValid()) {
-            <div class="text-[14px] sm:text-[15px] text-brand-900/80 mb-8 max-w-2xl mx-auto space-y-3 leading-relaxed">
-              <p class="font-bold text-[15px] sm:text-[16px]">LKR 65,000ක <strong>Program Value එකක්</strong> — Launch Offer එක <strong>LKR 55,000යි.</strong></p>
+            <div class="text-[14px] sm:text-[15px] text-brand-900/80 mb-8 max-w-2xl mx-auto space-y-3 leading-relaxed font-['Noto_Sans_Sinhala']">
+              <p class="font-bold text-[15px] sm:text-[16px] font-sans">LKR 65,000ක <strong>Program Value එකක්</strong> — Launch Offer එක <strong>LKR 55,000යි.</strong></p>
               <p>දැන් <strong>LKR 5,000ක් ගෙවලා Place එක Reserve කරගන්න.</strong><br>
               ඒ LKR 5,000 <strong>මුළු LKR 55,000 Launch Fee එකටම ඇතුළත්.</strong> ඉතිරි <strong>LKR 50,000 පසුව ගෙවන්න.</strong></p>
               
               <p><strong>Launch Offer එක මේ මාසය අවසානයෙන් අවසන් වෙනවා.</strong><br>
               හැබැයි මේ මාසය ඇතුළත <strong>LKR 5,000ක් ගෙවලා Place එක Reserve කරගත්තොත්, ඔයාගේ LKR 55,000 Launch Price එක Lock වෙනවා.</strong> Offer එක අවසන් වුණාට පස්සේත් ඔයාට ගෙවන්න තියෙන්නේ ඉතිරි <strong>LKR 50,000 පමණයි.</strong></p>
               
-              <p class="font-bold text-[15px] sm:text-[16px] pt-2">Full-Payment Offer: LKR 50,000</p>
+              <p class="font-bold text-[15px] sm:text-[16px] pt-2">Full-Payment Offer: LKR 55,000</p>
             </div>
           }
           
-          <p class="text-[13px] sm:text-[14px] text-brand-900/70 max-w-2xl mx-auto leading-relaxed border-t border-brand-200/60 pt-6">
+          <p class="text-[13px] sm:text-[14px] text-brand-900/70 max-w-2xl mx-auto leading-relaxed border-t border-brand-200/60 pt-6 font-['Noto_Sans_Sinhala']">
             මේ Programme එකේ ප්‍රතිඵලය <strong>ඔයාගේ උත්සාහය, කරලා බලන ප්‍රමාණය, Market එක සහ ඔයා ගන්න Business Decisions</strong> මත වෙනස් වෙන්න පුළුවන්.<br><br>
             <strong>අපි මඟ පෙන්වනවා. ඔයා Build කරනවා.</strong>
           </p>

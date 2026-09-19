@@ -73,10 +73,13 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
                     @if (course.id === '6-month-tailoring-business-mentorship') {
                       @if (isOfferValid()) {
                         <span class="text-brand-900/40 line-through mr-1 font-normal text-[14px] sm:text-[16px]">LKR 65,000</span>
-                        <span class="text-[18px] sm:text-[22px] font-extrabold text-brand-900">LKR 50,000</span>
+                        <span class="text-[18px] sm:text-[22px] font-extrabold text-brand-900">LKR 55,000</span>
                       } @else {
                         <span class="text-[18px] sm:text-[22px] font-extrabold text-brand-900">LKR 65,000</span>
                       }
+                    } @else if (course.id === '100-day-tailoring-business-workbook') {
+                      <span class="text-brand-900/40 line-through mr-1 font-normal text-[14px] sm:text-[16px]">LKR 990</span>
+                      <span class="body-md font-bold text-[18px] sm:text-[20px]">LKR 690</span>
                     } @else {
                       <span class="body-md font-bold text-[18px] sm:text-[20px]">{{ course.price.split('(')[0].trim() }}</span>
                     }
@@ -171,9 +174,9 @@ export class Learn implements OnInit {
       subtitle: '100-Day Tailoring Business Workbook (PDF)',
       description: 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.',
       level: 'PDF E-BOOK',
-      price: 'LKR 2,500',
+      price: 'LKR 690',
       duration: '28 PAGES',
-      badge: '',
+      badge: 'Best Seller',
       features: [
         'Build Your Product & Set Your Price',
         'Build Your Online Business Presence',
@@ -239,11 +242,22 @@ export class Learn implements OnInit {
       if (!snapshot.empty) {
         const items = snapshot.docs.map(doc => {
           const data = doc.data();
-          if (doc.id === '100-day-tailoring-business-workbook') {
+          let id = doc.id;
+          
+          if (id === 'sri-lankan-saree-jacket-master-blueprint' || 
+              (typeof data['title'] === 'string' && data['title'].includes('Tailoring Entrepreneur')) ||
+              (typeof data['subtitle'] === 'string' && data['subtitle'].includes('Workbook'))) {
+            id = '100-day-tailoring-business-workbook';
+          }
+          if (id === 'mentorship' || id === 'couture-and-tailoring-business-mentorship') {
+            id = '6-month-tailoring-business-mentorship';
+          }
+
+          if (id === '100-day-tailoring-business-workbook') {
             data['image'] = '/images/Workbook.jpeg';
             data['title'] = 'Become a Successful Tailoring Entrepreneur in 100 Days';
             data['subtitle'] = '100-Day Tailoring Business Workbook (PDF)';
-            data['price'] = 'LKR 2,500';
+            data['price'] = 'LKR 690';
             data['duration'] = '28 PAGES';
             data['level'] = 'PDF E-BOOK';
             data['badge'] = '';
@@ -256,7 +270,7 @@ export class Learn implements OnInit {
               'Launch & Grow Your Business'
             ];
           }
-          if (doc.id === '6-month-tailoring-business-mentorship') {
+          if (id === '6-month-tailoring-business-mentorship') {
             data['title'] = '100-Day Tailoring Business Building Program';
             data['duration'] = 'දින 100යි (100 Days)';
             data['description'] = 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.';
@@ -269,7 +283,7 @@ export class Learn implements OnInit {
             data['price'] = 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)';
             data['image'] = '/images/product_Mentorship.png';
           }
-          return { id: doc.id, ...data };
+          return { ...data, id };
         });
         this.dbCourses.set(items);
         this.displayCourses.set(items);

@@ -65,7 +65,12 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
               <div class="mb-[32px] flex flex-wrap items-center gap-3">
                 <div class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 px-5 py-2.5 rounded-full shadow-sm w-fit">
                   <mat-icon class="text-[24px]">local_offer</mat-icon>
-                  <span class="body-md font-semibold text-[20px] sm:text-[24px]">{{ dedicatedData.price.split('(')[0].trim() }}</span>
+                  @if (course()?.id === '100-day-tailoring-business-workbook') {
+                    <span class="text-emerald-800/60 line-through mr-1 font-normal text-[15px] sm:text-[18px]">LKR 990</span>
+                    <span class="body-md font-semibold text-[20px] sm:text-[24px]">LKR 690</span>
+                  } @else {
+                    <span class="body-md font-semibold text-[20px] sm:text-[24px]">{{ dedicatedData.price.split('(')[0].trim() }}</span>
+                  }
                 </div>
                 @if (dedicatedData.price.includes('(')) {
                   <span class="text-[14px] sm:text-[15px] text-brand-900/60 font-medium">({{ dedicatedData.price.split('(')[1] }}</span>
@@ -254,7 +259,7 @@ export class CourseDetail implements OnInit {
       subtitle: '100-Day Tailoring Business Workbook (PDF)',
       description: 'ඔයාගේ මැහුම් Skill එකෙන් **තමන්ගේම Business එකක් ගොඩනගන්න**, Product එක තෝරගන්න තැන ඉදන් **Pricing, Online Presence, Content, Orders, Delivery සහ Launch** දක්වා දින 100ක් පුරා Step-by-Step follow කරන්න පුළුවන් Practical Workbook එකක්.',
       level: 'PDF E-BOOK',
-      price: 'LKR 2,500',
+      price: 'LKR 690',
       duration: '28 PAGES',
       image: '/images/Workbook.jpeg'
     },
@@ -289,22 +294,27 @@ export class CourseDetail implements OnInit {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
-        if (docSnap.id === '100-day-tailoring-business-workbook') {
+        let courseId = docSnap.id;
+        if (courseId === 'sri-lankan-saree-jacket-master-blueprint' || (typeof data['title'] === 'string' && data['title'].includes('Tailoring Entrepreneur')) || (typeof data['subtitle'] === 'string' && data['subtitle'].includes('Workbook'))) {
+          courseId = '100-day-tailoring-business-workbook';
+        }
+        
+        if (courseId === '100-day-tailoring-business-workbook') {
           data['title'] = 'Become a Successful Tailoring Entrepreneur in 100 Days';
           data['subtitle'] = '100-Day Tailoring Business Workbook (PDF)';
-          data['price'] = 'LKR 2,500';
+          data['price'] = 'LKR 690';
           data['image'] = '/images/Workbook.jpeg';
           data['duration'] = '28 PAGES';
           data['level'] = 'PDF E-BOOK';
         }
-        if (docSnap.id === '6-month-tailoring-business-mentorship') {
+        if (courseId === '6-month-tailoring-business-mentorship') {
           data['title'] = '100-Day Tailoring Business Building Program';
           data['duration'] = 'දින 100යි (100 Days)';
           data['description'] = 'Product එකක් හදාගැනීමේ ඉඳන් Pricing, Online Presence, Content, Customer Enquiries, Sales සහ Business Growth දක්වා — ඉගෙනගෙන නවතින්නේ නැතුව, ඔයාගේම Business එකට apply කරගෙන යන්න.';
           data['price'] = 'රු. 45,000 (පහසු ගෙවීමේ ක්රමයටද ලබාගත හැක)';
           data['image'] = '/images/product_Mentorship.png';
         }
-        this.course.set({ id: docSnap.id, ...data });
+        this.course.set({ ...data, id: courseId } as any);
       } else {
         const mockCourse = this.defaultCourses.find(c => c.id === id);
         if (mockCourse) {

@@ -29,8 +29,8 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
           <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-300 label-md uppercase tracking-[0.2em] text-[12px] mb-6">
             Custom Tailoring Services
           </span>
-          <h1 class="display-lg mb-[24px] text-white" [innerHTML]="c().sewAndSu.heroTitle | formatText"></h1>
-          <p class="body-md text-[18px] text-brand-100/90 max-w-2xl mx-auto font-light leading-relaxed" [innerHTML]="c().sewAndSu.heroDesc | formatText">
+          <h1 class="display-lg mb-[24px] text-white font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.heroTitle | formatText"></h1>
+          <p class="body-md text-[18px] text-brand-100/90 max-w-2xl mx-auto font-light leading-relaxed font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.heroDesc | formatText">
           </p>
         </div>
       </div>
@@ -43,7 +43,7 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
         <div class="w-full lg:w-7/12">
           <div class="gradient-shell h-full">
             <div class="gradient-shell-inner p-[64px] relative">
-              <h2 class="font-serif text-[40px] text-brand-900 mb-[48px] leading-tight" [innerHTML]="c().sewAndSu.formTitle | formatText"></h2>
+              <h2 class="font-serif text-[40px] text-brand-900 mb-[48px] leading-tight font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.formTitle | formatText"></h2>
               
               <form [formGroup]="bookingForm" (ngSubmit)="submitBooking()" class="flex flex-col gap-[32px]">
                 
@@ -113,27 +113,27 @@ import {FormatTextPipe} from './pipes/format-text.pipe';
               </div>
 
               <div class="relative z-10">
-                <h3 class="font-serif text-[32px] text-white mb-[40px] leading-tight" [innerHTML]="c().sewAndSu.processTitle | formatText"></h3>
+                <h3 class="font-serif text-[32px] text-white mb-[40px] leading-tight font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.processTitle | formatText"></h3>
                 <div class="flex flex-col gap-[32px]">
                   <div class="flex gap-[24px]">
                     <div class="w-[40px] h-[40px] rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center body-md font-semibold shrink-0 text-brand-300 shadow-inner">1</div>
                     <div>
-                      <h4 class="body-md font-medium text-white mb-[8px]" [innerHTML]="c().sewAndSu.step1Title | formatText"></h4>
-                      <p class="body-md text-[14px] text-brand-100/80 font-light" [innerHTML]="c().sewAndSu.step1Desc | formatText"></p>
+                      <h4 class="body-md font-medium text-white mb-[8px] font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.step1Title | formatText"></h4>
+                      <p class="body-md text-[14px] text-brand-100/80 font-light font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.step1Desc | formatText"></p>
                     </div>
                   </div>
                   <div class="flex gap-[24px]">
                     <div class="w-[40px] h-[40px] rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center body-md font-semibold shrink-0 text-brand-300 shadow-inner">2</div>
                     <div>
-                      <h4 class="body-md font-medium text-white mb-[8px]" [innerHTML]="c().sewAndSu.step2Title | formatText"></h4>
-                      <p class="body-md text-[14px] text-brand-100/80 font-light" [innerHTML]="c().sewAndSu.step2Desc | formatText"></p>
+                      <h4 class="body-md font-medium text-white mb-[8px] font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.step2Title | formatText"></h4>
+                      <p class="body-md text-[14px] text-brand-100/80 font-light font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.step2Desc | formatText"></p>
                     </div>
                   </div>
                   <div class="flex gap-[24px]">
                     <div class="w-[40px] h-[40px] rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center body-md font-semibold shrink-0 text-brand-300 shadow-inner">3</div>
                     <div>
-                      <h4 class="body-md font-medium text-white mb-[8px]" [innerHTML]="c().sewAndSu.step3Title | formatText"></h4>
-                      <p class="body-md text-[14px] text-brand-100/80 font-light" [innerHTML]="c().sewAndSu.step3Desc | formatText"></p>
+                      <h4 class="body-md font-medium text-white mb-[8px] font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.step3Title | formatText"></h4>
+                      <p class="body-md text-[14px] text-brand-100/80 font-light font-['Noto_Sans_Sinhala']" [innerHTML]="c().sewAndSu.step3Desc | formatText"></p>
                     </div>
                   </div>
                 </div>
