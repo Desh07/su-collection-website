@@ -18,7 +18,8 @@ export class AuthService {
       'deshanthv@gmail.com',
       'pubuditha.desilva@gmail.com',
       'fazna9405@gmail.com',
-      'chiranthakadilshan@gmail.com'
+      'chiranthakadilshan@gmail.com',
+      'sampathdinesh59@gmail.com'
     ];
     
     onAuthStateChanged(auth, (user) => {
