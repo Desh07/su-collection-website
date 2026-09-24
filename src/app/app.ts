@@ -54,11 +54,9 @@ import {doc, getDoc, setDoc, deleteDoc} from 'firebase/firestore';
                   <span class="absolute top-1 right-1 bg-brand-900 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">{{ cartService.totalItems() }}</span>
                 }
               </a>
-              @if (false) {
                 <a routerLink="/sew-and-su" class="btn-primary !px-5 !py-2.5 text-[13px] flex items-center gap-2">
                   <span>Custom Order</span>
                 </a>
-              }
             </div>
 
             <!-- Mobile Actions & Menu Button -->
@@ -137,10 +135,8 @@ import {doc, getDoc, setDoc, deleteDoc} from 'firebase/firestore';
                 <h4 class="label-md text-brand-900 mb-4 sm:mb-[24px] text-[11px] sm:text-[12px]">Explore</h4>
                 <ul class="flex flex-col gap-3 sm:gap-[12px] body-md text-brand-700 text-[13px] sm:text-[14px]">
                   <li><a routerLink="/learn" class="hover:text-brand-900 transition-colors">{{ contentService.content().app.navCourses }}</a></li>
-                  @if (false) {
-                    <li><a routerLink="/sew-and-su" class="hover:text-brand-900 transition-colors">{{ contentService.content().app.navCustom }}</a></li>
-                    <li><a routerLink="/shop" class="hover:text-brand-900 transition-colors">{{ contentService.content().app.navShop }}</a></li>
-                  }
+                  <li><a routerLink="/sew-and-su" class="hover:text-brand-900 transition-colors">{{ contentService.content().app.navCustom }}</a></li>
+                  <li><a routerLink="/shop" class="hover:text-brand-900 transition-colors">{{ contentService.content().app.navShop }}</a></li>
                   <li><a routerLink="/about" class="hover:text-brand-900 transition-colors">{{ contentService.content().app.navAbout }}</a></li>
                 </ul>
               </div>
@@ -214,8 +210,8 @@ export class App {
   navLinks = computed(() => [
     { path: '/', label: this.contentService.content().app.navHome, exact: true },
     { path: '/learn', label: this.contentService.content().app.navCourses, exact: false },
-    // { path: '/sew-and-su', label: this.contentService.content().app.navCustom, exact: false }, // Hidden for now
-    // { path: '/shop', label: this.contentService.content().app.navShop, exact: false }, // Hidden for now
+    { path: '/sew-and-su', label: this.contentService.content().app.navCustom, exact: false },
+    { path: '/shop', label: this.contentService.content().app.navShop, exact: false },
     { path: '/contact', label: 'Contact Us', exact: false, mobileOnly: true },
     { path: '/about', label: this.contentService.content().app.navAbout, exact: false },
   ]);
