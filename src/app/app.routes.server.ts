@@ -1,10 +1,10 @@
 import {RenderMode, ServerRoute} from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
-  // {
-  //   path: 'shop/:id',
-  //   renderMode: RenderMode.Server,
-  // },
+  {
+    path: 'shop/:id',
+    renderMode: RenderMode.Server,
+  },
   {
     path: 'admin-portal-su',
     renderMode: RenderMode.Server,
